@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@function getInter($weight: 'Regular') {
+  $families: (
+    'Regular': 'Inter-Regular',
+    'Medium': 'Inter-Medium',
+    'Bold': 'Inter-Bold',
+    'SemiBold': 'Inter-SemiBold',
+    'Italic': 'Inter-Italic',
+  );
+
+  @return map.get($families, $weight);
+}

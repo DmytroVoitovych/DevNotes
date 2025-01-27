@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+image {
+  display: block;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#app {
+  height: inherit;
+}
