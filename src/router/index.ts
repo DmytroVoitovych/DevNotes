@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,11 +18,11 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       children: [
         { path: 'login', name: 'login', component: () => import('../views/AuthPage.vue') },
-        { path: 'forgot', name: 'forgot', component: () => {} },
+        { path: 'forgot', name: 'forgot', component: () => import('../views/AuthPage.vue') },
         { path: 'signup', name: 'signup', component: () => import('../views/AuthPage.vue') },
       ],
     },
   ],
-})
+});
 
-export default router
+export default router;

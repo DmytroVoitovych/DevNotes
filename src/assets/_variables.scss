@@ -18,6 +18,9 @@ $cl-blue-700: #2547d0;
 $cl-green-100: #d1fbe9;
 $cl-green-500: #21c16b;
 
+$cl-red-100: #ffd5d8;
+$cl-red-500: #fb3748;
+
 $shadow-auth-block: 0 8px 12px 0 rgba(240, 240, 240, 0.6);
 
 $txt-cl-h: $cl-neutral-950;
@@ -35,3 +38,6 @@ $btn-cl-base: $cl-neutral-0;
 
 $focus-cl-base: $cl-neutral-950;
 $hover-link-cl: $cl-blue-500;
+$hover-btn-cl: $cl-blue-700;
+
+$error-cl: $cl-red-500;

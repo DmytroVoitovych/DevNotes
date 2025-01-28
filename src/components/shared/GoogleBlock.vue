@@ -4,12 +4,16 @@
     <p class="logWith">Or log in with:</p>
     <el-button type="primary"> Google<GoogleIco /></el-button>
     <el-divider />
-    <p class="googleTip">No account yet? <slot name="link"></slot></p>
+    <p class="googleTip">{{ tip }} <slot name="link"></slot></p>
   </div>
 </template>
 
 <script setup lang="ts">
-import GoogleIco from '@/assets/images/icon-google.svg'
+import GoogleIco from '@/assets/images/icon-google.svg';
+
+const { tip = '' } = defineProps<{
+  tip: string;
+}>();
 </script>
 <style lang="scss">
 .googleBlock {
@@ -68,9 +72,10 @@ import GoogleIco from '@/assets/images/icon-google.svg'
       color: $txt-cl-h;
       text-decoration: none;
       transition: color 250ms;
-
-      &:hover {
-        color: $hover-link-cl;
+      @media (hover: hover) {
+        &:hover {
+          color: $hover-link-cl;
+        }
       }
     }
   }

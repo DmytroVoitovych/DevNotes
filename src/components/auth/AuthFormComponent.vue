@@ -1,70 +1,45 @@
 <template>
   <el-form
+    @submit.prevent="methods.submitForm"
     :label-position="labelPosition"
     label-width="auto"
     :model="formLabelAlign"
     style="max-width: auto"
     class="authForm"
   >
-    <el-form-item
-      class="formLabel"
-      label="Email Adress"
-      prop="email"
-      :label-position="itemLabelPosition"
-    >
-      <el-input placeholder="email@example.com" v-model="formLabelAlign.email" type="email" />
-    </el-form-item>
-    <el-form-item
-      class="formLabel"
-      label="Password"
-      prop="pass"
-      :label-position="itemLabelPosition"
-      @click="showPassword"
-    >
-      <RouterLink :to="{ name: 'forgot' }" class="linkForgot">Forgot</RouterLink>
-      <el-input v-model="formLabelAlign.pass" show-password>
-        <template #suffix v-if="formLabelAlign.pass">
-          <component :is="currentComponent"></component>
-        </template>
-      </el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-input type="submit" value="Login" />
-    </el-form-item>
+    <component :is="currentContent[currentRoute]['component']">
+      <template #forgot v-if="isLoginPage">
+        <RouterLink :to="{ name: 'forgot' }" class="linkForgot">Forgot</RouterLink>
+      </template>
+    </component>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch } from 'vue'
-import PasswordEyeHidden from '@/assets/images/icon-hide-password.svg'
-import PasswordEyeShow from '@/assets/images/icon-show-password.svg'
-import type { FormItemProps, FormProps } from 'element-plus'
+import { computed } from 'vue';
+import { useCustomFormHandler, useElementsUiForm } from './formHandler';
+import { currentContent } from './helpers';
+import { type AuthRoutes } from './types';
 
-const labelPosition = ref<FormProps['labelPosition']>('top')
-const itemLabelPosition = ref<FormItemProps['labelPosition']>('')
-const formLabelAlign = reactive({
-  email: '',
-  pass: '',
-})
+const { methods } = useCustomFormHandler();
+const { formLabelAlign, labelPosition } = useElementsUiForm();
 
-const show = ref<boolean>(false)
-const currentComponent = computed(() => (show.value ? PasswordEyeShow : PasswordEyeHidden))
-
-const showPassword = (e: MouseEvent): void => {
-  const target = e.target as HTMLElement
-  const trackedElements = ['path', 'svg']
-
-  if (trackedElements.includes(target.nodeName)) show.value = !show.value
-  return
-}
+const { currentRoute = 'login' } = defineProps<{ currentRoute: AuthRoutes }>();
+const isLoginPage = computed(() => currentRoute === 'login');
 </script>
 <style lang="scss">
 .el-form {
   display: grid;
   row-gap: 16px;
+
+  &:has(.el-form-item__error) {
+    row-gap: 20px;
+    transition: row-gap 250ms;
+  }
 }
 
 .el-form-item {
+  position: relative;
   margin-bottom: 0;
 
   &--label-top &__label {
@@ -74,6 +49,25 @@ const showPassword = (e: MouseEvent): void => {
     color: $txt-cl-h;
     padding: 0;
     margin-bottom: 6px;
+  }
+
+  &__error {
+    color: $error-cl;
+    font-family: getInter();
+    display: flex;
+    gap: 8px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url(@/assets/images/icon-info.svg);
+      filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%)
+        contrast(97%);
+    }
   }
 }
 
@@ -103,6 +97,7 @@ const showPassword = (e: MouseEvent): void => {
   &:has([type='submit']) {
     box-shadow: none;
     background-color: $btn-bg-base;
+    transition: background-color 250ms;
 
     & input {
       font-family: getInter('SemiBold');
@@ -110,6 +105,12 @@ const showPassword = (e: MouseEvent): void => {
       line-height: 1.2;
       letter-spacing: -0.3px;
       color: $btn-cl-base;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: $hover-btn-cl;
+      }
     }
   }
 }
