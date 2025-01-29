@@ -1,6 +1,6 @@
 <template>
   <el-form
-    @submit.prevent="methods.submitForm"
+    @submit.prevent="() => methods.submitForm(currentRoute, formLabelAlign)"
     :label-position="labelPosition"
     label-width="auto"
     :model="formLabelAlign"

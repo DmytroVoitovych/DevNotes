@@ -1,6 +1,7 @@
 import MainFormElements from './MainFormElements.vue';
 import type { PageContent } from './types';
 import ForgotPassword from './ForgotPassword.vue';
+import { ElNotification } from 'element-plus';
 
 const currentContent: PageContent = {
   login: {
@@ -38,4 +39,47 @@ const formPasswordRules = [
   },
 ];
 
-export { currentContent, formEmailRules, formPasswordRules };
+const firebaseCode: { email: string; password: string; account: string } = {
+  email: 'auth/invalid-credential',
+  password: 'auth/wrong-password',
+  account: 'auth/user-not-found',
+};
+
+const authErrorHandler = (errorCode: string) => {
+  switch (errorCode) {
+    case firebaseCode.email:
+      console.log('incorect email');
+      ElNotification({
+        title: 'Login error',
+        message: 'incorect email',
+        type: 'error',
+      });
+      break;
+    case firebaseCode.password:
+      console.log('incorect password');
+      ElNotification({
+        title: 'Login error',
+        message: 'incorect password',
+        type: 'error',
+      });
+      break;
+    case firebaseCode.account:
+      console.log('Account does not exist');
+      ElNotification({
+        title: 'Login error',
+        message: 'Account does not exist',
+        type: 'error',
+      });
+      break;
+    default:
+      console.log('wrong password or email');
+      ElNotification({
+        title: 'Login error',
+        message: 'wrong password or email',
+        type: 'error',
+      });
+      break;
+  }
+};
+
+export { currentContent, formEmailRules, formPasswordRules, authErrorHandler };

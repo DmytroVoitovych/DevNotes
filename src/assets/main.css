@@ -21,3 +21,9 @@ body {
 #app {
   height: inherit;
 }
+
+.custom-notification {
+  position: fixed;
+  z-index: 9999;
+  background-color: red;
+}

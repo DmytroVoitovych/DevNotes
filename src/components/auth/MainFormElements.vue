@@ -10,6 +10,7 @@
       placeholder="email@example.com"
       v-model="formLabelAlignItems.email.value"
       type="email"
+      autocomplete="on"
       required
     />
   </el-form-item>
@@ -38,20 +39,21 @@
     </p>
   </el-form-item>
   <el-form-item>
-    <el-input type="submit" :value="submitValue" />
+    <el-input type="submit" :value="submitValue" v-loading="loading" />
   </el-form-item>
 </template>
 <script lang="ts" setup>
-import { onUpdated, ref } from 'vue';
+import { computed, onUpdated, ref, toRefs, watch } from 'vue';
 import { useCustomFormHandler, useElementsUiForm } from './formHandler';
-
-const { methods, computes } = useCustomFormHandler();
-const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 import { useSlots } from 'vue';
 import { formEmailRules, formPasswordRules } from './helpers';
 
+const { methods, computes, loading } = useCustomFormHandler();
+const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
+
 const slots = useSlots();
-const submitValue = ref<'Login' | 'Sign Up'>('Login');
+const mountedState = computed<'Login' | 'Sign Up'>(() => (slots.forgot ? 'Login' : 'Sign Up'));
+const submitValue = ref<'Login' | 'Sign Up'>(mountedState.value);
 
 onUpdated(() => {
   submitValue.value = slots.forgot ? 'Login' : 'Sign Up';
