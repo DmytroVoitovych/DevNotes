@@ -3,19 +3,21 @@ import PasswordEyeHidden from '@/assets/images/icon-hide-password.svg';
 import PasswordEyeShow from '@/assets/images/icon-show-password.svg';
 import type { FormItemProps, FormProps } from 'element-plus';
 import type { AuthRoutes } from './types';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { authErrorHandler } from './helpers';
 import { useUserStore } from '@/stores/userStore';
+import { useRoute } from 'vue-router';
 
 const formMainReactObj = reactive({
   email: '',
   pass: '',
+  checkPass: '',
 });
 
 const loading = ref<boolean>(false);
 
 export const useCustomFormHandler = () => {
   const userStore = useUserStore();
+  const routeInstanse = useRoute();
+
   const show = ref<boolean>(false);
   const currentComponent = computed(() => (show.value ? PasswordEyeShow : PasswordEyeHidden));
 
@@ -37,7 +39,10 @@ export const useCustomFormHandler = () => {
     loading.value = !loading.value;
   };
 
-  const submitForm = (route: AuthRoutes, { email, pass = '' }: { email: string; pass: string }) => {
+  const submitForm = (
+    route: AuthRoutes,
+    { email, pass = '', checkPass = '' }: { email: string; pass: string; checkPass?: string },
+  ) => {
     changeLoadState();
     switch (route) {
       case 'signup':
@@ -45,6 +50,14 @@ export const useCustomFormHandler = () => {
         break;
       case 'login':
         userStore.loginUser(email, pass).finally(() => resetForm(formMainReactObj));
+        break;
+      case 'forgot':
+        userStore.sendResetUserLink(email).finally(() => resetForm(formMainReactObj));
+        break;
+      case 'reset':
+        userStore
+          .confirmNewUserPassword(checkPass, routeInstanse)
+          .finally(() => resetForm(formMainReactObj));
         break;
       default:
         break;

@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import {
+  confirmPasswordReset,
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
@@ -13,6 +14,13 @@ import {
   googleAuthErrorHandler,
   registrationErrorHandler,
 } from '@/components/auth/helpers';
+import {
+  useRoute,
+  type RouteLocationNormalizedLoaded,
+  type RouteLocationNormalizedLoadedGeneric,
+} from 'vue-router';
+
+import router from '@/router';
 
 export const useUserStore = defineStore('userInformation', {
   state() {
@@ -45,8 +53,23 @@ export const useUserStore = defineStore('userInformation', {
         .then((data) => console.log(data))
         .catch((error) => googleAuthErrorHandler(error.code));
     },
-    resetUserPassword(email: string) {
-      sendPasswordResetEmail(getAuth(), email);
+    sendResetUserLink(email: string) {
+      const actionCodeSettings = {
+        url: 'http://localhost:5173/auth/reset-password',
+        handleCodeInApp: true,
+      };
+      return sendPasswordResetEmail(getAuth(), email, actionCodeSettings)
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+    },
+    confirmNewUserPassword(newPass: string, route: RouteLocationNormalizedLoadedGeneric) {
+      const oobCode = (route.query.oobCode as string) || '';
+
+      return confirmPasswordReset(getAuth(), oobCode, newPass)
+        .then((e) => {
+          router.push({ name: 'login' });
+        })
+        .catch((e) => console.log(e));
     },
   },
 });

@@ -2,6 +2,8 @@ import MainFormElements from './MainFormElements.vue';
 import type { PageContent } from './types';
 import ForgotPassword from './ForgotPassword.vue';
 import { ElNotification } from 'element-plus';
+import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs';
+import ResetPassword from './ResetPassword.vue';
 
 const currentContent: PageContent = {
   login: {
@@ -20,6 +22,11 @@ const currentContent: PageContent = {
     'h-text': 'Forgotten your password?',
     'p-description': 'Enter your email below, and we’ll send you a link to reset it.',
     component: ForgotPassword,
+  },
+  reset: {
+    'h-text': 'Reset Your Password',
+    'p-description': 'Choose a new password to secure your account.',
+    component: ResetPassword,
   },
 };
 

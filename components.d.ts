@@ -27,6 +27,7 @@ declare module 'vue' {
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     LogoComponent: typeof import('./src/components/shared/LogoComponent.vue')['default']
     MainFormElements: typeof import('./src/components/auth/MainFormElements.vue')['default']
+    ResetPassword: typeof import('./src/components/auth/ResetPassword.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TextBlock: typeof import('./src/components/shared/TextBlock.vue')['default']

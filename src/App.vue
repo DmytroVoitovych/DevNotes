@@ -28,10 +28,6 @@ onMounted(() => {
   auth = getAuth();
   onAuthStateChanged(auth, async (user) => {
     userStore.setLoginStatus(user !== null);
-
-    const tokenResult = await auth.currentUser?.getIdTokenResult();
-    const expirationTime = new Date(tokenResult!.expirationTime);
-    console.log('Token expires:', expirationTime);
   });
 });
 </script>
