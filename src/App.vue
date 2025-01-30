@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <!-- <header>
     <img alt="Vue logo" class="logo"  width="125" height="125" />
@@ -19,6 +14,27 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <RouterView />
 </template>
+
+<script setup lang="ts">
+import { getAuth, onAuthStateChanged, type Auth } from 'firebase/auth';
+import { onMounted, ref } from 'vue';
+import { RouterView } from 'vue-router';
+import { useUserStore } from './stores/userStore';
+
+const userStore = useUserStore();
+let auth: Auth;
+
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, async (user) => {
+    userStore.setLoginStatus(user !== null);
+
+    const tokenResult = await auth.currentUser?.getIdTokenResult();
+    const expirationTime = new Date(tokenResult!.expirationTime);
+    console.log('Token expires:', expirationTime);
+  });
+});
+</script>
 
 <style scoped>
 header {

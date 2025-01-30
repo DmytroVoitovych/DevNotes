@@ -43,7 +43,7 @@
   </el-form-item>
 </template>
 <script lang="ts" setup>
-import { computed, onUpdated, ref, toRefs, watch } from 'vue';
+import { computed, onUpdated, ref } from 'vue';
 import { useCustomFormHandler, useElementsUiForm } from './formHandler';
 import { useSlots } from 'vue';
 import { formEmailRules, formPasswordRules } from './helpers';

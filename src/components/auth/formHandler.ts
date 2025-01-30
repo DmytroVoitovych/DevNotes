@@ -5,6 +5,7 @@ import type { FormItemProps, FormProps } from 'element-plus';
 import type { AuthRoutes } from './types';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { authErrorHandler } from './helpers';
+import { useUserStore } from '@/stores/userStore';
 
 const formMainReactObj = reactive({
   email: '',
@@ -14,14 +15,14 @@ const formMainReactObj = reactive({
 const loading = ref<boolean>(false);
 
 export const useCustomFormHandler = () => {
+  const userStore = useUserStore();
   const show = ref<boolean>(false);
   const currentComponent = computed(() => (show.value ? PasswordEyeShow : PasswordEyeHidden));
 
   const showPassword = (e: MouseEvent): void => {
     const target = e.target as HTMLElement;
     const trackedElements = ['path', 'svg'];
-    console.log('test');
-    console.log(currentComponent.value);
+
     if (trackedElements.includes(target.nodeName)) show.value = !show.value;
     return;
   };
@@ -38,13 +39,16 @@ export const useCustomFormHandler = () => {
 
   const submitForm = (route: AuthRoutes, { email, pass = '' }: { email: string; pass: string }) => {
     changeLoadState();
-    // createUserWithEmailAndPassword(getAuth(), email, pass)
-    //   .then((data) => console.log('data', data))
-    //   .catch((err) => console.log(err, 'err'));
-    signInWithEmailAndPassword(getAuth(), email, pass)
-      .then((data) => console.log(data))
-      .catch((error) => authErrorHandler(error.code))
-      .finally(() => resetForm(formMainReactObj));
+    switch (route) {
+      case 'signup':
+        userStore.registerUser(email, pass).finally(() => resetForm(formMainReactObj));
+        break;
+      case 'login':
+        userStore.loginUser(email, pass).finally(() => resetForm(formMainReactObj));
+        break;
+      default:
+        break;
+    }
   };
 
   return {

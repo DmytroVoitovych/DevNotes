@@ -45,13 +45,26 @@ const firebaseCode: { email: string; password: string; account: string } = {
   account: 'auth/user-not-found',
 };
 
+const registrationFirebaseCode: { email: string; weak: string; exists: string } = {
+  email: 'auth/invalid-email',
+  weak: 'auth/weak-password',
+  exists: 'auth/email-already-in-use',
+};
+
+const googleAuthFirebaseCode: { popup: string; cancelled: string; network: string } = {
+  popup: 'auth/popup-blocked',
+  cancelled: 'auth/cancelled-popup-request',
+  network: 'auth/network-request-failed',
+};
+
 const authErrorHandler = (errorCode: string) => {
+  console.log('err', errorCode);
   switch (errorCode) {
     case firebaseCode.email:
-      console.log('incorect email');
+      console.log('invalid-credential');
       ElNotification({
         title: 'Login error',
-        message: 'incorect email',
+        message: 'invalid-credential',
         type: 'error',
       });
       break;
@@ -82,4 +95,87 @@ const authErrorHandler = (errorCode: string) => {
   }
 };
 
-export { currentContent, formEmailRules, formPasswordRules, authErrorHandler };
+const registrationErrorHandler = (errorCode: string) => {
+  console.log('err', errorCode);
+  switch (errorCode) {
+    case registrationFirebaseCode.email:
+      console.log('Invalid email format');
+      ElNotification({
+        title: 'Registration error',
+        message: 'Please enter a valid email address',
+        type: 'error',
+      });
+      break;
+    case registrationFirebaseCode.weak:
+      console.log('Password is too weak');
+      ElNotification({
+        title: 'Registration error',
+        message: 'Password should be at least 6 characters long',
+        type: 'error',
+      });
+      break;
+    case registrationFirebaseCode.exists:
+      console.log('Email already in use');
+      ElNotification({
+        title: 'Registration error',
+        message: 'An account with this email already exists',
+        type: 'error',
+      });
+      break;
+    default:
+      console.log('Registration failed');
+      ElNotification({
+        title: 'Registration error',
+        message: 'Registration failed. Please try again',
+        type: 'error',
+      });
+      break;
+  }
+};
+
+const googleAuthErrorHandler = (errorCode: string) => {
+  console.log('err', errorCode);
+  switch (errorCode) {
+    case googleAuthFirebaseCode.popup:
+      console.log('Popup blocked by browser');
+      ElNotification({
+        title: 'Google Login Error',
+        message: 'Please allow popups for this site to login with Google',
+        type: 'error',
+      });
+      break;
+    case googleAuthFirebaseCode.cancelled:
+      console.log('Login cancelled by user');
+      ElNotification({
+        title: 'Google Login Cancelled',
+        message: 'Google sign in was cancelled',
+        type: 'error',
+      });
+      break;
+    case googleAuthFirebaseCode.network:
+      console.log('Network error');
+      ElNotification({
+        title: 'Network Error',
+        message: 'Please check your internet connection and try again',
+        type: 'error',
+      });
+      break;
+    default:
+      console.log('Google sign in failed');
+      ElNotification({
+        title: 'Login Error',
+        message: 'Google sign in failed. Please try again',
+        type: 'error',
+      });
+      break;
+  }
+};
+
+export {
+  currentContent,
+  formEmailRules,
+  formPasswordRules,
+  authErrorHandler,
+  registrationErrorHandler,
+  googleAuthErrorHandler,
+};
