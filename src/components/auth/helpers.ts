@@ -2,7 +2,7 @@ import MainFormElements from './MainFormElements.vue';
 import type { PageContent } from './types';
 import ForgotPassword from './ForgotPassword.vue';
 import { ElNotification } from 'element-plus';
-import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs';
+
 import ResetPassword from './ResetPassword.vue';
 
 const currentContent: PageContent = {

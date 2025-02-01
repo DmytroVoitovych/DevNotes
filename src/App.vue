@@ -1,33 +1,27 @@
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo"  width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
-
   <RouterView />
 </template>
 
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged, type Auth } from 'firebase/auth';
 import { onMounted, ref } from 'vue';
-import { RouterView } from 'vue-router';
+import { RouterView, useRouter } from 'vue-router';
 import { useUserStore } from './stores/userStore';
 
 const userStore = useUserStore();
+const router = useRouter();
 let auth: Auth;
 
 onMounted(() => {
   auth = getAuth();
   onAuthStateChanged(auth, async (user) => {
-    userStore.setLoginStatus(user !== null);
+    const userStatus = user !== null;
+    if (userStatus) {
+      userStore.setLoginStatus(userStatus);
+      router.push({ name: 'home' });
+    } else {
+      router.push({ name: 'login' });
+    }
   });
 });
 </script>

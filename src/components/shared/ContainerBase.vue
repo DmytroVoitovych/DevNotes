@@ -1,10 +1,10 @@
 <template>
-  <el-container class="baseContainer">
+  <el-container class="baseAuthContainer">
     <slot></slot>
   </el-container>
 </template>
 <style lang="scss" scoped>
-.baseContainer {
+.baseAuthContainer {
   display: block;
   margin: 0 auto;
   padding: 10px 16px;

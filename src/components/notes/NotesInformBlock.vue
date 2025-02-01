@@ -1,0 +1,46 @@
+<template>
+  <slot name="noteButton"></slot>
+
+  <slot name="noteDescribBlock"></slot>
+  <p class="noteInformBlock">
+    <slot name="noteInformBlock"></slot>
+  </p>
+  <el-divider />
+</template>
+<script lang="ts" setup></script>
+<style lang="scss" scoped>
+.noteInformBlock {
+  font-family: getInter();
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+  color: $txt-cl-h;
+  background-color: $bg-cl-header;
+  padding: 8px;
+  border: 1px solid $bor-cl-base;
+  border-radius: 8px;
+
+  @include mq(medium) {
+    & + .el-divider {
+      display: block;
+
+      @include mq(large) {
+        display: none;
+      }
+    }
+  }
+
+  &:has(+ .el-divider) {
+    margin-bottom: 16px;
+
+    @include mq(large) {
+      margin-bottom: 0;
+    }
+  }
+}
+.el-divider {
+  display: none;
+  margin: 0;
+  border-color: $bor-cl-base;
+}
+</style>

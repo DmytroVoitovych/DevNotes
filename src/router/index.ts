@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import NotesPart from '@/components/notes/NotesPart.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      redirect: { name: 'notes' },
       component: HomeView,
+      children: [
+        {
+          path: '',
+          name: 'notes',
+          component: NotesPart,
+        },
+        {
+          path: 'create-note',
+          name: 'createnote',
+          component: () => import('../components/notes/CreateNoteComponent.vue'),
+        },
+      ],
       meta: {
         requiresAuth: true,
       },

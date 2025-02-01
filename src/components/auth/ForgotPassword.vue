@@ -25,3 +25,4 @@ import { formEmailRules } from './helpers';
 const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 const { loading } = useCustomFormHandler();
 </script>
+<style lang="scss"></style>

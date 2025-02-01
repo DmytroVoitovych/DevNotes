@@ -1,0 +1,78 @@
+<template>
+  <LogoComponent class="asideLogo" />
+  <nav class="asideNav">
+    <ul class="asideMenuList">
+      <li>
+        <el-button tag="router-link" to="/" data-link="All notes"><HomeIco /></el-button>
+      </li>
+      <li>
+        <el-button tag="router-link" class="stroke" to="/archive" data-link="Archived Notes">
+          <ArchiveIco />
+        </el-button>
+      </li>
+    </ul>
+    <el-divider />
+  </nav>
+</template>
+
+<script lang="ts" setup>
+import HomeIco from '@/assets/images/icon-home.svg';
+import ArchiveIco from '@/assets/images/icon-archive.svg';
+import LogoComponent from '../shared/LogoComponent.vue';
+</script>
+<style lang="scss" scoped>
+.asideLogo {
+  margin-bottom: 29px;
+}
+
+.asideNav {
+  .el-divider {
+    border-color: 1px solid $bor-cl-base;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+}
+
+.asideMenuList {
+  li:first-child {
+    margin-bottom: 4px;
+  }
+
+  .el-button {
+    display: flex;
+    justify-content: left;
+    height: auto;
+    padding: 10px 12px;
+    border: none;
+    fill: $link-cl-black;
+    border-radius: 8px;
+
+    &.stroke {
+      fill: none;
+      stroke: $link-cl-black;
+    }
+
+    &.router-link-active {
+      fill: $link-cl-active;
+      background-color: $link-cl-aside-bg-active;
+      background-repeat: no-repeat;
+      background-image: url(@/assets/images/icon-chevron-right.svg);
+      background-position: center right;
+    }
+    &.router-link-active.stroke {
+      fill: none;
+      stroke: $link-cl-active;
+    }
+
+    &:after {
+      content: attr(data-link);
+      font-family: getInter(Medium);
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+      margin-left: 8px;
+      color: $txt-cl-h;
+    }
+  }
+}
+</style>

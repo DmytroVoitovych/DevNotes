@@ -29,21 +29,22 @@ export const useCustomFormHandler = () => {
     return;
   };
 
-  const resetForm = (formObj: { email: string; pass: string }): void => {
-    changeLoadState();
+  const resetForm = (formObj: { email: string; pass: string; checkPass: string }): void => {
+    changeLoadState(false);
     formObj.email = '';
     formObj.pass = '';
+    formObj.checkPass = '';
   };
 
-  const changeLoadState = () => {
-    loading.value = !loading.value;
+  const changeLoadState = (flag: boolean) => {
+    loading.value = flag;
   };
 
   const submitForm = (
     route: AuthRoutes,
     { email, pass = '', checkPass = '' }: { email: string; pass: string; checkPass?: string },
   ) => {
-    changeLoadState();
+    changeLoadState(true);
     switch (route) {
       case 'signup':
         userStore.registerUser(email, pass).finally(() => resetForm(formMainReactObj));
