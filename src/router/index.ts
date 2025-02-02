@@ -8,13 +8,23 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: { name: 'notes' },
       component: HomeView,
+      redirect: (to) => {
+        if (to.path === '/') return { name: 'notes' };
+        return to.path;
+      },
       children: [
         {
-          path: '',
+          path: 'all-notes',
           name: 'notes',
           component: NotesPart,
+          props: { current: 'notes' },
+        },
+        {
+          path: 'archived-notes',
+          name: 'archivednotes',
+          component: NotesPart,
+          props: { current: 'archivednotes' },
         },
         {
           path: 'create-note',

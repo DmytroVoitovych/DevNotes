@@ -1,14 +1,26 @@
 <template>
   <slot name="noteButton"></slot>
 
-  <slot name="noteDescribBlock"></slot>
+  <p class="noteDescribBlock" v-show="current !== 'notes'"><slot name="noteDescribBlock"></slot></p>
   <p class="noteInformBlock">
     <slot name="noteInformBlock"></slot>
   </p>
-  <el-divider />
+  <el-divider v-if="current === 'notes'" />
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { HomeRoutes } from '../types';
+
+const { current } = defineProps<{ current: HomeRoutes }>();
+</script>
 <style lang="scss" scoped>
+.noteDescribBlock {
+  font-family: getInter();
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+  color: $txt-cl-description-notes;
+}
 .noteInformBlock {
   font-family: getInter();
   font-size: 14px;

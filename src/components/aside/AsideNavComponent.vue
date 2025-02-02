@@ -3,10 +3,12 @@
   <nav class="asideNav">
     <ul class="asideMenuList">
       <li>
-        <el-button tag="router-link" to="/" data-link="All notes"><HomeIco /></el-button>
+        <el-button tag="router-link" :to="{ name: 'notes' }" data-link="All notes"
+          ><HomeIco
+        /></el-button>
       </li>
       <li>
-        <el-button tag="router-link" class="stroke" to="/archive" data-link="Archived Notes">
+        <el-button tag="router-link" class="stroke" to="/archived-notes" data-link="Archived Notes">
           <ArchiveIco />
         </el-button>
       </li>
@@ -57,7 +59,10 @@ import LogoComponent from '../shared/LogoComponent.vue';
       background-color: $link-cl-aside-bg-active;
       background-repeat: no-repeat;
       background-image: url(@/assets/images/icon-chevron-right.svg);
-      background-position: center right;
+      background-origin: padding-box;
+      background-position: right center;
+      opacity: 1;
+      transition: opacity 250ms;
     }
     &.router-link-active.stroke {
       fill: none;

@@ -1,15 +1,21 @@
 <template>
   <div class="notesWrapper">
-    <HeadingComponent>All Notes</HeadingComponent>
+    <HeadingComponent>{{ notesContent[current].title }}</HeadingComponent>
 
-    <NotesInformBlock>
+    <NotesInformBlock :current="current">
+      <template #noteDescribBlock v-if="notesContent[current].description.show">
+        {{ notesContent[current].description.content }}
+      </template>
       <template #noteButton>
         <el-button class="createNoteButton" tag="router-link" to="/create-note">
           + Create New Note
         </el-button>
       </template>
       <template #noteInformBlock
-        >You don’t have any notes yet. Start a new note to capture your thoughts and ideas.
+        >{{ depensOnLinkContent }}
+        <router-link v-if="notesContent[current].info.link" class="linkCreate" to="/create-note"
+          >create a new note.</router-link
+        >
       </template>
     </NotesInformBlock>
     <el-button class="mobCreateNote" tag="router-link" to="/create-note"><Plus /></el-button>
@@ -17,9 +23,23 @@
 </template>
 
 <script setup lang="ts">
+import { computed, watch } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
+import type { HomeRoutes } from '../types';
 import NotesInformBlock from './NotesInformBlock.vue';
 import Plus from '@/assets/images/icon-plus.svg';
+import { notesContent } from '../staticContent';
+
+const depensOnLinkContent = computed<string>(() => {
+  const info = notesContent[current].info;
+  return info.link ? info.content.split(',')[0] + ', or' : info.content;
+});
+const { current } = defineProps<{ current: HomeRoutes }>();
+
+watch(
+  () => current,
+  (n) => console.log(n),
+);
 </script>
 
 <style lang="scss" scoped>
@@ -33,6 +53,11 @@ import Plus from '@/assets/images/icon-plus.svg';
   box-shadow: 0 7px 11px 0 rgba(202, 207, 216, 0.7);
   margin-top: auto;
   align-self: end;
+
+  &:focus-visible {
+    outline-offset: 2px;
+    outline-color: $focus-cl-btn;
+  }
 
   @include mq(medium) {
     width: 64px;
@@ -75,8 +100,20 @@ import Plus from '@/assets/images/icon-plus.svg';
       background-color: $hover-btn-cl;
     }
 
+    &:focus-visible {
+      outline-offset: 2px;
+      outline-color: $focus-cl-btn;
+    }
     @include mq(large) {
       display: block;
+    }
+  }
+
+  .linkCreate {
+    color: currentColor;
+    text-decoration: underline;
+    @include mq(large) {
+      display: inline-block;
     }
   }
 }

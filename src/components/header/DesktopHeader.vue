@@ -1,6 +1,6 @@
 <template>
   <div class="desktopHeaderWrapper">
-    <HeadingComponent>All notes</HeadingComponent>
+    <HeadingComponent><slot name="heading"></slot></HeadingComponent>
     <div class="rightSearchWrapper">
       <el-input
         class="searchInput"

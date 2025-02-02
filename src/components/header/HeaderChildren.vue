@@ -1,11 +1,19 @@
 <template>
   <LogoComponent class="logoShow" />
-  <DesktopHeader />
+  <DesktopHeader>
+    <template #heading>{{ notesContent[current].title }}</template>
+  </DesktopHeader>
 </template>
 
 <script setup lang="ts">
 import LogoComponent from '../shared/LogoComponent.vue';
+import { notesContent } from '../staticContent';
+import type { HomeRoutes } from '../types';
 import DesktopHeader from './DesktopHeader.vue';
+
+const { current } = defineProps<{
+  current: HomeRoutes;
+}>();
 </script>
 
 <style lang="scss" scoped>

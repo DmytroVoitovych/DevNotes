@@ -2,7 +2,9 @@
   <nav class="menuBar">
     <ul class="mobLinkList">
       <li>
-        <el-button tag="router-link" to="/" data-link="Home"><HomeIco /></el-button>
+        <el-button tag="router-link" :to="{ name: 'notes' }" data-link="Home"
+          ><HomeIco
+        /></el-button>
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
@@ -10,7 +12,7 @@
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
-        <el-button tag="router-link" class="stroke" to="/archive" data-link="Archived">
+        <el-button tag="router-link" class="stroke" to="/archived-notes" data-link="Archived">
           <ArchiveIco
         /></el-button>
       </li>

@@ -10,6 +10,7 @@ import { useUserStore } from './stores/userStore';
 
 const userStore = useUserStore();
 const router = useRouter();
+
 let auth: Auth;
 
 onMounted(() => {
@@ -18,7 +19,7 @@ onMounted(() => {
     const userStatus = user !== null;
     if (userStatus) {
       userStore.setLoginStatus(userStatus);
-      router.push({ name: 'home' });
+      if (router.currentRoute.value.fullPath.includes('auth')) router.push({ name: 'home' });
     } else {
       router.push({ name: 'login' });
     }

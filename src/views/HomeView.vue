@@ -5,7 +5,7 @@
         <AsideNavComponent />
       </el-aside>
       <el-container>
-        <el-header :sticky="false"><HeaderChildren /></el-header>
+        <el-header><HeaderChildren :current="currentRoute" /></el-header>
         <el-main> <RouterView /> <RouterView name="createnote" /> </el-main>
         <el-footer><MenuBar /></el-footer>
       </el-container>
@@ -17,6 +17,23 @@
 import AsideNavComponent from '@/components/aside/AsideNavComponent.vue';
 import HeaderChildren from '@/components/header/HeaderChildren.vue';
 import MenuBar from '@/components/notes/MenuBar.vue';
+import type { HomeRoutes } from '@/components/types';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
+
+watch(
+  () => route.name,
+  (newRoute) => {
+    if (newRoute) {
+      console.log(newRoute);
+      currentRoute.value = newRoute as HomeRoutes;
+    }
+  },
+);
 </script>
 <style lang="scss">
 .commonLayout {
