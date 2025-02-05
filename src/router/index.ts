@@ -27,16 +27,16 @@ const router = createRouter({
           beforeEnter: paramCreateControl,
         },
         {
-          path: 'archived-notes/:create?',
+          path: 'archived-notes',
           name: 'archivednotes',
           components: {
             default: NotesPart,
-            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            // createnote: () => import('../components/notes/CreateNoteComponent.vue'),
           },
           props: {
             default: { current: 'archivednotes' },
           },
-          beforeEnter: paramCreateControl,
+          // beforeEnter: paramCreateControl,
         },
       ],
       meta: {

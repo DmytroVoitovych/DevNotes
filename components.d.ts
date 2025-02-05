@@ -39,6 +39,7 @@ declare module 'vue' {
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    ListNotesComponent: typeof import('./src/components/notes/ListNotesComponent.vue')['default']
     LogoComponent: typeof import('./src/components/shared/LogoComponent.vue')['default']
     MainFormElements: typeof import('./src/components/auth/MainFormElements.vue')['default']
     MenuBar: typeof import('./src/components/notes/MenuBar.vue')['default']
@@ -50,6 +51,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TextBlock: typeof import('./src/components/shared/TextBlock.vue')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
+    UntitledComponent: typeof import('./src/components/notes/UntitledComponent.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
   export interface ComponentCustomProperties {

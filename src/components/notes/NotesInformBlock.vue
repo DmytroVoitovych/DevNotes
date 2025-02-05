@@ -2,7 +2,7 @@
   <slot name="noteButton"></slot>
 
   <p class="noteDescribBlock" v-show="current !== 'notes'"><slot name="noteDescribBlock"></slot></p>
-  <p class="noteInformBlock">
+  <p class="noteInformBlock" v-show="!paramCreate">
     <slot name="noteInformBlock"></slot>
   </p>
   <el-divider v-if="current === 'notes'" />
@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import type { HomeRoutes } from '../types';
 
-const { current } = defineProps<{ current: HomeRoutes }>();
+const { current, paramCreate } = defineProps<{ current: HomeRoutes; paramCreate: boolean }>();
 </script>
 <style lang="scss" scoped>
 .noteDescribBlock {

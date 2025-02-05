@@ -1,8 +1,7 @@
 <template>
   <div class="notesWrapper">
     <HeadingComponent>{{ notesContent[current].title }}</HeadingComponent>
-
-    <NotesInformBlock :current="current">
+    <NotesInformBlock :current="current" :paramCreate="isParamCreateActive">
       <template #noteDescribBlock v-if="notesContent[current].description.show">
         {{ notesContent[current].description.content }}
       </template>
@@ -10,39 +9,51 @@
         <el-button
           class="createNoteButton"
           tag="router-link"
-          :to="{ params: { create: 'create' } }"
+          :to="{ params: { create: 'create' }, name: 'notes' }"
         >
           + Create New Note
         </el-button>
       </template>
       <template #noteInformBlock
         >{{ depensOnLinkContent }}
-        <router-link v-if="notesContent[current].info.link" class="linkCreate" to="/create-note"
+        <router-link
+          v-if="notesContent[current].info.link"
+          class="linkCreate"
+          :to="{ params: { create: 'create' }, name: 'notes' }"
           >create a new note.</router-link
         >
       </template>
     </NotesInformBlock>
+    <ListNotesComponent :paramCreate="isParamCreateActive" />
     <el-button class="mobCreateNote" tag="router-link" to="/create-note"><Plus /></el-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
 import type { HomeRoutes } from '../types';
 import NotesInformBlock from './NotesInformBlock.vue';
 import Plus from '@/assets/images/icon-plus.svg';
 import { notesContent } from '../staticContent';
+import { useRoute } from 'vue-router';
+import ListNotesComponent from './ListNotesComponent.vue';
 
+const route = useRoute();
+
+const isParamCreateActive = ref<boolean>(!!route.params?.create);
 const depensOnLinkContent = computed<string>(() => {
   const info = notesContent[current].info;
   return info.link ? info.content.split(',')[0] + ', or' : info.content;
 });
+
 const { current } = defineProps<{ current: HomeRoutes }>();
 
 watch(
-  () => current,
-  (n) => console.log(n),
+  () => route.params,
+  (param) => {
+    isParamCreateActive.value = !!param.create;
+  },
 );
 </script>
 

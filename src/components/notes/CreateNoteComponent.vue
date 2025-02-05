@@ -1,47 +1,59 @@
 <template>
-  <el-form :model="form" label-width="auto" ref="formRef">
-    <div class="formOperateBlock">
-      <el-button class="backCreateLink" text @click="router.back()">
-        <LeftArrowIco width="18" height="18" /> Go back</el-button
-      >
-      <ul class="actionList">
-        <li><el-button text @click.prevent="resetForm">Cancel</el-button></li>
-        <li>
-          <el-button class="saveNote" text native-type="button" @submit.prevent="submit"
-            >Save note</el-button
-          >
-        </li>
-      </ul>
-    </div>
-    <el-divider />
-    <div class="inputBox">
-      <el-input
-        class="inputTitle"
-        v-model="form.title"
-        placeholder="Enter a title…"
-        aria-label="Notes title"
-      />
-      <div class="inputWithLabels">
-        <el-form-item label="Tags" class="tagInput" label-position="left">
-          <template #label> <TagIco /> Tags </template>
-
-          <el-input-tag
-            v-model="form.tags"
-            @keydown.stop="
-              (e: KeyboardEvent) => handleCommaCode(e, switchCommaTrigger, commaTrigger)
-            "
-            placeholder="Add tags separated by commas (e.g. Work, Planning)"
-            aria-label="Please click the Comma key after input"
-          />
-        </el-form-item>
-        <el-form-item label="Last edited" class="timeEdit">
-          <template #label> <TimeIco /> Last edited </template>
-          <el-input disabled placeholder="Not saved yet" />
-        </el-form-item>
+  <el-form :model="form" label-width="auto" ref="formRef" class="createNoteForm">
+    <div class="operateContainer">
+      <div class="formOperateBlock">
+        <el-button class="backCreateLink" text @click="router.back()">
+          <LeftArrowIco width="18" height="18" /> Go back</el-button
+        >
+        <ul class="actionList">
+          <li>
+            <el-button class="cancelCreateBtn" text @click.prevent="resetForm">Cancel</el-button>
+          </li>
+          <li>
+            <el-button class="saveNote" text native-type="button" @submit.prevent="submit"
+              >Save note</el-button
+            >
+          </li>
+        </ul>
       </div>
+      <el-divider />
     </div>
-    <el-divider />
-    <el-input v-model="form.text" type="textarea" placeholder="Start typing your note here…" />
+
+    <div class="inputsContainer">
+      <div class="inputBox">
+        <el-input
+          class="inputTitle"
+          v-model="form.title"
+          placeholder="Enter a title…"
+          aria-label="Notes title"
+        />
+        <div class="inputWithLabels">
+          <el-form-item label="Tags" class="tagInput" label-position="left">
+            <template #label> <TagIco /> Tags </template>
+
+            <el-input-tag
+              v-model="form.tags"
+              @keydown.stop="
+                (e: KeyboardEvent) => handleCommaCode(e, switchCommaTrigger, commaTrigger)
+              "
+              placeholder="Add tags separated by commas (e.g. Work, Planning)"
+              aria-label="Please click the Comma key after input"
+            />
+          </el-form-item>
+          <el-form-item label="Last edited" class="timeEdit">
+            <template #label> <TimeIco /> Last edited </template>
+            <el-input disabled placeholder="Not saved yet" />
+          </el-form-item>
+        </div>
+      </div>
+      <el-divider />
+      <el-input
+        v-model="form.text"
+        type="textarea"
+        resize="none"
+        placeholder="Start typing your note here…"
+      />
+    </div>
   </el-form>
 </template>
 
@@ -71,6 +83,7 @@ const resetForm = () => {
   form.title = '';
   form.tags = [];
   form.text = '';
+  router.push({ name: 'notes' });
 };
 
 const submit = (e: Event) => {
@@ -82,6 +95,32 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
 </script>
 
 <style lang="scss" scoped>
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.operateContainer {
+  @include mq(large) {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: auto;
+    flex-grow: 0;
+    z-index: 1;
+  }
+}
+
+.el-form.createNoteForm {
+  @include mq(large) {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    min-width: 46%;
+    padding: 20px 24px;
+    height: auto;
+    border-right: 1px solid $bor-cl-base;
+  }
+}
+
 .el-form-item {
   gap: 39px;
 }
@@ -204,8 +243,30 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
       display: flex;
       gap: 16px;
 
+      @include mq(large) {
+        flex-direction: row-reverse;
+      }
+
+      .el-button.cancelCreateBtn {
+        @include mq(large) {
+          background-color: $btn-bg-cancel;
+        }
+      }
+
       .el-button.saveNote {
         color: $btn-cl-text;
+
+        @include mq(large) {
+          background-color: $btn-bg-base;
+          color: $btn-cl-base;
+          transition: background-color 250ms;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: $hover-btn-cl;
+          }
+        }
       }
 
       .el-button {
@@ -214,6 +275,11 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
         line-height: 1.3;
         letter-spacing: -0.2px;
         color: $link-cl-grey;
+
+        @include mq(large) {
+          padding: 12px 16px;
+          border-radius: 8px;
+        }
       }
     }
   }
@@ -253,6 +319,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
   display: flex;
   justify-content: flex-start;
   padding: 0;
+
+  @include mq(large) {
+    display: none;
+  }
 
   & > span {
     display: flex;
