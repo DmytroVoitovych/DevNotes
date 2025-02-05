@@ -7,7 +7,11 @@
         {{ notesContent[current].description.content }}
       </template>
       <template #noteButton>
-        <el-button class="createNoteButton" tag="router-link" to="/create-note">
+        <el-button
+          class="createNoteButton"
+          tag="router-link"
+          :to="{ params: { create: 'create' } }"
+        >
           + Create New Note
         </el-button>
       </template>
@@ -73,6 +77,13 @@ watch(
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  &:has(~ form) {
+    display: none;
+    @include mq(large) {
+      display: flex;
+    }
+  }
 
   @include mq(large) {
     min-width: 290px;

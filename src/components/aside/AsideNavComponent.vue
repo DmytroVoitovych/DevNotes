@@ -8,7 +8,12 @@
         /></el-button>
       </li>
       <li>
-        <el-button tag="router-link" class="stroke" to="/archived-notes" data-link="Archived Notes">
+        <el-button
+          tag="router-link"
+          class="stroke"
+          :to="{ name: 'archivednotes' }"
+          data-link="Archived Notes"
+        >
           <ArchiveIco />
         </el-button>
       </li>

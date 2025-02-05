@@ -12,7 +12,12 @@
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
-        <el-button tag="router-link" class="stroke" to="/archived-notes" data-link="Archived">
+        <el-button
+          tag="router-link"
+          class="stroke"
+          :to="{ name: 'archivednotes' }"
+          data-link="Archived"
+        >
           <ArchiveIco
         /></el-button>
       </li>

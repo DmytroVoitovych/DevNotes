@@ -6,7 +6,9 @@
       </el-aside>
       <el-container>
         <el-header><HeaderChildren :current="currentRoute" /></el-header>
-        <el-main> <RouterView /> <RouterView name="createnote" /> </el-main>
+        <el-main>
+          <RouterView /> <RouterView name="createnote" v-if="route.params?.create" />
+        </el-main>
         <el-footer><MenuBar /></el-footer>
       </el-container>
     </el-container>

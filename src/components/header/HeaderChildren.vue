@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
 import LogoComponent from '../shared/LogoComponent.vue';
 import { notesContent } from '../staticContent';
 import type { HomeRoutes } from '../types';
