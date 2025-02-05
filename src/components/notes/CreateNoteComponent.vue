@@ -99,6 +99,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
     letter-spacing: -0.2px;
     color: $txt-cl-description-notes;
     fill: $txt-cl-description-notes;
+
+    @include mq(medium) {
+      font-size: 14px;
+    }
   }
 
   :deep(.el-input__inner::placeholder) {
@@ -106,6 +110,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
     line-height: 1.2;
     letter-spacing: -0.2px;
     color: $placeholder-input-cl;
+
+    @include mq(medium) {
+      font-size: 14px;
+    }
   }
 
   :deep(.el-input__wrapper) {
@@ -134,6 +142,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
       word-wrap: break-word;
       color: $placeholder-input-cl;
       align-self: self-end;
+
+      @include mq(medium) {
+        font-size: 14px;
+      }
     }
 
     :deep(.el-input-tag__wrapper) {
@@ -165,6 +177,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
       color: $txt-cl-description-notes;
       fill: none;
       stroke: $txt-cl-description-notes;
+
+      @include mq(medium) {
+        font-size: 14px;
+      }
     }
 
     label {
@@ -214,12 +230,20 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
       box-shadow: unset;
       padding: 0;
 
+      @include mq(medium) {
+        font-size: 14px;
+      }
+
       &::placeholder {
         font-family: getInter();
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
         color: $txt-cl-description-notes;
+
+        @include mq(medium) {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -245,6 +269,9 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
 
 :deep(.el-input.inputTitle) {
   margin-bottom: 12px;
+  @include mq(medium) {
+    margin-bottom: 16px;
+  }
 
   .el-input__inner {
     font-family: getInter(Bold);
@@ -252,6 +279,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
     line-height: 1.2;
     letter-spacing: -0.3px;
     color: $txt-cl-h;
+
+    @include mq(medium) {
+      font-size: 24px;
+    }
   }
 
   .el-input__wrapper {
@@ -269,6 +300,10 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
 }
 
 .el-divider {
+  border-color: $bor-cl-base;
   margin: 12px 0;
+  @include mq(medium) {
+    margin: 16px 0;
+  }
 }
 </style>
