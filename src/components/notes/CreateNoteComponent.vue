@@ -10,7 +10,13 @@
             <el-button class="cancelCreateBtn" text @click.prevent="resetForm">Cancel</el-button>
           </li>
           <li>
-            <el-button class="saveNote" text native-type="button" @submit.prevent="submit"
+            <el-button
+              :disabled
+              class="saveNote"
+              text
+              native-type="button"
+              @click="submitNote"
+              v-loading="loading"
               >Save note</el-button
             >
           </li>
@@ -32,7 +38,8 @@
             <template #label> <TagIco /> Tags </template>
 
             <el-input-tag
-              v-model="form.tags"
+              :max="5"
+              v-model.trim="form.tags"
               @keydown.stop="
                 (e: KeyboardEvent) => handleCommaCode(e, switchCommaTrigger, commaTrigger)
               "
@@ -42,7 +49,7 @@
           </el-form-item>
           <el-form-item label="Last edited" class="timeEdit">
             <template #label> <TimeIco /> Last edited </template>
-            <el-input disabled placeholder="Not saved yet" />
+            <el-input disabled placeholder="Not saved yet" v-model="form.lastEdited" />
           </el-form-item>
         </div>
       </div>
@@ -65,29 +72,40 @@ import { type FormInstance } from 'element-plus';
 import { ref, watch } from 'vue';
 import { reactive, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
-import { handleCommaCode, uniqueTagsControl } from './helpers';
+import { getLocalDate, handleCommaCode, idCustom, uniqueTagsControl } from './helpers';
 import type { CreateNoteForm } from './types';
+import { computed } from 'vue';
+import { userNotesStore } from '@/stores/userNotesStore';
+
+const noteStore = userNotesStore();
 
 const router = useRouter();
 const formRef = useTemplateRef<FormInstance | null>('formRef');
 const commaTrigger = ref(false);
+const loading = ref<boolean>(false);
 const form = reactive<CreateNoteForm>({
   title: '',
   tags: [],
   text: '',
+  lastEdited: '',
+  isArchived: false,
 });
 
 const switchCommaTrigger = (flag: boolean) => (commaTrigger.value = flag);
+const disabled = computed<boolean>(() => !form.title || !form.text);
 
 const resetForm = () => {
   form.title = '';
   form.tags = [];
   form.text = '';
+  form.lastEdited = '';
   router.push({ name: 'notes' });
 };
 
-const submit = (e: Event) => {
-  e.preventDefault();
+const submitNote = () => {
+  loading.value = true;
+  form.lastEdited = getLocalDate();
+  noteStore.addNote(form, idCustom()).finally(() => (loading.value = false));
   console.log('submit!');
 };
 
@@ -128,6 +146,12 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
 .el-form-item.timeEdit:has(.el-input) {
   font-family: getInter();
   margin-bottom: 0;
+
+  :deep(.el-input.is-disabled .el-input__inner) {
+    color: $txt-cl-description-notes;
+    -webkit-text-fill-color: $txt-cl-description-notes;
+  }
+
   :deep(.el-form-item__label) {
     padding: 0;
     align-items: center;
@@ -149,6 +173,7 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
     line-height: 1.2;
     letter-spacing: -0.2px;
     color: $placeholder-input-cl;
+    -webkit-text-fill-color: $placeholder-input-cl;
 
     @include mq(medium) {
       font-size: 14px;
@@ -255,6 +280,13 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
 
       .el-button.saveNote {
         color: $btn-cl-text;
+
+        &.is-disabled {
+          background-color: $btn-bg-base !important;
+          color: $btn-cl-base;
+          pointer-events: none;
+          filter: grayscale(1);
+        }
 
         @include mq(large) {
           background-color: $btn-bg-base;

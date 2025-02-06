@@ -10,6 +10,50 @@ export const enterEvent = new KeyboardEvent('keydown', {
   which: 13,
 });
 
+const optionsDate: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+};
+
+const chars = [
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+];
+
 export const uniqueTagsControl = (newArr: string[], prevArr: string[]) => {
   const isExist = newArr.length > prevArr.length && prevArr.includes(newArr.at(-1) as string);
   if (isExist) {
@@ -39,3 +83,25 @@ export const handleCommaCode: CommaHandler = (event, commaTrigger, commaFlag) =>
     return;
   }
 };
+
+export const getLocalDate = (): string => new Date().toLocaleDateString(undefined, optionsDate);
+
+const randomInteger = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const createId = (arr: string[], n: number) => {
+  let str = '';
+
+  return function createStr(): string {
+    str += arr[randomInteger(0, arr.length - 1)];
+    if (str.length !== n) {
+      return createStr();
+    } else {
+      const id: string = str;
+      str = '';
+      return id;
+    }
+  };
+};
+
+export const idCustom = createId(chars, 10);

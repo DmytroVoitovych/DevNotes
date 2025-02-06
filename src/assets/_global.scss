@@ -10,3 +10,19 @@
   font-family: getInter();
   --el-messagebox-title-color: #{$cl-red-500};
 }
+
+@keyframes slideToCenter {
+  0% {
+    transformx: translateX(100%);
+  }
+  100% {
+    transformx: translateX(-50%);
+  }
+}
+
+.el-notification.successInfo {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: slideToCenter 250ms ease-in-out;
+}

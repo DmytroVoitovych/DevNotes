@@ -1,4 +1,4 @@
-import { ElMessageBox } from 'element-plus';
+import { ElMessageBox, ElNotification } from 'element-plus';
 import type { FirebaseError } from 'firebase/app';
 
 export const successResetLinkSendingInform = () =>
@@ -41,4 +41,12 @@ export const needToGetNewResetLink = () =>
     confirmButtonText: 'OK',
     title: 'Error',
     customClass: 'errAlertTitle',
+  });
+
+export const noteAdded = () =>
+  ElNotification.success({
+    message: 'Note saved successfully!',
+    position: 'bottom-right',
+    customClass: 'successInfo',
+    duration: 700,
   });
