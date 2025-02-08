@@ -8,7 +8,9 @@
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
-        <el-button tag="router-link" to="/search" data-link="Search"><SearchIco /></el-button>
+        <el-button tag="router-link" :to="{ name: 'search' }" data-link="Search"
+          ><SearchIco
+        /></el-button>
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
@@ -23,7 +25,7 @@
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
-        <el-button tag="router-link" class="stroke" to="/tag" data-link="Tags">
+        <el-button tag="router-link" class="stroke" :to="{ name: 'tags' }" data-link="Tags">
           <TagIco
         /></el-button>
       </li>

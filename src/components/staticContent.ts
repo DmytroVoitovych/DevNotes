@@ -35,4 +35,37 @@ export const notesContent: Record<HomeRoutes, HomePageContent> = {
       link: true,
     },
   },
+  tags: {
+    title: 'Tags',
+    description: {
+      content: '',
+      show: false,
+    },
+    info: {
+      content: '',
+      link: false,
+    },
+  },
+  tag: {
+    title: 'Notes Tagged:',
+    description: {
+      content: 'All notes with the [] tag are shown here.',
+      show: true,
+    },
+    info: {
+      content: '',
+      link: false,
+    },
+  },
+  search: {
+    title: 'Search',
+    description: {
+      content: 'All notes matching [] are displayed below.',
+      show: true,
+    },
+    info: {
+      content: 'No notes match your search. Try a different keyword or create a new note.',
+      link: true,
+    },
+  },
 };

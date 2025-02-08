@@ -1,7 +1,11 @@
 <template>
   <LogoComponent class="logoShow" />
   <DesktopHeader>
-    <template #heading>{{ notesContent[current].title }}</template>
+    <template #heading>{{
+      current === 'search' && notesStore.searchQuery
+        ? 'Showing results for: '
+        : notesContent[current].title
+    }}</template>
   </DesktopHeader>
 </template>
 
@@ -11,6 +15,9 @@ import LogoComponent from '../shared/LogoComponent.vue';
 import { notesContent } from '../staticContent';
 import type { HomeRoutes } from '../types';
 import DesktopHeader from './DesktopHeader.vue';
+import { userNotesStore } from '@/stores/userNotesStore';
+
+const notesStore = userNotesStore();
 
 const { current } = defineProps<{
   current: HomeRoutes;

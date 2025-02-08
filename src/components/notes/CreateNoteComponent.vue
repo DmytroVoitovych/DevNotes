@@ -105,7 +105,10 @@ const resetForm = () => {
 const submitNote = () => {
   loading.value = true;
   form.lastEdited = getLocalDate();
-  noteStore.addNote(form, idCustom()).finally(() => (loading.value = false));
+  noteStore.addNote(form).finally(() => {
+    loading.value = false;
+    router.push({ name: 'notes' });
+  });
   console.log('submit!');
 };
 

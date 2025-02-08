@@ -1,16 +1,38 @@
 <template>
   <slot name="noteButton"></slot>
-
-  <p class="noteDescribBlock" v-show="current !== 'notes'"><slot name="noteDescribBlock"></slot></p>
-  <p class="noteInformBlock" v-show="!paramCreate">
+  <p class="noteDescribBlock" v-show="showDescription">
+    <slot name="noteDescribBlock"></slot>
+  </p>
+  <p class="noteInformBlock" v-show="!paramCreate && !currentNotes">
     <slot name="noteInformBlock"></slot>
   </p>
   <el-divider v-if="current === 'notes'" />
 </template>
 <script lang="ts" setup>
+import { userNotesStore } from '@/stores/userNotesStore';
 import type { HomeRoutes } from '../types';
-
+import { computed } from 'vue';
+const notesStore = userNotesStore();
 const { current, paramCreate } = defineProps<{ current: HomeRoutes; paramCreate: boolean }>();
+
+const showDescription = computed<boolean>(() => {
+  if (current !== 'notes' && current !== 'search') return true;
+  return !!notesStore.searchQuery && current === 'search';
+});
+
+const currentNotes = computed<number>(() => {
+  switch (current) {
+    case 'home':
+    case 'notes':
+      return notesStore.getAllNotes.length;
+    case 'archivednotes':
+      return notesStore.getArchivedNotes.length;
+    case 'search':
+      return notesStore.getNotesByQuery.length;
+    default:
+      return notesStore.getAllNotes.length;
+  }
+});
 </script>
 <style lang="scss" scoped>
 .noteDescribBlock {

@@ -3,6 +3,7 @@
     <el-container>
       <el-aside class="asideLeft">
         <AsideNavComponent />
+        <TagsList />
       </el-aside>
       <el-container>
         <el-header><HeaderChildren :current="currentRoute" /></el-header>
@@ -20,12 +21,23 @@ import AsideNavComponent from '@/components/aside/AsideNavComponent.vue';
 import HeaderChildren from '@/components/header/HeaderChildren.vue';
 import MenuBar from '@/components/notes/MenuBar.vue';
 import type { HomeRoutes } from '@/components/types';
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, onUnmounted, ref, toValue, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { navigateByResizeScreen } from './helper';
+import TagsList from '@/components/shared/TagsList.vue';
 
 const route = useRoute();
+const router = useRouter();
 
 const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
+
+onMounted(() => {
+  window.addEventListener('resize', () => navigateByResizeScreen(router, toValue(currentRoute)));
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', () => navigateByResizeScreen);
+});
 
 watch(
   () => route.name,

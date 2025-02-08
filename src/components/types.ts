@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 
-type HomeRoutes = 'home' | 'notes' | 'archivednotes' | 'createnote';
+type HomeRoutes = 'home' | 'notes' | 'archivednotes' | 'tags' | 'tag' | 'search';
 
 type HomePageContent = {
   title: string;

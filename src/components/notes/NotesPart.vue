@@ -1,9 +1,13 @@
 <template>
   <div class="notesWrapper">
-    <HeadingComponent>{{ notesContent[current].title }}</HeadingComponent>
+    <el-button class="backCreateLink" text @click="router.back()" v-show="current === 'tag'">
+      <LeftArrowIco width="18" height="18" /> Go back</el-button
+    >
+    <HeadingComponent :param>{{ notesContent[current].title }}</HeadingComponent>
+    <SearchComponent />
     <NotesInformBlock :current="current" :paramCreate="isParamCreateActive">
       <template #noteDescribBlock v-if="notesContent[current].description.show">
-        {{ notesContent[current].description.content }}
+        {{ conditionalDescription }}
       </template>
       <template #noteButton>
         <el-button
@@ -24,8 +28,18 @@
         >
       </template>
     </NotesInformBlock>
-    <ListNotesComponent :paramCreate="isParamCreateActive" />
-    <el-button class="mobCreateNote" tag="router-link" to="/create-note"><Plus /></el-button>
+    <ListNotesComponent
+      v-if="!notesStore.isNotesListEmpty"
+      :paramCreate="isParamCreateActive"
+      :param
+      :current
+    />
+    <el-button
+      class="mobCreateNote"
+      tag="router-link"
+      :to="{ params: { create: 'create' }, name: 'notes' }"
+      ><Plus
+    /></el-button>
   </div>
 </template>
 
@@ -34,20 +48,34 @@ import { computed, ref, watch } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
 import type { HomeRoutes } from '../types';
 import NotesInformBlock from './NotesInformBlock.vue';
+import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
 import Plus from '@/assets/images/icon-plus.svg';
 import { notesContent } from '../staticContent';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import ListNotesComponent from './ListNotesComponent.vue';
+import { userNotesStore } from '@/stores/userNotesStore';
+import SearchComponent from '../shared/SearchComponent.vue';
 
 const route = useRoute();
+const router = useRouter();
+const notesStore = userNotesStore();
+const { current, param = '' } = defineProps<{ current: HomeRoutes; param?: string }>();
 
 const isParamCreateActive = ref<boolean>(!!route.params?.create);
+
 const depensOnLinkContent = computed<string>(() => {
   const info = notesContent[current].info;
   return info.link ? info.content.split(',')[0] + ', or' : info.content;
 });
 
-const { current } = defineProps<{ current: HomeRoutes }>();
+const conditionalDescription = computed<string>(() =>
+  notesStore.searchQuery || param
+    ? notesContent[current].description.content.replace(
+        '[]',
+        `"${param || notesStore.searchQuery}"`,
+      )
+    : notesContent[current].description.content,
+);
 
 watch(
   () => route.params,
@@ -88,6 +116,35 @@ watch(
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  @include mq(large) {
+    .searchInput {
+      display: none;
+    }
+  }
+
+  :deep(.el-button.is-text.backCreateLink) {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    margin-bottom: 16px;
+    height: auto;
+
+    @include mq(large) {
+      display: none;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: getInter();
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+      fill: $link-cl-grey;
+      color: $link-cl-grey;
+    }
+  }
 
   &:has(~ form) {
     display: none;

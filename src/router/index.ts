@@ -38,6 +38,27 @@ const router = createRouter({
           },
           // beforeEnter: paramCreateControl,
         },
+        {
+          path: 'tags',
+          name: 'tags',
+          component: () => import('../components/shared/TagsList.vue'),
+          beforeEnter: (to, from, next) => {
+            if (window.innerWidth >= 1440) next('/');
+            else next();
+          },
+        },
+        {
+          path: ':tag?',
+          name: 'tag',
+          component: () => import('../components/notes/NotesPart.vue'),
+          props: (route) => ({ current: 'tag', param: route.params.tag }),
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: () => import('../components/notes/NotesPart.vue'),
+          props: (route) => ({ query: route.query.q, current: 'search' }),
+        },
       ],
       meta: {
         requiresAuth: true,

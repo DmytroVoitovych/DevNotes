@@ -1,7 +1,17 @@
 <template>
   <slot name="addition"></slot>
-  <h1 class="notesHeading"><slot></slot></h1>
+  <h1 v-if="!param && !query" class="notesHeading"><slot></slot></h1>
+  <h1 v-else class="notesHeading">
+    <span class="headingWithParam"><slot></slot></span> {{ param ?? query }}
+  </h1>
 </template>
+
+<script lang="ts" setup>
+const { param, query } = defineProps<{
+  param?: string;
+  query?: string;
+}>();
+</script>
 
 <style lang="scss" scoped>
 .notesHeading {
@@ -10,6 +20,10 @@
   line-height: 1.2;
   letter-spacing: -0.5px;
   color: $txt-cl-h;
+
+  .headingWithParam {
+    color: $txt-cl-description;
+  }
 
   &:has(+ .noteInformBlock) {
     margin-bottom: 16px;
