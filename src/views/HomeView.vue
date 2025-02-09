@@ -8,7 +8,15 @@
       <el-container>
         <el-header><HeaderChildren :current="currentRoute" /></el-header>
         <el-main>
-          <RouterView /> <RouterView name="createnote" v-if="route.params?.create" />
+          <RouterView /> <RouterView name="createnote" v-if="checkParams" />
+          <div class="actionContainer">
+            <RouterView name="action" v-show="isId" v-slot="{ Component }">
+              <component :is="Component">
+                <template #archive> Archive Note </template>
+                <template #delete> Delete Note </template>
+              </component>
+            </RouterView>
+          </div>
         </el-main>
         <el-footer><MenuBar /></el-footer>
       </el-container>
@@ -21,15 +29,20 @@ import AsideNavComponent from '@/components/aside/AsideNavComponent.vue';
 import HeaderChildren from '@/components/header/HeaderChildren.vue';
 import MenuBar from '@/components/notes/MenuBar.vue';
 import type { HomeRoutes } from '@/components/types';
-import { onMounted, onUnmounted, ref, toValue, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, toValue, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { navigateByResizeScreen } from './helper';
 import TagsList from '@/components/shared/TagsList.vue';
+import { userNotesStore } from '@/stores/userNotesStore';
 
 const route = useRoute();
 const router = useRouter();
 
 const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
+const isId = computed<boolean>(() => !!route?.params?.id);
+const checkParams = computed<boolean>(() =>
+  ['create', 'id', 'name'].some((e) => e in route.params && route.params[e]),
+);
 
 onMounted(() => {
   window.addEventListener('resize', () => navigateByResizeScreen(router, toValue(currentRoute)));
@@ -38,12 +51,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', () => navigateByResizeScreen);
 });
-
+watch(checkParams, (n) => console.log('test', 'param', n));
 watch(
   () => route.name,
   (newRoute) => {
     if (newRoute) {
-      console.log(newRoute);
+      console.log(newRoute, route.params);
       currentRoute.value = newRoute as HomeRoutes;
     }
   },
@@ -52,7 +65,28 @@ watch(
 <style lang="scss">
 .commonLayout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+
+  .actionContainer {
+    display: none;
+
+    @include mq(large) {
+      display: block;
+      width: 100%;
+      padding-top: 20px;
+      padding-left: 16px;
+      padding-right: 32px;
+
+      ul {
+        display: flex;
+        gap: 16px;
+        flex-direction: column-reverse;
+        fill: none;
+        stroke: $txt-cl-h;
+        text-align: left;
+      }
+    }
+  }
 
   .asideLeft {
     display: none;
@@ -103,12 +137,14 @@ watch(
 .el-main {
   padding-left: 16px;
   padding-right: 16px;
+  overflow-y: auto;
 
   @include mq(medium) {
     padding: 24px 32px;
   }
 
   @include mq(large) {
+    overflow-y: hidden;
     display: flex;
     padding: 0;
   }

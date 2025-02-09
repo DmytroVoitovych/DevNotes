@@ -14,15 +14,19 @@
 <script setup lang="ts">
 import SearchIco from '@/assets/images/icon-search.svg';
 import { userNotesStore } from '@/stores/userNotesStore';
-import { watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 const notesStore = userNotesStore();
+
+onMounted(() => route.query.q && (notesStore.searchQuery = route.query.q as string));
 
 watch(
   () => notesStore.searchQuery,
-  (newSearchReq) => router.push({ name: 'search', query: { q: newSearchReq } }),
+  (newSearchReq) =>
+    router.push({ name: 'search', query: { q: newSearchReq }, params: route.params }),
 );
 </script>
 

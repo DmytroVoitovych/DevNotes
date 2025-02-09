@@ -2,12 +2,21 @@
   <p v-if="paramCreate" class="notesUntitled">Untitled Note</p>
 
   <ul class="notesListContainer">
-    <li class="notesList" v-for="note of currentNotes" :key="note.id">
-      <h1>{{ note.title || 'No title' }}</h1>
-      <ul>
-        <li v-for="(tag, i) of note.tags" :key="i">{{ tag || 'No tag' }}</li>
-      </ul>
-      <span>{{ note.lastEdited }}</span>
+    <li v-for="note of currentNotes" :key="note.id">
+      <RouterLink
+        class="notesList"
+        :to="{
+          name: current,
+          params: { id: note.id, name: note.title },
+          query: current === 'search' ? { q: notesStore.searchQuery } : {},
+        }"
+      >
+        <h1>{{ note.title || 'No title' }}</h1>
+        <ul>
+          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || 'No tag' }}</li>
+        </ul>
+        <span>{{ note.lastEdited }}</span>
+      </RouterLink>
     </li>
   </ul>
 </template>
@@ -22,6 +31,7 @@ const currentNotes = computed(() => {
   switch (current) {
     case 'home':
     case 'notes':
+      console.log(param);
       return notesStore.getAllNotes;
     case 'archivednotes':
       return notesStore.getArchivedNotes;
@@ -54,6 +64,7 @@ const { paramCreate, param, current } = defineProps<{
 .notesListContainer {
   .notesList {
     padding: 8px;
+    display: inherit;
 
     &:not(:last-child) {
       padding-bottom: 12px;

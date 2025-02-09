@@ -20,12 +20,14 @@ export const userNotesStore = defineStore('userNotes', {
       state.notesList.filter((e) => e.tags.includes(tag)),
     getNotesByQuery: (state) =>
       state.notesList.filter((e) => JSON.stringify(e).includes(state.searchQuery)),
+    getNotesById: (state) => (id: string) => state.notesList.find((e) => e.id === id),
   },
   actions: {
     createJsonObject({ title, tags, text, lastEdited, isArchived }: CreateNoteForm, id: string) {
       return JSON.stringify({ title, tags, content: text, lastEdited, isArchived, id });
     },
     syncStorageAndDatabase(data: string[]) {
+      console.log('sinc');
       this.notesList = data.map((e: string) => JSON.parse(e)).toReversed();
     },
     addNote(body: CreateNoteForm) {

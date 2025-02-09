@@ -24,6 +24,7 @@ onMounted(() => {
     if (userStatus) {
       userStore.setLoginStatus(userStatus);
       const dbRef = fireref(getDatabase());
+
       get(child(dbRef, `notes`))
         .then((snapshot) => {
           if (snapshot.exists())

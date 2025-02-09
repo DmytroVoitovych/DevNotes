@@ -17,13 +17,18 @@ const router = createRouter({
 
       children: [
         {
-          path: 'all-notes/:create?',
+          path: 'all-notes/:create(create)?/:name([^/]+)?/:id(.*)?',
           name: 'notes',
           components: {
             default: NotesPart,
             createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            action: () => import('../components/shared/NotesMoveList.vue'),
           },
-          props: { default: { current: 'notes' } },
+          props: {
+            default: { current: 'notes' },
+            createnote: (route) => ({ id: route.params.id }),
+            action: (route) => ({ id: route.params.id }),
+          },
           beforeEnter: paramCreateControl,
         },
         {
@@ -32,9 +37,11 @@ const router = createRouter({
           components: {
             default: NotesPart,
             // createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            action: () => import('../components/shared/NotesMoveList.vue'),
           },
           props: {
             default: { current: 'archivednotes' },
+            action: (route) => ({ id: route.params.id }),
           },
           // beforeEnter: paramCreateControl,
         },
@@ -48,16 +55,32 @@ const router = createRouter({
           },
         },
         {
-          path: ':tag?',
+          path: ':tag/:name?/:id?',
           name: 'tag',
-          component: () => import('../components/notes/NotesPart.vue'),
-          props: (route) => ({ current: 'tag', param: route.params.tag }),
+          components: {
+            default: () => import('../components/notes/NotesPart.vue'),
+            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            action: () => import('../components/shared/NotesMoveList.vue'),
+          },
+          props: {
+            default: (route) => ({ current: 'tag', param: route.params.tag }),
+            createnote: (route) => ({ id: route.params.id }),
+            action: (route) => ({ id: route.params.id }),
+          },
         },
         {
-          path: 'search',
+          path: 'search/:name?/:id?',
           name: 'search',
-          component: () => import('../components/notes/NotesPart.vue'),
-          props: (route) => ({ query: route.query.q, current: 'search' }),
+          components: {
+            default: () => import('../components/notes/NotesPart.vue'),
+            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            action: () => import('../components/shared/NotesMoveList.vue'),
+          },
+          props: {
+            default: (route) => ({ query: route.query.q, current: 'search' }),
+            createnote: (route) => ({ id: route.params.id }),
+            action: (route) => ({ id: route.params.id }),
+          },
         },
       ],
       meta: {

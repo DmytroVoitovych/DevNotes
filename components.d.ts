@@ -49,6 +49,7 @@ declare module 'vue' {
     MenuBar: typeof import('./src/components/notes/MenuBar.vue')['default']
     NoDesktopHeader: typeof import('./src/components/header/NoDesktopHeader.vue')['default']
     NotesInformBlock: typeof import('./src/components/notes/NotesInformBlock.vue')['default']
+    NotesMoveList: typeof import('./src/components/shared/NotesMoveList.vue')['default']
     NotesPart: typeof import('./src/components/notes/NotesPart.vue')['default']
     ResetPassword: typeof import('./src/components/auth/ResetPassword.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

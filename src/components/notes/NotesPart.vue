@@ -4,7 +4,7 @@
       <LeftArrowIco width="18" height="18" /> Go back</el-button
     >
     <HeadingComponent :param>{{ notesContent[current].title }}</HeadingComponent>
-    <SearchComponent />
+    <SearchComponent v-show="current === 'search'" />
     <NotesInformBlock :current="current" :paramCreate="isParamCreateActive">
       <template #noteDescribBlock v-if="notesContent[current].description.show">
         {{ conditionalDescription }}
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
 import type { HomeRoutes } from '../types';
 import NotesInformBlock from './NotesInformBlock.vue';
@@ -118,6 +118,7 @@ watch(
   flex-direction: column;
 
   @include mq(large) {
+    overflow-y: auto;
     .searchInput {
       display: none;
     }

@@ -6,6 +6,9 @@
           <LeftArrowIco width="18" height="18" /> Go back</el-button
         >
         <ul class="actionList">
+          <li v-show="id">
+            <NotesMoveList />
+          </li>
           <li>
             <el-button class="cancelCreateBtn" text @click.prevent="resetForm">Cancel</el-button>
           </li>
@@ -69,17 +72,22 @@ import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
 import TagIco from '@/assets/images/icon-tag.svg';
 import TimeIco from '@/assets/images/icon-clock.svg';
 import { type FormInstance } from 'element-plus';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { reactive, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 import { getLocalDate, handleCommaCode, idCustom, uniqueTagsControl } from './helpers';
 import type { CreateNoteForm } from './types';
 import { computed } from 'vue';
 import { userNotesStore } from '@/stores/userNotesStore';
+import NotesMoveList from '../shared/NotesMoveList.vue';
 
 const noteStore = userNotesStore();
-
 const router = useRouter();
+
+const { id } = defineProps<{
+  id?: string;
+}>();
+
 const formRef = useTemplateRef<FormInstance | null>('formRef');
 const commaTrigger = ref(false);
 const loading = ref<boolean>(false);
@@ -113,6 +121,23 @@ const submitNote = () => {
 };
 
 watch(() => form.tags, uniqueTagsControl, { deep: true });
+watch(
+  () => [noteStore.notesList, id],
+  (newId) => {
+    //не забыть вынести функцию
+
+    const activeNote = noteStore.getNotesById(id || '');
+
+    if (activeNote) {
+      form.title = activeNote?.title || 'No data';
+      form.text = activeNote?.content || 'No data';
+      form.isArchived = !!activeNote?.isArchived;
+      form.lastEdited = activeNote?.lastEdited || 'No data';
+      form.tags = activeNote?.tags || [];
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <style lang="scss" scoped>
@@ -270,6 +295,24 @@ watch(() => form.tags, uniqueTagsControl, { deep: true });
     .actionList {
       display: flex;
       gap: 16px;
+
+      & > li:first-child {
+        @include mq(large) {
+          display: none;
+        }
+      }
+
+      > li:first-child > ul {
+        display: flex;
+        gap: 16px;
+        stroke: currentColor;
+        fill: none;
+
+        :deep(.el-button) {
+          padding: 0;
+          border: none;
+        }
+      }
 
       @include mq(large) {
         flex-direction: row-reverse;
