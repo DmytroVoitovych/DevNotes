@@ -1,4 +1,4 @@
-import type { HomePageContent, HomeRoutes } from './types';
+import type { DialogTriggerName, HomePageContent, HomeRoutes, ModalInnerContent } from './types';
 
 export const notesContent: Record<HomeRoutes, HomePageContent> = {
   home: {
@@ -67,5 +67,19 @@ export const notesContent: Record<HomeRoutes, HomePageContent> = {
       content: 'No notes match your search. Try a different keyword or create a new note.',
       link: true,
     },
+  },
+};
+
+export const modalContent: Record<DialogTriggerName, ModalInnerContent> = {
+  archive: {
+    title: 'Archive note',
+    content:
+      'Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime.',
+    buttonContent: 'Archive note',
+  },
+  delete: {
+    title: 'Delete note',
+    content: 'Are you sure you want to permanently delete this note? This action cannot be undone.',
+    buttonContent: 'Delete note',
   },
 };

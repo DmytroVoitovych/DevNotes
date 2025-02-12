@@ -31,6 +31,7 @@
     <div class="inputsContainer">
       <div class="inputBox">
         <el-input
+          :readonly="isWritable"
           class="inputTitle"
           v-model="form.title"
           placeholder="Enter a title…"
@@ -41,6 +42,7 @@
             <template #label> <TagIco /> Tags </template>
 
             <el-input-tag
+              :readonly="isWritable"
               :max="5"
               v-model.trim="form.tags"
               @keydown.stop="
@@ -52,13 +54,14 @@
           </el-form-item>
           <el-form-item label="Last edited" class="timeEdit">
             <template #label> <TimeIco /> Last edited </template>
-            <el-input disabled placeholder="Not saved yet" v-model="form.lastEdited" />
+            <el-input readonly placeholder="Not saved yet" v-model="form.lastEdited" />
           </el-form-item>
         </div>
       </div>
       <el-divider />
       <el-input
         v-model="form.text"
+        :readonly="isWritable"
         type="textarea"
         resize="none"
         placeholder="Start typing your note here…"
@@ -74,7 +77,7 @@ import TimeIco from '@/assets/images/icon-clock.svg';
 import { type FormInstance } from 'element-plus';
 import { onMounted, ref, watch } from 'vue';
 import { reactive, useTemplateRef } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { getLocalDate, handleCommaCode, idCustom, uniqueTagsControl } from './helpers';
 import type { CreateNoteForm } from './types';
 import { computed } from 'vue';
@@ -83,6 +86,7 @@ import NotesMoveList from '../shared/NotesMoveList.vue';
 
 const noteStore = userNotesStore();
 const router = useRouter();
+const route = useRoute();
 
 const { id } = defineProps<{
   id?: string;
@@ -91,6 +95,7 @@ const { id } = defineProps<{
 const formRef = useTemplateRef<FormInstance | null>('formRef');
 const commaTrigger = ref(false);
 const loading = ref<boolean>(false);
+const isWritable = ref<boolean>(!!id);
 const form = reactive<CreateNoteForm>({
   title: '',
   tags: [],
@@ -102,12 +107,14 @@ const form = reactive<CreateNoteForm>({
 const switchCommaTrigger = (flag: boolean) => (commaTrigger.value = flag);
 const disabled = computed<boolean>(() => !form.title || !form.text);
 
-const resetForm = () => {
-  form.title = '';
-  form.tags = [];
-  form.text = '';
-  form.lastEdited = '';
-  router.push({ name: 'notes' });
+const resetForm = (e?: MouseEvent) => {
+  if (e) router.push({ name: route.name, query: route.query });
+  else {
+    form.title = '';
+    form.tags = [];
+    form.text = '';
+    form.lastEdited = '';
+  }
 };
 
 const submitNote = () => {
@@ -126,6 +133,7 @@ watch(
   (newId) => {
     //не забыть вынести функцию
 
+    isWritable.value = !!id;
     const activeNote = noteStore.getNotesById(id || '');
 
     if (activeNote) {
@@ -134,6 +142,9 @@ watch(
       form.isArchived = !!activeNote?.isArchived;
       form.lastEdited = activeNote?.lastEdited || 'No data';
       form.tags = activeNote?.tags || [];
+      return;
+    } else {
+      resetForm();
     }
   },
   { immediate: true },
@@ -175,7 +186,7 @@ watch(
   font-family: getInter();
   margin-bottom: 0;
 
-  :deep(.el-input.is-disabled .el-input__inner) {
+  :deep(.el-input .el-input__inner) {
     color: $txt-cl-description-notes;
     -webkit-text-fill-color: $txt-cl-description-notes;
   }
@@ -307,6 +318,11 @@ watch(
         gap: 16px;
         stroke: currentColor;
         fill: none;
+
+        :deep(li.stroke) {
+          stroke: none;
+          fill: currentColor;
+        }
 
         :deep(.el-button) {
           padding: 0;

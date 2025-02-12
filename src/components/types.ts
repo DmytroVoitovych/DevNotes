@@ -1,6 +1,9 @@
 import type { Component } from 'vue';
 
 type HomeRoutes = 'home' | 'notes' | 'archivednotes' | 'tags' | 'tag' | 'search';
+type DialogTriggerName = 'archive' | 'delete';
+
+type ModalInnerContent = { title: string; content: string; buttonContent: string };
 
 type HomePageContent = {
   title: string;
@@ -14,4 +17,4 @@ type HomePageContent = {
   };
 };
 
-export type { HomeRoutes, HomePageContent };
+export type { HomeRoutes, HomePageContent, DialogTriggerName, ModalInnerContent };

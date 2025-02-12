@@ -77,7 +77,7 @@ onUpdated(() => {
       height: 12px;
       background-repeat: no-repeat;
       background-size: cover;
-      background-image: url(@/assets/images/icon-info.svg);
+      age: url(@/assets/images/icon-info.svg);
       filter: brightness(0) saturate(100%) invert(39%) sepia(9%) saturate(1413%) hue-rotate(185deg)
         brightness(91%) contrast(86%);
     }

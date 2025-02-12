@@ -27,8 +27,7 @@ onMounted(() => {
 
       get(child(dbRef, `notes`))
         .then((snapshot) => {
-          if (snapshot.exists())
-            notesStore.syncStorageAndDatabase(Object.values(snapshot.val()) as string[]);
+          if (snapshot.exists()) notesStore.syncStorageAndDatabase(Object.values(snapshot.val()));
           else console.log('No data available');
         })
         .catch((error) => console.error(error));

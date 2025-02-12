@@ -12,7 +12,9 @@
           <div class="actionContainer">
             <RouterView name="action" v-show="isId" v-slot="{ Component }">
               <component :is="Component">
-                <template #archive> Archive Note </template>
+                <template #archive>
+                  {{ btnStatus ? 'Restore note' : 'Archive note' }}
+                </template>
                 <template #delete> Delete Note </template>
               </component>
             </RouterView>
@@ -35,6 +37,7 @@ import { navigateByResizeScreen } from './helper';
 import TagsList from '@/components/shared/TagsList.vue';
 import { userNotesStore } from '@/stores/userNotesStore';
 
+const notesStore = userNotesStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -42,6 +45,9 @@ const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
 const isId = computed<boolean>(() => !!route?.params?.id);
 const checkParams = computed<boolean>(() =>
   ['create', 'id', 'name'].some((e) => e in route.params && route.params[e]),
+);
+const btnStatus = computed<boolean>(() =>
+  notesStore.getArchivedNotes.some((e) => e.id === route?.params?.id),
 );
 
 onMounted(() => {
@@ -84,6 +90,11 @@ watch(
         fill: none;
         stroke: $txt-cl-h;
         text-align: left;
+
+        li.stroke {
+          stroke: none;
+          fill: $txt-cl-h;
+        }
       }
     }
   }

@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import type { NoteData, UserNotesState } from './types';
 import type { CreateNoteForm } from '@/components/notes/types';
-import { getDatabase, push, ref, set } from 'firebase/database';
-import { noteAdded } from './helpers';
+import { getDatabase, push, ref, remove, set, update } from 'firebase/database';
+import { noteAdded, noteDeleted, noteUpdated } from './helpers';
+import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 
 export const userNotesStore = defineStore('userNotes', {
   state(): UserNotesState {
@@ -21,26 +22,55 @@ export const userNotesStore = defineStore('userNotes', {
     getNotesByQuery: (state) =>
       state.notesList.filter((e) => JSON.stringify(e).includes(state.searchQuery)),
     getNotesById: (state) => (id: string) => state.notesList.find((e) => e.id === id),
+    getIndexOfNoteById: (state) => (id: string) => state.notesList.findIndex((e) => e.id === id),
   },
   actions: {
-    createJsonObject({ title, tags, text, lastEdited, isArchived }: CreateNoteForm, id: string) {
-      return JSON.stringify({ title, tags, content: text, lastEdited, isArchived, id });
+    createObject({ title, tags, text, lastEdited, isArchived }: CreateNoteForm, id: string) {
+      return { title, tags, content: text, lastEdited, isArchived, id };
     },
-    syncStorageAndDatabase(data: string[]) {
+    syncStorageAndDatabase(data: NoteData[]) {
       console.log('sinc');
-      this.notesList = data.map((e: string) => JSON.parse(e)).toReversed();
+      this.notesList = data.map((e: NoteData) => e).toReversed();
     },
     addNote(body: CreateNoteForm) {
       const db = getDatabase();
 
       const newNoteRef = push(ref(db, 'notes'));
       const noteId = newNoteRef.key;
-      const jsonBody = this.createJsonObject(body, noteId as string);
+      const data = this.createObject(body, noteId as string);
 
-      return set(newNoteRef, jsonBody)
-        .then(() => this.notesList.unshift(JSON.parse(jsonBody)))
+      return set(newNoteRef, data)
+        .then(() => this.notesList.unshift(data))
         .then(noteAdded)
         .catch((e) => console.log(e, 'err'));
+    },
+    archiveOrRestoreNote(id: string, date: string) {
+      const db = getDatabase();
+      const index = this.getIndexOfNoteById(id);
+      const updatedNote = this.notesList[index];
+      updatedNote.isArchived = !updatedNote.isArchived;
+      updatedNote.lastEdited = date;
+
+      const updates = {
+        [`/notes/${id}/isArchived`]: updatedNote.isArchived,
+        [`/notes/${id}/lastEdited`]: date,
+      };
+
+      return update(ref(db), updates)
+        .then(() => noteUpdated(this.notesList[index].isArchived))
+        .catch((e) => console.log(e));
+    },
+    deleteNote(id: string) {
+      const db = getDatabase();
+      const index = this.getIndexOfNoteById(id);
+      this.notesList.splice(index, 1);
+      const noteRef = ref(db, `notes/${id}`);
+
+      return remove(noteRef)
+        .then(noteDeleted)
+        .catch((error) => {
+          console.error('Error with deleting', error);
+        });
     },
   },
 });

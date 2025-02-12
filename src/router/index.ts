@@ -32,17 +32,19 @@ const router = createRouter({
           beforeEnter: paramCreateControl,
         },
         {
-          path: 'archived-notes',
+          path: 'archived-notes/:name?/:id?',
           name: 'archivednotes',
           components: {
             default: NotesPart,
-            // createnote: () => import('../components/notes/CreateNoteComponent.vue'),
+            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
             action: () => import('../components/shared/NotesMoveList.vue'),
           },
           props: {
             default: { current: 'archivednotes' },
+            createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
+
           // beforeEnter: paramCreateControl,
         },
         {

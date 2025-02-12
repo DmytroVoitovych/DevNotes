@@ -48,5 +48,21 @@ export const noteAdded = () =>
     message: 'Note saved successfully!',
     position: 'bottom-right',
     customClass: 'successInfo',
-    duration: 700,
+    duration: 1500,
+  });
+
+export const noteUpdated = (actionFlag: boolean) =>
+  ElNotification.success({
+    message: !actionFlag ? 'Note restored.' : 'Note archived.',
+    position: 'bottom-right',
+    customClass: 'successInfo',
+    duration: 1500,
+  });
+
+export const noteDeleted = () =>
+  ElNotification.success({
+    message: 'Note permanently deleted.',
+    position: 'bottom-right',
+    customClass: 'successInfo',
+    duration: 1500,
   });
