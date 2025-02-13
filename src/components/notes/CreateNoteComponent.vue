@@ -18,9 +18,9 @@
               class="saveNote"
               text
               native-type="button"
-              @click="submitNote"
+              @click="isWritable ? allowEdit() : submitNote(currentTrigger)"
               v-loading="loading"
-              >Save note</el-button
+              >{{ !isWritable ? 'Save note' : 'Edit' }}</el-button
             >
           </li>
         </ul>
@@ -52,6 +52,15 @@
               aria-label="Please click the Comma key after input"
             />
           </el-form-item>
+          <el-form-item
+            label="Status"
+            label-position="left"
+            class="noteStatus el-form-item--label-left"
+            v-if="form.isArchived"
+          >
+            <template #label> <StatusIco /> Status </template>
+            <el-input readonly value="Archived" />
+          </el-form-item>
           <el-form-item label="Last edited" class="timeEdit">
             <template #label> <TimeIco /> Last edited </template>
             <el-input readonly placeholder="Not saved yet" v-model="form.lastEdited" />
@@ -74,8 +83,9 @@
 import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
 import TagIco from '@/assets/images/icon-tag.svg';
 import TimeIco from '@/assets/images/icon-clock.svg';
-import { type FormInstance } from 'element-plus';
-import { onMounted, ref, watch } from 'vue';
+import StatusIco from '@/assets/images/icon-status.svg';
+import { type FormInstance, type NotificationHandle } from 'element-plus';
+import { ref, watch } from 'vue';
 import { reactive, useTemplateRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getLocalDate, handleCommaCode, idCustom, uniqueTagsControl } from './helpers';
@@ -106,6 +116,13 @@ const form = reactive<CreateNoteForm>({
 
 const switchCommaTrigger = (flag: boolean) => (commaTrigger.value = flag);
 const disabled = computed<boolean>(() => !form.title || !form.text);
+const currentTrigger = computed<'addNote' | 'changeExistedNote'>(() =>
+  !id ? 'addNote' : 'changeExistedNote',
+);
+
+const allowEdit = (): void => {
+  isWritable.value = false;
+};
 
 const resetForm = (e?: MouseEvent) => {
   if (e) router.push({ name: route.name, query: route.query });
@@ -114,25 +131,37 @@ const resetForm = (e?: MouseEvent) => {
     form.tags = [];
     form.text = '';
     form.lastEdited = '';
+    form.isArchived = false;
   }
 };
 
-const submitNote = () => {
+const submitNote = (trigerName: 'addNote' | 'changeExistedNote') => {
   loading.value = true;
   form.lastEdited = getLocalDate();
-  noteStore.addNote(form).finally(() => {
+  noteStore[trigerName](form, id as string).finally(() => {
     loading.value = false;
-    router.push({ name: 'notes' });
+    if (!id) router.push({ name: 'notes' });
+    else {
+      isWritable.value = true;
+    }
   });
   console.log('submit!');
 };
 
 watch(() => form.tags, uniqueTagsControl, { deep: true });
 watch(
+  () => noteStore.getArchivedNotes,
+  () => {
+    console.log(id, 'create');
+    if (!id) return;
+    const archiveEffect = noteStore.getArchivedNotes.some((e) => e.id === id);
+    if (archiveEffect !== form.isArchived) form.isArchived = archiveEffect;
+  },
+);
+watch(
   () => [noteStore.notesList, id],
-  (newId) => {
+  () => {
     //не забыть вынести функцию
-
     isWritable.value = !!id;
     const activeNote = noteStore.getNotesById(id || '');
 
@@ -182,7 +211,8 @@ watch(
   gap: 39px;
 }
 
-.el-form-item.timeEdit:has(.el-input) {
+.el-form-item.timeEdit:has(.el-input),
+.el-form-item.noteStatus:has(.el-input) {
   font-family: getInter();
   margin-bottom: 0;
 
@@ -289,6 +319,10 @@ watch(
     label {
       display: flex;
       margin-right: 0;
+    }
+
+    & + .noteStatus {
+      margin-bottom: 18px;
     }
   }
 }

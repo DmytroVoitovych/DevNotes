@@ -1,6 +1,6 @@
 <template>
   <div class="linkTagsContainer" v-if="notesStore.getUniqueTags.length">
-    <HeadingComponent v-if="current">Tags</HeadingComponent>
+    <HeadingComponent v-if="current === 'tags'">Tags</HeadingComponent>
     <h1 v-else class="desktopTagHeading">Tags</h1>
     <ul>
       <li v-for="tag of notesStore.getUniqueTags" :key="tag">
@@ -16,7 +16,7 @@ import HeadingComponent from './HeadingComponent.vue';
 import { userNotesStore } from '@/stores/userNotesStore';
 import TagIco from '@/assets/images/icon-tag.svg';
 
-const { current } = defineProps<{ current?: 'string' }>();
+const { current } = defineProps<{ current?: string }>();
 
 const notesStore = userNotesStore();
 </script>

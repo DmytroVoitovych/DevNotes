@@ -3,7 +3,7 @@
     <HeadingComponent :param :query><slot name="heading"></slot></HeadingComponent>
     <div class="rightSearchWrapper">
       <SearchComponent />
-      <el-button tag="router-link" to="/setting">
+      <el-button tag="router-link" :to="{ name: 'settings' }">
         <SettingIco />
       </el-button>
     </div>

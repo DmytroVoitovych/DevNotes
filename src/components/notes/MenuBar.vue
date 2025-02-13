@@ -31,7 +31,9 @@
       </li>
       <el-divider direction="vertical"></el-divider>
       <li>
-        <el-button tag="router-link" to="/setting" data-link="Settings"><SettingIco /></el-button>
+        <el-button tag="router-link" :to="{ name: 'settings' }" data-link="Settings"
+          ><SettingIco
+        /></el-button>
       </li>
     </ul>
   </nav>

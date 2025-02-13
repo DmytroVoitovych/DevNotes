@@ -1,6 +1,6 @@
 <template>
   <slot name="addition"></slot>
-  <h1 v-if="!param && !query" class="notesHeading"><slot></slot></h1>
+  <h1 v-if="!param && !query" class="notesHeading" :class="$attrs.class"><slot></slot></h1>
   <h1 v-else class="notesHeading">
     <span class="headingWithParam"><slot></slot></span> {{ param ?? query }}
   </h1>
@@ -35,6 +35,11 @@ const { param, query } = defineProps<{
     @include mq(large) {
       display: none;
     }
+  }
+}
+.settingHeading {
+  @include mq(large) {
+    display: none;
   }
 }
 </style>

@@ -68,6 +68,17 @@ export const notesContent: Record<HomeRoutes, HomePageContent> = {
       link: true,
     },
   },
+  settings: {
+    title: 'Settings',
+    description: {
+      content: '',
+      show: false,
+    },
+    info: {
+      content: '',
+      link: false,
+    },
+  },
 };
 
 export const modalContent: Record<DialogTriggerName, ModalInnerContent> = {

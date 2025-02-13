@@ -48,9 +48,22 @@ const router = createRouter({
           // beforeEnter: paramCreateControl,
         },
         {
+          path: 'settings/:settingname([^/]+)?',
+          name: 'settings',
+          components: {
+            default: () => import('../components/settings/SettingsVariations.vue'),
+            pickedsetting: () => import('../components/settings/StyleList.vue'),
+          },
+          props: {
+            default: { current: 'settings' },
+            pickedsetting: (route) => ({ param: route.params.settingname }),
+          },
+        },
+        {
           path: 'tags',
           name: 'tags',
           component: () => import('../components/shared/TagsList.vue'),
+          props: { current: 'tags' },
           beforeEnter: (to, from, next) => {
             if (window.innerWidth >= 1440) next('/');
             else next();

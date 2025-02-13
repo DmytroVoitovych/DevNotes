@@ -66,6 +66,10 @@ const { paramCreate, param, current } = defineProps<{
     padding: 8px;
     display: inherit;
 
+    &:focus-visible {
+      outline: 1px solid #c0d5ff;
+    }
+
     &:not(:last-child) {
       padding-bottom: 12px;
       border-bottom: 1px solid $bor-cl-base;
@@ -107,6 +111,11 @@ const { paramCreate, param, current } = defineProps<{
       line-height: 1.2;
       letter-spacing: -0.2px;
       color: $txt-cl-description-notes;
+    }
+
+    &.router-link-active {
+      background-color: $bg-cl-note;
+      border-radius: 6px;
     }
   }
 }

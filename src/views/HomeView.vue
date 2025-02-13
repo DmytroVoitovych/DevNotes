@@ -9,6 +9,7 @@
         <el-header><HeaderChildren :current="currentRoute" /></el-header>
         <el-main>
           <RouterView /> <RouterView name="createnote" v-if="checkParams" />
+          <RouterView name="pickedsetting" v-if="isSetting" />
           <div class="actionContainer">
             <RouterView name="action" v-show="isId" v-slot="{ Component }">
               <component :is="Component">
@@ -43,6 +44,7 @@ const router = useRouter();
 
 const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
 const isId = computed<boolean>(() => !!route?.params?.id);
+const isSetting = computed<boolean>(() => !!route?.params?.settingname);
 const checkParams = computed<boolean>(() =>
   ['create', 'id', 'name'].some((e) => e in route.params && route.params[e]),
 );

@@ -66,3 +66,11 @@ export const noteDeleted = () =>
     customClass: 'successInfo',
     duration: 1500,
   });
+
+export const noteChanged = () =>
+  ElNotification.success({
+    message: 'Note changed successfully!',
+    position: 'bottom-right',
+    customClass: 'successInfo',
+    duration: 1500,
+  });

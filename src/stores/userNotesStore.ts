@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import type { NoteData, UserNotesState } from './types';
 import type { CreateNoteForm } from '@/components/notes/types';
 import { getDatabase, push, ref, remove, set, update } from 'firebase/database';
-import { noteAdded, noteDeleted, noteUpdated } from './helpers';
+import { noteAdded, noteChanged, noteDeleted, noteUpdated } from './helpers';
 import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 
 export const userNotesStore = defineStore('userNotes', {
@@ -43,6 +43,16 @@ export const userNotesStore = defineStore('userNotes', {
         .then(() => this.notesList.unshift(data))
         .then(noteAdded)
         .catch((e) => console.log(e, 'err'));
+    },
+    changeExistedNote(body: CreateNoteForm, id: string) {
+      const db = getDatabase();
+      const index = this.getIndexOfNoteById(id);
+      const data = this.createObject(body, id);
+      this.notesList.splice(index, 1, data);
+
+      return update(ref(db, `notes/${id}`), data)
+        .then(noteChanged)
+        .catch((e) => console.log('Error with changing note', e));
     },
     archiveOrRestoreNote(id: string, date: string) {
       const db = getDatabase();
