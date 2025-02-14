@@ -59,6 +59,7 @@ declare module 'vue' {
     NotesMoveList: typeof import('./src/components/shared/NotesMoveList.vue')['default']
     NotesPart: typeof import('./src/components/notes/NotesPart.vue')['default']
     NotesWrapper: typeof import('./src/components/shared/NotesWrapper.vue')['default']
+    RadioSharedStyle: typeof import('./src/components/settings/RadioSharedStyle.vue')['default']
     ResetPassword: typeof import('./src/components/auth/ResetPassword.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

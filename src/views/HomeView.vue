@@ -10,8 +10,8 @@
         <el-main>
           <RouterView /> <RouterView name="createnote" v-if="checkParams" />
           <RouterView name="pickedsetting" v-if="isSetting" />
-          <div class="actionContainer">
-            <RouterView name="action" v-show="isId" v-slot="{ Component }">
+          <div class="actionContainer" v-show="isId">
+            <RouterView name="action" v-slot="{ Component }">
               <component :is="Component">
                 <template #archive>
                   {{ btnStatus ? 'Restore note' : 'Archive note' }}

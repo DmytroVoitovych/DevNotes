@@ -58,6 +58,10 @@ const router = createRouter({
             default: { current: 'settings' },
             pickedsetting: (route) => ({ param: route.params.settingname }),
           },
+          beforeEnter: (to, from, next) => {
+            if (window.innerWidth >= 1440 && to.path === '/settings') next('/settings/color-theme');
+            else next();
+          },
         },
         {
           path: 'tags',
