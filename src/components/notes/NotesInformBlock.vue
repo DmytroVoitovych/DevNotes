@@ -41,17 +41,20 @@ const currentNotes = computed<number>(() => {
   margin-bottom: 16px;
   line-height: 1.3;
   letter-spacing: -0.2px;
-  color: $txt-cl-description-notes;
+  color: var(
+    --txt-cl-description-notes,
+    var(--txt-cl-description-notes, $txt-cl-description-notes)
+  );
 }
 .noteInformBlock {
   font-family: getInter();
   font-size: 14px;
   line-height: 1.3;
   letter-spacing: -0.2px;
-  color: $txt-cl-h;
-  background-color: $bg-cl-header;
+  color: var(--txt-cl-h, $txt-cl-h);
+  background-color: var(--bg-cl-header, $bg-cl-header);
   padding: 8px;
-  border: 1px solid $bor-cl-base;
+  border: 1px solid var(--bor-cl-base, $bor-cl-base);
   border-radius: 8px;
 
   @include mq(medium) {
@@ -75,6 +78,10 @@ const currentNotes = computed<number>(() => {
 .el-divider {
   display: none;
   margin: 0;
-  border-color: $bor-cl-base;
+  border-color: var(--bor-cl-base, $bor-cl-base);
+
+  /* :not(& + .notesList) {
+    display: none;
+  } */
 }
 </style>

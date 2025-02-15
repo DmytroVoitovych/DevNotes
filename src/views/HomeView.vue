@@ -74,6 +74,7 @@ watch(
 .commonLayout {
   display: flex;
   height: 100vh;
+  background-color: var(--bg-cl-base, $bg-cl-base);
 
   .actionContainer {
     display: none;
@@ -90,12 +91,12 @@ watch(
         gap: 16px;
         flex-direction: column-reverse;
         fill: none;
-        stroke: $txt-cl-h;
+        stroke: var(--txt-cl-h, $txt-cl-h);
         text-align: left;
 
         li.stroke {
           stroke: none;
-          fill: $txt-cl-h;
+          fill: var(--txt-cl-h, $txt-cl-h);
         }
       }
     }
@@ -105,7 +106,7 @@ watch(
     display: none;
     min-width: 272px;
     max-width: 19%;
-    border-right: 1px solid $bor-cl-base;
+    border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
     padding: 12px 16px;
     padding-top: 28.5px;
 
@@ -118,7 +119,7 @@ watch(
 .el-header {
   padding: 12px 16px;
   height: auto;
-  background-color: $bg-cl-header;
+  background-color: var(--bg-cl-header, $bg-cl-header);
 
   @include mq(medium) {
     padding: 16px 32px;
@@ -126,15 +127,15 @@ watch(
 
   @include mq(large) {
     padding: 18.5px 32px;
-    background-color: $bg-cl-base;
-    border-bottom: 1px solid $bor-cl-base;
+    background-color: var(--bg-cl-base, $bg-cl-base);
+    border-bottom: 1px solid var(--bor-cl-base, $bor-cl-base);
   }
 }
 
 .el-footer {
   padding: 12px 16px;
   height: auto;
-  border-top: 1px solid $bor-cl-base;
+  border-top: 1px solid var(--bor-cl-base, $bor-cl-base);
   overflow-x: auto;
 
   @include mq(medium) {

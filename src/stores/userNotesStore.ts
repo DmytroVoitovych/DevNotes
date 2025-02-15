@@ -20,7 +20,9 @@ export const userNotesStore = defineStore('userNotes', {
     getNotesByTagParametr: (state) => (tag: string) =>
       state.notesList.filter((e) => e.tags.includes(tag)),
     getNotesByQuery: (state) =>
-      state.notesList.filter((e) => JSON.stringify(e).includes(state.searchQuery)),
+      state.notesList.filter((e) =>
+        JSON.stringify(e).toLowerCase().includes(state.searchQuery.toLocaleLowerCase()),
+      ),
     getNotesById: (state) => (id: string) => state.notesList.find((e) => e.id === id),
     getIndexOfNoteById: (state) => (id: string) => state.notesList.findIndex((e) => e.id === id),
   },

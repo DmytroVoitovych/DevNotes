@@ -74,7 +74,7 @@
 import type { FormItemRule } from 'element-plus';
 import { useCustomFormHandler, useElementsUiForm } from '../auth/formHandler';
 import { formPasswordRules } from '../auth/helpers';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
 
 const { methods: confirmMeth, computes: confirmComput } = useCustomFormHandler();
@@ -83,7 +83,9 @@ const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 
 const oldPass = ref('');
 
-const inputDisabled = computed(() => formLabelAlignItems?.pass?.value?.length < 8);
+const inputDisabled = computed(
+  () => formLabelAlignItems?.pass?.value?.length < 8 && oldPass?.value?.length < 8,
+);
 const btnDisabled = computed(
   () =>
     formLabelAlignItems?.checkPass?.value &&
@@ -91,7 +93,7 @@ const btnDisabled = computed(
 );
 
 const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Error) => void) => {
-  if (value !== formLabelAlignItems.pass.value) {
+  if (formLabelAlignItems.checkPass.value !== formLabelAlignItems.pass.value) {
     callback(new Error(rule.message as string));
   } else {
     callback();
@@ -117,6 +119,7 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
     height: auto;
     margin-left: auto;
     transition: background-color 250ms;
+    border: none;
 
     @media (hover: hover) {
       &:hover {
@@ -128,21 +131,26 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
   .inputBox {
     display: grid;
     row-gap: 24px;
+    stroke: $cl-neutral-500;
   }
 
   :deep(.el-form-item) {
     margin-bottom: 0;
+    &.is-error .el-form-item__content .el-input__wrapper {
+      outline: 1px solid $error-cl;
+    }
   }
 
   :deep(.el-form-item) .el-form-item {
     position: relative;
     margin-bottom: 0;
+    background-color: transparent;
 
     &__label {
       font-family: getInter('Medium');
       line-height: 1.2;
       letter-spacing: -0.2px;
-      color: $txt-cl-h;
+      color: var(--txt-cl-h, $txt-cl-h);
       padding: 0;
       margin-bottom: 6px;
     }
@@ -170,18 +178,19 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
   :deep(.el-input__wrapper) {
     padding: 12px 16px;
     border-radius: 8px;
-    box-shadow: 0 0 0 1px $bor-cl-input inset;
+    box-shadow: 0 0 0 1px var(--bor-cl-input, $bor-cl-input) inset;
+    background-color: transparent;
     cursor: pointer;
 
     &.is-focus {
       box-shadow: 0 0 0 1px $focus-cl-base inset;
-      outline: 2px solid $bor-cl-input;
+      outline: 2px solid var(--bor-cl-input, $bor-cl-input);
       outline-offset: 3px;
     }
 
     & .el-input__inner {
       font-family: getInter();
-      color: $txt-cl-input;
+      color: var(--txt-cl-input, $txt-cl-input);
       cursor: pointer;
     }
 

@@ -62,7 +62,7 @@ onUpdated(() => {
 <style lang="scss">
 .el-form-item {
   & .info {
-    color: $txt-cl-description;
+    color: var(--txt-cl-description, $txt-cl-description);
     font-family: getInter();
     display: flex;
     align-items: center;

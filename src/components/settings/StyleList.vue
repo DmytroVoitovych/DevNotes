@@ -60,8 +60,8 @@ const conditionalList = computed(() => {
       font-family: getInter();
       line-height: 1.3;
       letter-spacing: -0.2px;
-      fill: $link-cl-grey;
-      color: $link-cl-grey;
+      fill: var(--link-cl-grey, $link-cl-grey);
+      color: var(--link-cl-grey, $link-cl-grey);
     }
   }
 }

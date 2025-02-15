@@ -27,6 +27,7 @@ const { current } = defineProps<{
 <style lang="scss" scoped>
 .logoShow {
   display: block;
+  fill: var(--txt-cl-h, $txt-cl-h);
   @include mq(large) {
     display: none;
   }

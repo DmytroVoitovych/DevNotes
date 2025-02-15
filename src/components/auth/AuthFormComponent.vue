@@ -46,7 +46,7 @@ const isLoginPage = computed(() => currentRoute === 'login');
     font-family: getInter('Medium');
     line-height: 1.2;
     letter-spacing: -0.2px;
-    color: $txt-cl-h;
+    color: var(--txt-cl-h, $txt-cl-h);
     padding: 0;
     margin-bottom: 6px;
   }
@@ -74,18 +74,18 @@ const isLoginPage = computed(() => currentRoute === 'login');
 .el-input__wrapper {
   padding: 12px 16px;
   border-radius: 8px;
-  box-shadow: 0 0 0 1px $bor-cl-input inset;
+  box-shadow: 0 0 0 1px var(--bor-cl-input, $bor-cl-input) inset;
   cursor: pointer;
 
   &.is-focus {
     box-shadow: 0 0 0 1px $focus-cl-base inset;
-    outline: 2px solid $bor-cl-input;
+    outline: 2px solid var(--bor-cl-input, $bor-cl-input);
     outline-offset: 3px;
   }
 
   & .el-input__inner {
     font-family: getInter();
-    color: $txt-cl-input;
+    color: var(--txt-cl-input, $txt-cl-input);
     cursor: pointer;
   }
 
@@ -124,7 +124,7 @@ const isLoginPage = computed(() => currentRoute === 'login');
   font-size: 12px;
   line-height: 1.4;
   text-decoration-skip-ink: none;
-  color: $link-cl-grey;
+  color: var(--link-cl-grey, $link-cl-grey);
   transition: color 250ms;
 
   &:hover {

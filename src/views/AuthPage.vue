@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import AuthComponent from '@/components/auth/AuthComponent.vue'
+import AuthComponent from '@/components/auth/AuthComponent.vue';
 </script>
 
 <style lang="scss">
@@ -21,8 +21,8 @@ import AuthComponent from '@/components/auth/AuthComponent.vue'
 .authSection {
   padding: 40px 16px;
   border-radius: 12px;
-  background-color: $bg-cl-base;
-  border: 1px solid $bor-cl-base;
+  background-color: var(--bg-cl-base, $bg-cl-base);
+  border: 1px solid var(--bor-cl-base, $bor-cl-base);
   display: grid;
   row-gap: 16px;
   box-shadow: $shadow-auth-block;

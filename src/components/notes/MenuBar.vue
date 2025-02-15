@@ -58,7 +58,7 @@ import SettingIco from '@/assets/images/icon-settings.svg';
     display: none;
     height: auto;
     margin: 0 auto;
-    border-color: $bor-cl-menu;
+    border-color: var(--bor-cl-menu, $bor-cl-menu);
 
     @include mq(medium) {
       display: block;
@@ -69,7 +69,8 @@ import SettingIco from '@/assets/images/icon-settings.svg';
     height: auto;
     padding: 4px 22px;
     border: none;
-    fill: $link-cl-grey;
+    fill: var(--link-cl-grey, $link-cl-grey);
+    background-color: transparent;
 
     @include mq(medium) {
       display: grid;
@@ -80,11 +81,11 @@ import SettingIco from '@/assets/images/icon-settings.svg';
 
     &.stroke {
       fill: none;
-      stroke: $link-cl-grey;
+      stroke: var(--link-cl-grey, $link-cl-grey);
     }
 
     &.router-link-active {
-      background-color: $bg-cl-nav;
+      background-color: var(--bg-cl-nav, $bg-cl-nav);
       fill: $link-cl-active;
 
       @include mq(medium) {
@@ -94,7 +95,7 @@ import SettingIco from '@/assets/images/icon-settings.svg';
       }
     }
     &.router-link-active.stroke {
-      background-color: $bg-cl-nav;
+      background-color: var(--bg-cl-nav, $bg-cl-nav);
       fill: none;
       stroke: $link-cl-active;
     }

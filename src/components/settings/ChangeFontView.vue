@@ -38,7 +38,7 @@
           @keydown.enter="() => pickBtnByKey('monospace')"
           @keydown.space="() => pickBtnByKey('monospace')"
           ><div class="radioAditionalContent fill">
-            <SystemIco />
+            <MonospaceIco />
             <div class="textRadioContent">
               <b>Monospace</b>
               <p>Code-like, great for a technical vibe.</p>
@@ -55,8 +55,7 @@
 <script lang="ts" setup>
 import SansSerifIco from '@/assets/images/icon-font-sans-serif.svg';
 import SerifIco from '@/assets/images/icon-font-serif.svg';
-import DarkIco from '@/assets/images/icon-moon.svg';
-import SystemIco from '@/assets/images/icon-system-theme.svg';
+import MonospaceIco from '@/assets/images/icon-font-monospace.svg';
 import { ref } from 'vue';
 import type { FontChoise } from './type';
 import RadioSharedStyle from './RadioSharedStyle.vue';

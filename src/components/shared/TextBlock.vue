@@ -15,7 +15,7 @@
     font-size: 24px;
     line-height: 1.2;
     letter-spacing: -0.5px;
-    color: $txt-cl-h;
+    color: var(--txt-cl-h, $txt-cl-h);
   }
 
   p {
@@ -23,7 +23,7 @@
     font-size: 14px;
     line-height: 1.3;
     letter-spacing: -0.2px;
-    color: $txt-cl-description;
+    color: var(--txt-cl-description, $txt-cl-description);
   }
 }
 </style>

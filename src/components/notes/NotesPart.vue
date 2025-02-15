@@ -93,7 +93,7 @@ watch(
   fill: $btn-cl-base;
   background-color: $btn-bg-base;
   border-radius: 999px;
-  box-shadow: 0 7px 11px 0 rgba(202, 207, 216, 0.7);
+  box-shadow: var(--mob-btn-shadow, $mob-btn-shadow);
   margin-top: auto;
   align-self: end;
 
@@ -142,8 +142,8 @@ watch(
       font-family: getInter();
       line-height: 1.3;
       letter-spacing: -0.2px;
-      fill: $link-cl-grey;
-      color: $link-cl-grey;
+      fill: var(--link-cl-grey, $link-cl-grey);
+      color: var(--link-cl-grey, $link-cl-grey);
     }
   }
 
@@ -158,7 +158,7 @@ watch(
     min-width: 290px;
     max-width: 21%;
     padding: 20px 16px 20px 32px;
-    border-right: 1px solid $bor-cl-base;
+    border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
     height: auto;
   }
 
@@ -186,6 +186,7 @@ watch(
     }
     @include mq(large) {
       display: block;
+      border: none;
     }
   }
 

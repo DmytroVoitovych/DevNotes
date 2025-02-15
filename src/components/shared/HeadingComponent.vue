@@ -19,10 +19,10 @@ const { param, query } = defineProps<{
   font-size: 24px;
   line-height: 1.2;
   letter-spacing: -0.5px;
-  color: $txt-cl-h;
+  color: var(--txt-cl-h, $txt-cl-h);
 
   .headingWithParam {
-    color: $txt-cl-description;
+    color: var(--txt-cl-description, $txt-cl-description);
   }
 
   &:has(+ .noteInformBlock) {

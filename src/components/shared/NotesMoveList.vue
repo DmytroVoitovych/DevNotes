@@ -88,8 +88,9 @@ const moveNote = (mutateDataBase: Promise<void | NotificationHandle>): void => {
     font-family: getInter(Medium);
     line-height: 1.2;
     letter-spacing: -0.2px;
-    color: $txt-cl-h;
-    border: 1px solid $bor-cl-input;
+    color: var(--txt-cl-h, $txt-cl-h);
+    border: 1px solid var(--bor-cl-input, $bor-cl-input);
+    background-color: transparent;
     justify-content: flex-start;
     width: 100%;
     padding: 12px 16px;

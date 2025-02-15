@@ -203,7 +203,7 @@ watch(
     min-width: 46%;
     padding: 20px 24px;
     height: auto;
-    border-right: 1px solid $bor-cl-base;
+    border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
   }
 }
 
@@ -217,8 +217,14 @@ watch(
   margin-bottom: 0;
 
   :deep(.el-input .el-input__inner) {
-    color: $txt-cl-description-notes;
-    -webkit-text-fill-color: $txt-cl-description-notes;
+    color: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
+    -webkit-text-fill-color: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
   }
 
   :deep(.el-form-item__label) {
@@ -229,8 +235,14 @@ watch(
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: -0.2px;
-    color: $txt-cl-description-notes;
-    fill: $txt-cl-description-notes;
+    color: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
+    fill: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
 
     @include mq(medium) {
       font-size: 14px;
@@ -284,6 +296,7 @@ watch(
     :deep(.el-input-tag__wrapper) {
       box-shadow: unset;
       padding: 0;
+      background-color: var(--bg-cl-base, $bg-cl-base);
 
       .is-right-space {
         margin-right: 0;
@@ -307,9 +320,15 @@ watch(
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;
-      color: $txt-cl-description-notes;
+      color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
       fill: none;
-      stroke: $txt-cl-description-notes;
+      stroke: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
 
       @include mq(medium) {
         font-size: 14px;
@@ -361,6 +380,7 @@ watch(
         :deep(.el-button) {
           padding: 0;
           border: none;
+          background-color: transparent;
         }
       }
 
@@ -370,7 +390,7 @@ watch(
 
       .el-button.cancelCreateBtn {
         @include mq(large) {
-          background-color: $btn-bg-cancel;
+          background-color: var(--btn-bg-cancel, $btn-bg-cancel);
         }
       }
 
@@ -402,7 +422,7 @@ watch(
         font-family: getInter();
         line-height: 1.3;
         letter-spacing: -0.2px;
-        color: $link-cl-grey;
+        color: var(--link-cl-grey, $link-cl-grey);
 
         @include mq(large) {
           padding: 12px 16px;
@@ -423,6 +443,8 @@ watch(
       height: inherit;
       box-shadow: unset;
       padding: 0;
+      color: var(--txt-cl-h, $txt-cl-h);
+      background-color: var(--bg-cl-base, $bg-cl-base);
 
       @include mq(medium) {
         font-size: 14px;
@@ -433,7 +455,10 @@ watch(
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
-        color: $txt-cl-description-notes;
+        color: var(
+          --txt-cl-description-notes,
+          var(--txt-cl-description-notes, $txt-cl-description-notes)
+        );
 
         @include mq(medium) {
           font-size: 14px;
@@ -460,8 +485,8 @@ watch(
     font-family: getInter();
     line-height: 1.3;
     letter-spacing: -0.2px;
-    fill: $link-cl-grey;
-    color: $link-cl-grey;
+    fill: var(--link-cl-grey, $link-cl-grey);
+    color: var(--link-cl-grey, $link-cl-grey);
   }
 }
 
@@ -476,7 +501,8 @@ watch(
     font-size: 20px;
     line-height: 1.2;
     letter-spacing: -0.3px;
-    color: $txt-cl-h;
+    color: var(--txt-cl-h, $txt-cl-h);
+    background-color: var(--bg-cl-base, $bg-cl-base);
 
     @include mq(medium) {
       font-size: 24px;
@@ -493,12 +519,12 @@ watch(
     font-size: 20px;
     line-height: 1.2;
     letter-spacing: -0.3px;
-    color: $txt-cl-h;
+    color: var(--txt-cl-h, $txt-cl-h);
   }
 }
 
 .el-divider {
-  border-color: $bor-cl-base;
+  border-color: var(--bor-cl-base, $bor-cl-base);
   margin: 12px 0;
   @include mq(medium) {
     margin: 16px 0;

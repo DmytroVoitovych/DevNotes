@@ -51,7 +51,7 @@ import IconExit from '@/assets/images/icon-logout.svg';
     min-width: 290px;
     max-width: 21%;
     padding: 20px 16px 20px 32px;
-    border-right: 1px solid $bor-cl-base;
+    border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
     height: auto;
   }
 
@@ -64,8 +64,8 @@ import IconExit from '@/assets/images/icon-logout.svg';
       display: flex;
       align-items: center;
       gap: 8px;
-      color: $link-cl-black;
-      stroke: $link-cl-black;
+      color: var(--link-cl-black, $link-cl-black);
+      stroke: var(--link-cl-black, $link-cl-black);
       fill: none;
       font-family: getInter(Medium);
       font-size: 14px;
@@ -73,15 +73,39 @@ import IconExit from '@/assets/images/icon-logout.svg';
       letter-spacing: -0.2px;
     }
 
+    > li:last-child {
+      padding: 8px;
+    }
+
     > li:nth-child(2) a {
       stroke: none;
-      fill: $link-cl-black;
+      fill: var(--link-cl-black, $link-cl-black);
+
+      &.router-link-active {
+        fill: $link-cl-active;
+      }
+    }
+
+    a {
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    & a.router-link-active {
+      stroke: $link-cl-active;
+      background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
+      background-repeat: no-repeat;
+      background-image: var(--arrow-img, $arrow-img);
+      background-origin: padding-box;
+      background-position: right center;
+      opacity: 1;
+      transition: opacity 250ms;
     }
   }
 
   .el-divider {
     margin: 0;
-    border-color: $bor-cl-base;
+    border-color: var(--bor-cl-base, $bor-cl-base);
   }
 
   button {

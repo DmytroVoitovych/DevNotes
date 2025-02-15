@@ -21,16 +21,21 @@
       font-size: 24px;
       line-height: 1.2;
       letter-spacing: -0.5px;
-      color: $txt-cl-h;
+      color: var(--txt-cl-h, $txt-cl-h);
       margin-bottom: 8px;
       padding: 0;
+      border-color: var(--bor-cl-base, $bor-cl-base);
+      border-radius: 12px;
     }
 
     .el-form-item__content > p {
       font-family: getInter();
       line-height: 1.3;
       letter-spacing: -0.2px;
-      color: $txt-cl-description-notes;
+      color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
       margin-bottom: 20px;
 
       @include mq(large) {
@@ -57,16 +62,16 @@
 
       .radioAditionalContent.fill svg {
         stroke: none;
-        fill: $txt-cl-h;
+        fill: var(--txt-cl-h, $txt-cl-h);
       }
 
       svg {
         padding: 8px;
-        stroke: $txt-cl-h;
+        stroke: var(--txt-cl-h, $txt-cl-h);
         fill: none;
         border-radius: 12px;
-        border: 1px solid $bor-cl-base;
-        background-color: $bg-cl-base;
+        border: 1px solid var(--bor-cl-base, $bor-cl-base);
+        background-color: var(--bg-cl-base, $bg-cl-base);
       }
 
       .el-radio__label {
@@ -96,18 +101,20 @@
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
+        color: var(--txt-radio-content, $txt-radio-content);
       }
 
       .el-radio__inner {
         width: 16px;
         height: 16px;
-        border-color: $bor-cl-base;
+        border-color: var(--bor-cl-base, $bor-cl-base);
         border-width: 2px;
+        background-color: transparent;
       }
 
       .el-radio.is-bordered.is-checked {
-        border-color: $bor-cl-base;
-        background-color: $bg-cl-radio;
+        border-color: var(--bor-cl-base, $bor-cl-base);
+        background-color: var(--bg-cl-radio, $bg-cl-radio);
       }
 
       .el-radio__input.is-checked + .el-radio__label {
@@ -117,6 +124,10 @@
       .el-radio__input.is-checked .el-radio__inner {
         border-color: $bor-cl-radio;
         background: $btn-bg-base;
+
+        &::after {
+          background-color: var(--bg-cl-radio, $bg-cl-radio);
+        }
       }
     }
   }
@@ -131,6 +142,7 @@
     color: $btn-cl-base;
     height: auto;
     margin-left: auto;
+    border: none;
     transition: background-color 250ms;
 
     @media (hover: hover) {

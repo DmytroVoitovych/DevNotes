@@ -35,13 +35,13 @@ const notesStore = userNotesStore();
     font-size: 14px;
     line-height: 1.2;
     letter-spacing: -0.2px;
-    color: $txt-cl-tag;
+    color: var(--txt-cl-tag, $txt-cl-tag);
     padding: 10px 12px;
   }
 
   li:not(:last-child) a {
     padding-bottom: 12px;
-    border-bottom: 1px solid $bor-cl-base;
+    border-bottom: 1px solid var(--bor-cl-base, $bor-cl-base);
 
     @include mq(large) {
       border: none;
@@ -58,8 +58,14 @@ const notesStore = userNotesStore();
     align-items: center;
     gap: 8px;
     fill: none;
-    stroke: $txt-cl-description-notes;
-    color: $txt-cl-description-notes;
+    stroke: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
+    color: var(
+      --txt-cl-description-notes,
+      var(--txt-cl-description-notes, $txt-cl-description-notes)
+    );
     font-family: getInter(Medium);
     font-size: 14px;
     line-height: 1.2;
@@ -71,9 +77,9 @@ const notesStore = userNotesStore();
 
       &.router-link-active {
         stroke: $link-cl-active;
-        background-color: $link-cl-aside-bg-active;
+        background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
         background-repeat: no-repeat;
-        background-image: url(@/assets/images/icon-chevron-right.svg);
+        background-image: var(--arrow-img, $arrow-img);
         background-origin: padding-box;
         background-position: right center;
         opacity: 1;

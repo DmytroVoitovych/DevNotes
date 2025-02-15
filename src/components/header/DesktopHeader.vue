@@ -54,7 +54,8 @@ watch(
   .el-button {
     padding: 0;
     border: none;
-    fill: $link-cl-grey;
+    fill: var(--link-cl-grey, $link-cl-grey);
+    background-color: transparent;
   }
 }
 </style>

@@ -48,7 +48,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item>
-      <el-button>Apply Changes</el-button>
+      <el-button native-type="button" @click="() => setTheme(theme)">Apply Changes</el-button>
     </el-form-item>
   </RadioSharedStyle>
 </template>
@@ -56,11 +56,32 @@
 import SunIco from '@/assets/images/icon-sun.svg';
 import DarkIco from '@/assets/images/icon-moon.svg';
 import SystemIco from '@/assets/images/icon-system-theme.svg';
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import type { ThemeChoise } from './type';
 import RadioSharedStyle from './RadioSharedStyle.vue';
 
-const theme = ref<ThemeChoise>('system');
+const isThemeInLocalStorage = computed<null | string>(() => window?.localStorage?.getItem('theme'));
+const theme = ref<ThemeChoise>((isThemeInLocalStorage.value as ThemeChoise) ?? 'system');
 
 const pickBtnByKey = (val: ThemeChoise) => (theme.value = val);
+
+const setTheme = (themeType: ThemeChoise) => {
+  if (themeType === 'dark' || themeType === 'light') {
+    window.localStorage.setItem('theme', themeType);
+    document.documentElement.className = themeType;
+    return;
+  } else {
+    if (window?.localStorage?.getItem('theme') !== null) {
+      window.localStorage.removeItem('theme');
+    }
+    document.documentElement.removeAttribute('class');
+    return;
+  }
+};
+
+onMounted(() => {
+  if (isThemeInLocalStorage.value !== null) {
+    document.documentElement.className = isThemeInLocalStorage.value;
+  }
+});
 </script>

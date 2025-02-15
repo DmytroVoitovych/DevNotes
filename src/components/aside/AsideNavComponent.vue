@@ -29,12 +29,13 @@ import LogoComponent from '../shared/LogoComponent.vue';
 </script>
 <style lang="scss" scoped>
 .asideLogo {
+  fill: var(--txt-cl-h, $txt-cl-h);
   margin-bottom: 29px;
 }
 
 .asideNav {
   .el-divider {
-    border-color: 1px solid $bor-cl-base;
+    border-top: 1px solid var(--bor-cl-base, $bor-cl-base);
     margin-bottom: 0;
     margin-top: 8px;
   }
@@ -51,19 +52,20 @@ import LogoComponent from '../shared/LogoComponent.vue';
     height: auto;
     padding: 10px 12px;
     border: none;
-    fill: $link-cl-black;
+    fill: var(--link-cl-black, $link-cl-black);
     border-radius: 8px;
+    background-color: transparent;
 
     &.stroke {
       fill: none;
-      stroke: $link-cl-black;
+      stroke: var(--link-cl-black, $link-cl-black);
     }
 
     &.router-link-active {
       fill: $link-cl-active;
-      background-color: $link-cl-aside-bg-active;
+      background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
       background-repeat: no-repeat;
-      background-image: url(@/assets/images/icon-chevron-right.svg);
+      background-image: var(--arrow-img, $arrow-img);
       background-origin: padding-box;
       background-position: right center;
       opacity: 1;
@@ -81,7 +83,7 @@ import LogoComponent from '../shared/LogoComponent.vue';
       line-height: 1.2;
       letter-spacing: -0.2px;
       margin-left: 8px;
-      color: $txt-cl-h;
+      color: var(--txt-cl-h, $txt-cl-h);
     }
   }
 }

@@ -32,33 +32,43 @@ watch(
 
 <style lang="scss" scoped>
 .searchInput {
+  &.el-input {
+    height: auto;
+    height: auto;
+    --el-input-inner-height: auto;
+
+    @include mq(large) {
+      max-width: 300px;
+    }
+  }
+
   :deep(.el-input__wrapper) {
+    background-color: var(--bg-cl-base, $bg-cl-base);
     border-radius: 8px;
-    border-color: $bor-cl-input;
+    border-color: var(--bor-cl-input, $bor-cl-input);
     padding: 16px;
     margin-bottom: 16px;
-    width: 100%;
 
     @include mq(large) {
       padding: 13px 16px;
-      max-width: 300px;
+      width: 300px;
       margin-bottom: 0;
     }
 
     @media (hover: hover) {
       &:hover {
-        background-color: $hover-input-cl;
+        background-color: var(--hover-input-cl, $hover-input-cl);
       }
     }
 
     &.is-focus {
       box-shadow: 0 0 0 1px $focus-cl-base inset;
-      outline: 2px solid $bor-cl-input;
+      outline: 2px solid var(--bor-cl-input, $bor-cl-input);
       outline-offset: 3px;
     }
 
     .searchIco {
-      fill: $txt-cl-input;
+      fill: var(--txt-cl-input, $txt-cl-input);
     }
 
     input {
@@ -66,6 +76,8 @@ watch(
       font-size: 14px;
       line-height: 1.3;
       letter-spacing: -0.2px;
+      color: var(--txt-cl-h, $txt-cl-h);
+      caret-color: var(--txt-cl-h, $txt-cl-h);
     }
 
     input::placeholder {
@@ -73,7 +85,7 @@ watch(
       font-size: 14px;
       line-height: 1.3;
       letter-spacing: -0.2px;
-      color: $txt-cl-input;
+      color: var(--txt-cl-input, $txt-cl-input);
     }
   }
 }

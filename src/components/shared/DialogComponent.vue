@@ -39,7 +39,7 @@ defineExpose({ switchDialogState });
   width: 100%;
   max-width: 440px;
   border-radius: 12px;
-  background-color: $bg-cl-base;
+  background-color: var(--bg-cl-base, $bg-cl-base);
 
   @media screen and (max-width: 472px) {
     width: calc(100% - 32px);
@@ -54,9 +54,9 @@ defineExpose({ switchDialogState });
 
     & > svg {
       padding: 8px;
-      background-color: $bg-cl-icon;
+      background-color: var(--bg-cl-icon, $bg-cl-icon);
       border-radius: 8px;
-      stroke: $txt-cl-h;
+      stroke: var(--txt-cl-h, $txt-cl-h);
     }
 
     .dialogTitle {
@@ -64,14 +64,14 @@ defineExpose({ switchDialogState });
       font-size: 16px;
       line-height: 1.2;
       letter-spacing: -0.3px;
-      color: $txt-cl-h;
+      color: var(--txt-cl-h, $txt-cl-h);
     }
 
     span {
       font-family: getInter();
       line-height: 1.2;
       letter-spacing: -0.3px;
-      color: $txt-cl-description-notes;
+      color: var(--txt-cl-description-notes, $txt-cl-description-notes);
       grid-column: 2/-1;
     }
   }
@@ -79,7 +79,7 @@ defineExpose({ switchDialogState });
   .el-divider {
     width: calc(100% + 40px);
     margin: 20px -20px 16px -20px;
-    border-color: $bor-cl-base;
+    border-color: var(--bor-cl-base, $bor-cl-base);
   }
 
   .el-dialog__footer {
@@ -100,11 +100,11 @@ defineExpose({ switchDialogState });
     .el-button.dialogCancel {
       padding: 12px 16px !important;
       border-radius: 8px;
-      background-color: $btn-bg-cancel;
+      background-color: var(--btn-bg-cancel, $btn-bg-cancel);
       font-family: getInter(Medium);
       line-height: 1.2;
       letter-spacing: -0.2px;
-      color: $txt-cl-description;
+      color: var(--txt-cl-description, $txt-cl-description);
     }
 
     .el-button.dialogAction {

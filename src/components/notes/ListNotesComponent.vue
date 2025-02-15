@@ -57,11 +57,25 @@ const { paramCreate, param, current } = defineProps<{
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: -0.3px;
-  background-color: $bg-cl-note;
+  background-color: var(--bg-cl-note, $bg-cl-note);
+  color: var(--txt-cl-h, $txt-cl-h);
   padding: 8px;
   border-radius: 6px;
 }
 .notesListContainer {
+  & li:not(:last-child) a {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bor-cl-base, $bor-cl-base);
+  }
+
+  & li:not(:first-child) a {
+    padding-top: 12px;
+  }
+
+  & li:has(+ li a.router-link-active) a {
+    border-bottom: none;
+  }
+
   .notesList {
     padding: 8px;
     display: inherit;
@@ -70,21 +84,12 @@ const { paramCreate, param, current } = defineProps<{
       outline: 1px solid #c0d5ff;
     }
 
-    &:not(:last-child) {
-      padding-bottom: 12px;
-      border-bottom: 1px solid $bor-cl-base;
-    }
-
-    &:not(:first-child) {
-      padding-top: 12px;
-    }
-
     h1 {
       font-family: getInter(SemiBold);
       font-size: 16px;
       line-height: 1.2;
       letter-spacing: -0.3px;
-      color: $txt-cl-h;
+      color: var(--txt-cl-h, $txt-cl-h);
       margin-bottom: 16px;
     }
 
@@ -98,8 +103,8 @@ const { paramCreate, param, current } = defineProps<{
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
-        color: $txt-cl-h;
-        background-color: $bg-cl-tags;
+        color: var(--txt-cl-h, $txt-cl-h);
+        background-color: var(--bg-cl-tags, $bg-cl-tags);
         padding: 2px 6px;
         border-radius: 4px;
       }
@@ -110,12 +115,19 @@ const { paramCreate, param, current } = defineProps<{
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;
-      color: $txt-cl-description-notes;
+      color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
     }
 
     &.router-link-active {
-      background-color: $bg-cl-note;
+      background-color: var(--bg-cl-note, $bg-cl-note);
       border-radius: 6px;
+
+      @include mq(large) {
+        border-bottom: none;
+      }
     }
   }
 }
