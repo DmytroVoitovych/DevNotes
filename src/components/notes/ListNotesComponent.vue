@@ -53,7 +53,8 @@ const { paramCreate, param, current } = defineProps<{
 
 <style lang="scss" scoped>
 .notesUntitled {
-  font-family: getInter(SemiBold);
+  font-family: var(--family-dynamic);
+  font-weight: 600;
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: -0.3px;
@@ -85,7 +86,8 @@ const { paramCreate, param, current } = defineProps<{
     }
 
     h1 {
-      font-family: getInter(SemiBold);
+      font-family: var(--family-dynamic);
+      font-weight: 600;
       font-size: 16px;
       line-height: 1.2;
       letter-spacing: -0.3px;
@@ -99,7 +101,8 @@ const { paramCreate, param, current } = defineProps<{
       margin-bottom: 12px;
 
       li {
-        font-family: getInter();
+        font-family: var(--family-dynamic);
+        font-weight: normal;
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
@@ -111,7 +114,8 @@ const { paramCreate, param, current } = defineProps<{
     }
 
     span {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;

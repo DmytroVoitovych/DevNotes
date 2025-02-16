@@ -53,7 +53,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
 
   &__error {
     color: $error-cl;
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     display: flex;
     gap: 8px;
 
@@ -84,7 +85,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
   }
 
   & .el-input__inner {
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     color: var(--txt-cl-input, $txt-cl-input);
     cursor: pointer;
   }
@@ -120,7 +122,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
 
 .linkForgot {
   float: right;
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   font-size: 12px;
   line-height: 1.4;
   text-decoration-skip-ink: none;
@@ -132,7 +135,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
   }
 
   &:visited {
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     font-size: 12px;
     line-height: 1.4;
     text-decoration-skip-ink: none;

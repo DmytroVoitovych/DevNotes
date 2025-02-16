@@ -103,7 +103,8 @@ import SettingIco from '@/assets/images/icon-settings.svg';
     @include mq(medium) {
       &:after {
         content: attr(data-link);
-        font-family: getInter();
+        font-family: var(--family-dynamic);
+        font-weight: normal;
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;

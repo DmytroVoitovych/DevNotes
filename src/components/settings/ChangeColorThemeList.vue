@@ -78,10 +78,4 @@ const setTheme = (themeType: ThemeChoise) => {
     return;
   }
 };
-
-onMounted(() => {
-  if (isThemeInLocalStorage.value !== null) {
-    document.documentElement.className = isThemeInLocalStorage.value;
-  }
-});
 </script>

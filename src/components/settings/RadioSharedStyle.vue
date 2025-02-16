@@ -17,7 +17,8 @@
     margin-bottom: 0;
 
     label {
-      font-family: getInter(Bold);
+      font-family: var(--family-dynamic);
+      font-weight: bold;
       font-size: 24px;
       line-height: 1.2;
       letter-spacing: -0.5px;
@@ -29,7 +30,8 @@
     }
 
     .el-form-item__content > p {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       line-height: 1.3;
       letter-spacing: -0.2px;
       color: var(
@@ -91,13 +93,15 @@
       }
 
       .textRadioContent b {
-        font-family: getInter(Medium);
+        font-family: var(--family-dynamic);
+        font-weight: 500;
         line-height: 1.2;
         letter-spacing: -0.2px;
       }
 
       .textRadioContent p {
-        font-family: getInter();
+        font-family: var(--family-dynamic);
+        font-weight: normal;
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
@@ -133,7 +137,8 @@
   }
 
   :deep(.el-button) {
-    font-family: getInter(Medium);
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.2px;
     padding: 12px 16px;

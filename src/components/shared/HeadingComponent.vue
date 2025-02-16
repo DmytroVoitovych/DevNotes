@@ -15,7 +15,8 @@ const { param, query } = defineProps<{
 
 <style lang="scss" scoped>
 .notesHeading {
-  font-family: getInter(Bold);
+  font-family: var(--family-dynamic);
+  font-weight: bold;
   font-size: 24px;
   line-height: 1.2;
   letter-spacing: -0.5px;

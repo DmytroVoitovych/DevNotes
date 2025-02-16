@@ -45,7 +45,8 @@ const { tip = '' } = defineProps<{
   }
 
   .logWith {
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     font-size: 14px;
     line-height: 1.3;
     letter-spacing: -0.2px;
@@ -73,7 +74,8 @@ const { tip = '' } = defineProps<{
   }
 
   .googleTip {
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     font-size: 14px;
     line-height: 1.3;
     letter-spacing: -0.2px;

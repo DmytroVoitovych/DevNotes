@@ -31,7 +31,8 @@ const notesStore = userNotesStore();
   }
 
   .desktopTagHeading {
-    font-family: getInter(Medium);
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     font-size: 14px;
     line-height: 1.2;
     letter-spacing: -0.2px;
@@ -66,7 +67,8 @@ const notesStore = userNotesStore();
       --txt-cl-description-notes,
       var(--txt-cl-description-notes, $txt-cl-description-notes)
     );
-    font-family: getInter(Medium);
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     font-size: 14px;
     line-height: 1.2;
     letter-spacing: -0.2px;

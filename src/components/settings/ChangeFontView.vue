@@ -5,11 +5,11 @@
       <el-radio-group v-model="font">
         <el-radio
           border
-          value="sans-serif"
+          value="Inter"
           tabindex="1"
-          @keydown.enter="() => pickBtnByKey('sans-serif')"
-          @keydown.space="() => pickBtnByKey('sans-serif')"
-          ><div class="radioAditionalContent">
+          @keydown.enter="() => pickBtnByKey('Inter')"
+          @keydown.space="() => pickBtnByKey('Inter')"
+          ><div class="radioAditionalContent fill">
             <SansSerifIco />
             <div class="textRadioContent">
               <b>Sans-serif</b>
@@ -19,10 +19,10 @@
         >
         <el-radio
           border
-          value="serif"
+          value="NotoSerif"
           tabindex="1"
-          @keydown.enter="() => pickBtnByKey('serif')"
-          @keydown.space="() => pickBtnByKey('serif')"
+          @keydown.enter="() => pickBtnByKey('NotoSerif')"
+          @keydown.space="() => pickBtnByKey('NotoSerif')"
           ><div class="radioAditionalContent fill">
             <SerifIco />
             <div class="textRadioContent">
@@ -33,10 +33,10 @@
         >
         <el-radio
           border
-          value="monospace"
+          value="SourceCodePro"
           tabindex="1"
-          @keydown.enter="() => pickBtnByKey('monospace')"
-          @keydown.space="() => pickBtnByKey('monospace')"
+          @keydown.enter="() => pickBtnByKey('SourceCodePro')"
+          @keydown.space="() => pickBtnByKey('SourceCodePro')"
           ><div class="radioAditionalContent fill">
             <MonospaceIco />
             <div class="textRadioContent">
@@ -48,7 +48,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item>
-      <el-button>Apply Changes</el-button>
+      <el-button native-type="button" @click="() => setFont(font)">Apply Changes</el-button>
     </el-form-item>
   </RadioSharedStyle>
 </template>
@@ -60,7 +60,12 @@ import { ref } from 'vue';
 import type { FontChoise } from './type';
 import RadioSharedStyle from './RadioSharedStyle.vue';
 
-const font = ref<FontChoise>('sans-serif');
+const font = ref<FontChoise>((window?.localStorage?.getItem('font') as FontChoise) || 'Inter');
+
+const setFont = (fontFamily: FontChoise) => {
+  window.localStorage.setItem('font', fontFamily);
+  document.documentElement.style.setProperty('--family-dynamic', fontFamily);
+};
 
 const pickBtnByKey = (val: FontChoise) => (font.value = val);
 </script>

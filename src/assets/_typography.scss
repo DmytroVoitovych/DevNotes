@@ -1,34 +1,90 @@
 @font-face {
-  font-family: 'Inter-Regular';
+  font-family: 'Inter';
   src:
-    local('Inter-Regular'),
+    local('Inter'),
     url('./fonts/inter/static/Inter_18pt-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter-Medium';
+  font-family: 'Inter';
   src:
-    local('Inter-Medium'),
+    local('Inter'),
     url('./fonts/inter/static/Inter_18pt-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter-Bold';
+  font-family: 'Inter';
   src:
-    local('Inter-Bold'),
+    local('Inter'),
     url('./fonts/inter/static/Inter_18pt-Bold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter-SemiBold';
+  font-family: 'Inter';
   src:
-    local('Inter-SemiBold'),
+    local('Inter'),
     url('./fonts/inter/static/Inter_18pt-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter-Italic';
+  font-family: 'Inter';
   src:
-    local('Inter-Italic'),
-    url('./fonts/inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('truetype');
+    local('Inter'),
+    url('./fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NotoSerif';
+  src:
+    local('NotoSerif'),
+    url('./fonts/noto-serif/static/NotoSerif-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NotoSerif';
+  src:
+    local('NotoSerif'),
+    url('./fonts/noto-serif/static/NotoSerif-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NotoSerif';
+  src:
+    local('NotoSerif'),
+    url('./fonts/noto-serif/static/NotoSerif-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NotoSerif';
+  src:
+    local('NotoSerif'),
+    url('./fonts/noto-serif/static/NotoSerif-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src:
+    local('SourceCodePro-Regular'),
+    url('./fonts/source-code-pro/static/SourceCodePro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src:
+    local('SourceCodePro'),
+    url('./fonts/source-code-pro/static/SourceCodePro-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src:
+    local('SourceCodePro'),
+    url('./fonts/source-code-pro/static/SourceCodePro-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src:
+    local('SourceCodePro'),
+    url('./fonts/source-code-pro/static/SourceCodePro-SemiBold.ttf') format('truetype');
 }

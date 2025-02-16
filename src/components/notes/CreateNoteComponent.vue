@@ -213,7 +213,8 @@ watch(
 
 .el-form-item.timeEdit:has(.el-input),
 .el-form-item.noteStatus:has(.el-input) {
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   margin-bottom: 0;
 
   :deep(.el-input .el-input__inner) {
@@ -231,7 +232,8 @@ watch(
     padding: 0;
     align-items: center;
     gap: 6px;
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: -0.2px;
@@ -278,7 +280,8 @@ watch(
     display: flex;
 
     :deep(.el-input-tag__input::placeholder) {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;
@@ -316,7 +319,8 @@ watch(
       padding: 0;
       align-items: center;
       gap: 6px;
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;
@@ -419,7 +423,8 @@ watch(
 
       .el-button {
         padding: 0;
-        font-family: getInter();
+        font-family: var(--family-dynamic);
+        font-weight: normal;
         line-height: 1.3;
         letter-spacing: -0.2px;
         color: var(--link-cl-grey, $link-cl-grey);
@@ -436,7 +441,8 @@ watch(
     height: 100%;
 
     :deep(.el-textarea__inner) {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       font-size: 12px;
       line-height: 1.2;
       letter-spacing: -0.2px;
@@ -451,7 +457,8 @@ watch(
       }
 
       &::placeholder {
-        font-family: getInter();
+        font-family: var(--family-dynamic);
+        font-weight: normal;
         font-size: 12px;
         line-height: 1.2;
         letter-spacing: -0.2px;
@@ -482,7 +489,8 @@ watch(
 
     align-items: center;
     gap: 4px;
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     line-height: 1.3;
     letter-spacing: -0.2px;
     fill: var(--link-cl-grey, $link-cl-grey);
@@ -497,7 +505,8 @@ watch(
   }
 
   .el-input__inner {
-    font-family: getInter(Bold);
+    font-family: var(--family-dynamic);
+    font-weight: bold;
     font-size: 20px;
     line-height: 1.2;
     letter-spacing: -0.3px;
@@ -515,7 +524,8 @@ watch(
   }
 
   .el-input__inner::placeholder {
-    font-family: getInter(Bold);
+    font-family: var(--family-dynamic);
+    font-weight: bold;
     font-size: 20px;
     line-height: 1.2;
     letter-spacing: -0.3px;

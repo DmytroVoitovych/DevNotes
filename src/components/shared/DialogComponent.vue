@@ -60,7 +60,8 @@ defineExpose({ switchDialogState });
     }
 
     .dialogTitle {
-      font-family: getInter(SemiBold);
+      font-family: var(--family-dynamic);
+      font-weight: 600;
       font-size: 16px;
       line-height: 1.2;
       letter-spacing: -0.3px;
@@ -68,7 +69,8 @@ defineExpose({ switchDialogState });
     }
 
     span {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       line-height: 1.2;
       letter-spacing: -0.3px;
       color: var(--txt-cl-description-notes, $txt-cl-description-notes);
@@ -101,7 +103,8 @@ defineExpose({ switchDialogState });
       padding: 12px 16px !important;
       border-radius: 8px;
       background-color: var(--btn-bg-cancel, $btn-bg-cancel);
-      font-family: getInter(Medium);
+      font-family: var(--family-dynamic);
+      font-weight: 500;
       line-height: 1.2;
       letter-spacing: -0.2px;
       color: var(--txt-cl-description, $txt-cl-description);
@@ -111,7 +114,8 @@ defineExpose({ switchDialogState });
       padding: 12px 16px !important;
       border-radius: 8px;
       background-color: v-bind(styleByType);
-      font-family: getInter(Medium);
+      font-family: var(--family-dynamic);
+      font-weight: 500;
       line-height: 1.2;
       letter-spacing: -0.2px;
       color: $btn-cl-base;

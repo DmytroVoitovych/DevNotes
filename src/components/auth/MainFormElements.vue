@@ -63,7 +63,8 @@ onUpdated(() => {
 .el-form-item {
   & .info {
     color: var(--txt-cl-description, $txt-cl-description);
-    font-family: getInter();
+    font-family: var(--family-dynamic);
+    font-weight: normal;
     display: flex;
     align-items: center;
     gap: 8px;

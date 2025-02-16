@@ -1,3 +1,7 @@
+:root {
+  --family-dynamic: Inter;
+}
+
 $cl-neutral-0: #ffffff;
 $cl-neutral-50: #f5f7fa;
 $cl-neutral-100: #f3f5f8;
@@ -98,21 +102,21 @@ $mob-btn-shadow: 0 7px 11px 0 rgba(202, 207, 216, 0.7);
 
 @media (prefers-color-scheme: light) {
   :root.dark {
-    --bg-cl-base: $cl-neutral-950;
-    --bg-cl-header: $cl-neutral-800;
-    --txt-cl-h: $cl-neutral-0;
-    --txt-cl-input: $cl-neutral-400;
-    --txt-cl-tag: $cl-neutral-500;
-    --bg-cl-tags: $cl-neutral-600;
-    --bor-cl-base: $cl-neutral-800;
-    --bor-cl-input: $cl-neutral-600;
-    --txt-cl-description-notes: $cl-neutral-200;
-    --bg-cl-nav: $cl-neutral-700;
-    // --link-cl-active: $cl-neutral-400;
-    --link-cl-aside-bg-active: $cl-neutral-800;
-    --link-cl-black: $cl-neutral-0;
-    --bor-cl-menu: $cl-neutral-800;
-    --bg-cl-note: $cl-neutral-800;
+    --bg-cl-base: #{$cl-neutral-950};
+    --bg-cl-header: #{$cl-neutral-800};
+    --txt-cl-h: #{$cl-neutral-0};
+    --txt-cl-input: #{$cl-neutral-400};
+    --txt-cl-tag: #{$cl-neutral-500};
+    --bg-cl-tags: #{$cl-neutral-600};
+    --bor-cl-base: #{$cl-neutral-800};
+    --bor-cl-input: #{$cl-neutral-600};
+    --txt-cl-description-notes: #{$cl-neutral-200};
+    --bg-cl-nav: #{$cl-neutral-700};
+    // --link-cl-active: #{$cl-neutral-400};
+    --link-cl-aside-bg-active: #{$cl-neutral-800};
+    --link-cl-black: #{$cl-neutral-0};
+    --bor-cl-menu: #{$cl-neutral-800};
+    --bg-cl-note: #{$cl-neutral-800};
     --arrow-img: url(@/assets/images/icon-chevron-dark.svg);
     --link-cl-grey: #{$cl-neutral-400};
     --btn-bg-cancel: #{$cl-neutral-800};
@@ -123,188 +127,4 @@ $mob-btn-shadow: 0 7px 11px 0 rgba(202, 207, 216, 0.7);
     --txt-cl-description: #{$cl-neutral-300};
     --bg-cl-icon: #{$cl-neutral-600};
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  $bg-cl-base: $cl-neutral-950;
-  $bg-cl-header: $cl-neutral-800;
-  $txt-cl-h: $cl-neutral-0;
-  $txt-cl-input: $cl-neutral-400;
-  $txt-cl-tag: $cl-neutral-500;
-  $bg-cl-tags: $cl-neutral-600;
-  $bor-cl-base: $cl-neutral-800;
-  $bor-cl-input: $cl-neutral-600;
-  $txt-cl-description: $cl-neutral-200;
-  $bg-cl-nav: $cl-neutral-700;
-  $link-cl-active: $cl-neutral-400;
-  $link-cl-aside-bg-active: $cl-neutral-800;
-  $link-cl-black: $cl-neutral-0;
-  $bor-cl-menu: $cl-neutral-800;
-  $bg-cl-note: $cl-neutral-800;
-
-  //   body {
-  //     background-color: var(--bg-cl-base,$bg-cl-base) !important;
-  //   }
-
-  //   header {
-  //     background-color: var(--bg-cl-base,$bg-cl-base) !important;
-
-  //     .logoShow {
-  //       fill: var(--txt-cl-h,$txt-cl-h);
-  //     }
-
-  //     @media screen and (max-width: 1439.9px) {
-  //       background-color: var(--bg-cl-header,$bg-cl-header) !important;
-  //     }
-  //   }
-
-  //   aside {
-  //     .asideLogo {
-  //       fill: var(--txt-cl-h,$txt-cl-h);
-  //     }
-  //   }
-
-  //   h1 {
-  //     color: var(--txt-cl-h,$txt-cl-h) !important;
-  //   }
-
-  //   ul.notesListContainer {
-  //     .notesList.router-link-active {
-  //       background-color: var(--bg-cl-note,$bg-cl-note) !important;
-  //     }
-
-  //     a {
-  //       border-color: var(--bor-cl-base,$bor-cl-base) !important;
-
-  //       span {
-  //         color: var(--txt-cl-description-notes,var(--txt-cl-description,$txt-cl-description)-notes) !important;
-  //       }
-  //     }
-
-  //     ul > li {
-  //       background-color: var(--bg-cl-tags,$bg-cl-tags) !important;
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-  //   }
-
-  //   footer {
-  //     border-color: var(--bor-cl-base,$bor-cl-base) !important;
-  //     .mobLinkList a:not(.router-link-active) {
-  //       background-color: unset;
-  //       fill: $link-cl-active !important;
-  //     }
-
-  //     .mobLinkList a.stroke:not(.router-link-active) {
-  //       background-color: unset;
-  //       fill: none !important;
-  //       stroke: $link-cl-active !important;
-  //     }
-
-  //     .mobLinkList a.router-link-active {
-  //       background-color: var(--bg-cl-nav,$bg-cl-nav) !important;
-  //     }
-
-  //     .el-divider--vertical {
-  //       border-color: var(--bor-cl-menu,$bor-cl-menu) !important;
-  //     }
-  //   }
-
-  //   .notesWrapper {
-  //     .el-button.mobCreateNote {
-  //       box-shadow: 0 7px 11px 0 rgba(0, 0, 0, 0.7) !important;
-  //     }
-
-  //     .notesUntitled {
-  //       background-color: var(--bg-cl-note,$bg-cl-note) !important;
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-  //   }
-
-  //   .searchInput {
-  //     .el-input__wrapper {
-  //       background-color: var(--bg-cl-base,$bg-cl-base);
-  //       border-color: var(--bor-cl-input,$bor-cl-input) !important;
-  //       fill: var(--txt-cl-input,$txt-cl-input) !important;
-  //     }
-
-  //     input {
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //       caret-color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-  //   }
-
-  //   .rightSearchWrapper {
-  //     .el-button {
-  //       background-color: var(--bg-cl-base,$bg-cl-base);
-  //       fill: var(--link-cl-grey,$link-cl-grey);
-  //     }
-  //   }
-
-  //   .asideMenuList li .el-button {
-  //     background-color: var(--bg-cl-base,$bg-cl-base);
-  //     fill: var(--link-cl-black,$link-cl-black);
-
-  //     &.router-link-active {
-  //       background-color: var(--link-cl-aside-bg-active,$link-cl-aside-bg-active);
-  //       background-image: url(@/assets/images/icon-chevron-dark.svg);
-  //     }
-
-  //     &.stroke {
-  //       fill: none;
-  //       stroke: var(--link-cl-black,$link-cl-black);
-  //     }
-
-  //     &::after {
-  //       color: var(--txt-cl-h,$txt-cl-h);
-  //     }
-  //   }
-
-  //   .linkTagsContainer {
-  //     .desktopTagHeading {
-  //       color: var(--txt-cl-tag,$txt-cl-tag) !important;
-  //     }
-
-  //     a {
-  //       color: var(--txt-cl-description-notes,var(--txt-cl-description,$txt-cl-description)-notes) !important;
-
-  //       &:not(.router-link-active) {
-  //         stroke: var(--txt-cl-description-notes,var(--txt-cl-description,$txt-cl-description)-notes) !important;
-  //       }
-
-  //       &.router-link-active {
-  //         background-color: var(--link-cl-aside-bg-active,$link-cl-aside-bg-active) !important;
-  //         background-image: url(@/assets/images/icon-chevron-dark.svg) !important;
-  //       }
-  //     }
-  //   }
-
-  //   .createNoteForm {
-  //     .el-input-tag {
-  //       background-color: var(--bg-cl-base,$bg-cl-base) !important;
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //       caret-color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-
-  //     .el-form-item__label {
-  //       color: var(--txt-cl-description-notes,var(--txt-cl-description,$txt-cl-description)-notes) !important;
-  //       stroke: var(--txt-cl-description-notes,var(--txt-cl-description,$txt-cl-description)-notes) !important;
-  //     }
-  //     input {
-  //       background-color: var(--bg-cl-base,$bg-cl-base) !important;
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //       caret-color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-  //     .inputBox {
-  //       .el-input:first-child {
-  //         input::placeholder {
-  //           color: var(--txt-cl-h,$txt-cl-h);
-  //         }
-  //       }
-  //     }
-  //     textarea {
-  //       background-color: var(--bg-cl-base,$bg-cl-base) !important;
-  //       color: var(--txt-cl-h,$txt-cl-h) !important;
-  //       caret-color: var(--txt-cl-h,$txt-cl-h) !important;
-  //     }
-  //   }
 }

@@ -74,7 +74,7 @@
 import type { FormItemRule } from 'element-plus';
 import { useCustomFormHandler, useElementsUiForm } from '../auth/formHandler';
 import { formPasswordRules } from '../auth/helpers';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import HeadingComponent from '../shared/HeadingComponent.vue';
 
 const { methods: confirmMeth, computes: confirmComput } = useCustomFormHandler();
@@ -109,7 +109,8 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
   }
 
   :deep(.el-button) {
-    font-family: getInter(Medium);
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.2px;
     padding: 12px 16px;
@@ -147,7 +148,8 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
     background-color: transparent;
 
     &__label {
-      font-family: getInter('Medium');
+      font-family: var(--family-dynamic);
+      font-weight: 500;
       line-height: 1.2;
       letter-spacing: -0.2px;
       color: var(--txt-cl-h, $txt-cl-h);
@@ -157,7 +159,8 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
 
     &__error {
       color: $error-cl;
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       display: flex;
       gap: 8px;
 
@@ -189,7 +192,8 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
     }
 
     & .el-input__inner {
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       color: var(--txt-cl-input, $txt-cl-input);
       cursor: pointer;
     }
@@ -205,7 +209,8 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
       transition: background-color 250ms;
 
       & input {
-        font-family: getInter('SemiBold');
+        font-family: var(--family-dynamic);
+        font-weight: 600;
         font-size: 16px;
         line-height: 1.2;
         letter-spacing: -0.3px;

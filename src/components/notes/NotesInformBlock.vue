@@ -36,7 +36,8 @@ const currentNotes = computed<number>(() => {
 </script>
 <style lang="scss" scoped>
 .noteDescribBlock {
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   font-size: 14px;
   margin-bottom: 16px;
   line-height: 1.3;
@@ -47,7 +48,8 @@ const currentNotes = computed<number>(() => {
   );
 }
 .noteInformBlock {
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   font-size: 14px;
   line-height: 1.3;
   letter-spacing: -0.2px;

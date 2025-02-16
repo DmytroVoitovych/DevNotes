@@ -85,7 +85,8 @@ const moveNote = (mutateDataBase: Promise<void | NotificationHandle>): void => {
 <style lang="scss" scoped>
 @include mq(large) {
   .el-button {
-    font-family: getInter(Medium);
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.2px;
     color: var(--txt-cl-h, $txt-cl-h);

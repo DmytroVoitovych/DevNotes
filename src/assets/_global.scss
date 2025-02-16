@@ -2,12 +2,14 @@
 @use './functions' as *;
 
 .el-message-box.alertSuccessTitle {
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   --el-messagebox-title-color: #{$cl-green-500};
 }
 
 .el-message-box.errAlertTitle {
-  font-family: getInter();
+  font-family: var(--family-dynamic);
+  font-weight: normal;
   --el-messagebox-title-color: #{$cl-red-500};
 }
 

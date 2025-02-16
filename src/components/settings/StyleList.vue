@@ -57,7 +57,8 @@ const conditionalList = computed(() => {
 
       align-items: center;
       gap: 4px;
-      font-family: getInter();
+      font-family: var(--family-dynamic);
+      font-weight: normal;
       line-height: 1.3;
       letter-spacing: -0.2px;
       fill: var(--link-cl-grey, $link-cl-grey);

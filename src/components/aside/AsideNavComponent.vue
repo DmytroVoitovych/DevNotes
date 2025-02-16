@@ -78,7 +78,8 @@ import LogoComponent from '../shared/LogoComponent.vue';
 
     &:after {
       content: attr(data-link);
-      font-family: getInter(Medium);
+      font-family: var(--family-dynamic);
+      font-weight: 500;
       font-size: 14px;
       line-height: 1.2;
       letter-spacing: -0.2px;
