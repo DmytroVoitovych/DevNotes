@@ -66,7 +66,9 @@
       </el-form-item>
     </div>
 
-    <el-button v-loading="loading" :disabled="btnDisabled">Save Password</el-button>
+    <el-button v-loading="loading" :disabled="btnDisabled" @click="() => changePass()"
+      >Save Password</el-button
+    >
   </div>
 </template>
 
@@ -98,6 +100,12 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
   } else {
     callback();
   }
+};
+
+const changePass = () => {
+  methods
+    .submitNewPassword(oldPass.value, formLabelAlignItems.pass.value)
+    .finally(() => (oldPass.value = ''));
 };
 </script>
 <style lang="scss" scoped>

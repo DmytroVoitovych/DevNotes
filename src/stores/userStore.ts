@@ -8,6 +8,10 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
+  updatePassword,
+  validatePassword,
+  type User,
 } from 'firebase/auth';
 import {
   authErrorHandler,
@@ -18,10 +22,12 @@ import { type RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 
 import router from '@/router';
 import {
+  errorPasswordChangeInform,
   errorPasswordResetInform,
   errorResetLinkSendingInform,
   needToGetNewResetLink,
   successPasswordResetInform,
+  successPasswordUpdateInform,
   successResetLinkSendingInform,
 } from './helpers';
 
@@ -77,6 +83,18 @@ export const useUserStore = defineStore('userInformation', {
         .then(successPasswordResetInform)
         .then(() => router.push({ name: 'login' }))
         .catch(errorPasswordResetInform);
+    },
+    changeUserPassword(oldPass: string, newPass: string) {
+      return validatePassword(getAuth(), oldPass)
+        .then((e) => !e.isValid && Promise.reject(new Error('Old password is wrong')))
+        .then(() => updatePassword(getAuth().currentUser as User, newPass))
+        .then(successPasswordUpdateInform)
+        .catch(errorPasswordChangeInform);
+    },
+    logOut() {
+      signOut(getAuth())
+        .then((e) => console.log(e))
+        .catch((e) => console.log(e));
     },
   },
 });

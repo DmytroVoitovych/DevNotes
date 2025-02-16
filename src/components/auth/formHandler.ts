@@ -40,6 +40,13 @@ export const useCustomFormHandler = () => {
     loading.value = flag;
   };
 
+  const submitNewPassword = (oldPassword: string, newPassword: string) => {
+    changeLoadState(true);
+    return userStore
+      .changeUserPassword(oldPassword, newPassword)
+      .finally(() => resetForm(formMainReactObj));
+  };
+
   const submitForm = (
     route: AuthRoutes,
     { email, pass = '', checkPass = '' }: { email: string; pass: string; checkPass?: string },
@@ -70,6 +77,7 @@ export const useCustomFormHandler = () => {
     methods: {
       showPassword,
       submitForm,
+      submitNewPassword,
     },
     loading: toRef(loading),
   };

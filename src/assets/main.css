@@ -18,6 +18,16 @@ a {
   text-decoration: none;
 }
 
+html.dark body {
+  background-color: #0e121b;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) body {
+    background-color: #0e121b;
+  }
+}
+
 body {
   height: inherit;
   display: flex;

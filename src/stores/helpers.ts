@@ -26,8 +26,25 @@ export const successPasswordResetInform = () =>
     customClass: 'alertSuccessTitle',
   });
 
+export const successPasswordUpdateInform = () =>
+  ElMessageBox.alert('Password successfully changed. You can now log in with your new password.', {
+    title: 'Success',
+    showClose: false,
+    confirmButtonText: 'OK',
+    customClass: 'alertSuccessTitle',
+  });
+
 export const errorPasswordResetInform = (err: FirebaseError) => {
   return ElMessageBox.alert(err.message || 'Error resetting password. Please try again.', {
+    showClose: false,
+    confirmButtonText: 'OK',
+    title: 'Error',
+    customClass: 'errAlertTitle',
+  });
+};
+
+export const errorPasswordChangeInform = (err: FirebaseError) => {
+  return ElMessageBox.alert(err.message || 'Error changing password. Please try again.', {
     showClose: false,
     confirmButtonText: 'OK',
     title: 'Error',
