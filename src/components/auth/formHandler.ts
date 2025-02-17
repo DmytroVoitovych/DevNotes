@@ -40,6 +40,11 @@ export const useCustomFormHandler = () => {
     loading.value = flag;
   };
 
+  const logOut = () => {
+    changeLoadState(true);
+    userStore.logOut().finally(() => changeLoadState(false));
+  };
+
   const submitNewPassword = (oldPassword: string, newPassword: string) => {
     changeLoadState(true);
     return userStore
@@ -78,6 +83,7 @@ export const useCustomFormHandler = () => {
       showPassword,
       submitForm,
       submitNewPassword,
+      logOut,
     },
     loading: toRef(loading),
   };

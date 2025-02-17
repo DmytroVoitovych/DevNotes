@@ -45,5 +45,6 @@ watch(
 <style lang="scss" scoped>
 .authLogo {
   justify-self: center;
+  fill: var(--txt-cl-h, $txt-cl-h);
 }
 </style>

@@ -1,14 +1,15 @@
 import type { Ref } from 'vue';
 import type { CommaHandler } from './types';
 
-export const enterEvent = new KeyboardEvent('keydown', {
-  bubbles: true,
-  cancelable: true,
-  key: 'Enter',
-  code: 'Enter',
-  keyCode: 13,
-  which: 13,
-});
+export const enterEvent = () =>
+  new KeyboardEvent('keydown', {
+    bubbles: true,
+    cancelable: true,
+    key: 'Enter',
+    code: 'Enter',
+    keyCode: 13,
+    which: 13,
+  });
 
 const optionsDate: Intl.DateTimeFormatOptions = {
   day: 'numeric',
@@ -72,7 +73,7 @@ export const handleCommaCode: CommaHandler = (event, commaTrigger, commaFlag) =>
     input.value = '';
     event.preventDefault();
     if (handeledValue) {
-      input.dispatchEvent(enterEvent);
+      input.dispatchEvent(enterEvent());
     }
 
     return;

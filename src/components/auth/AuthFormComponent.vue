@@ -43,7 +43,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
   margin-bottom: 0;
 
   &--label-top &__label {
-    font-family: getInter('Medium');
+    font-family: var(--family-dynamic);
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.2px;
     color: var(--txt-cl-h, $txt-cl-h);
@@ -76,6 +77,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
   padding: 12px 16px;
   border-radius: 8px;
   box-shadow: 0 0 0 1px var(--bor-cl-input, $bor-cl-input) inset;
+  background-color: transparent;
+  stroke: #717784;
   cursor: pointer;
 
   &.is-focus {
@@ -102,7 +105,8 @@ const isLoginPage = computed(() => currentRoute === 'login');
     transition: background-color 250ms;
 
     & input {
-      font-family: getInter('SemiBold');
+      font-family: var(--family-dynamic);
+      font-weight: 600;
       font-size: 16px;
       line-height: 1.2;
       letter-spacing: -0.3px;

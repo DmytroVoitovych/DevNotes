@@ -87,6 +87,8 @@ watch(
 
 <style lang="scss" scoped>
 .mobCreateNote {
+  position: sticky;
+  bottom: 0;
   width: 48px;
   height: 48px;
   padding: 8px;
@@ -105,6 +107,7 @@ watch(
   @include mq(medium) {
     width: 64px;
     height: 64px;
+    border-radius: 50%;
   }
 
   @include mq(large) {

@@ -25,10 +25,10 @@ onMounted(() => {
       userStore.setLoginStatus(userStatus);
       const dbRef = fireref(getDatabase());
 
-      get(child(dbRef, `notes`))
+      get(child(dbRef, `notes/${auth.currentUser?.uid}`))
         .then((snapshot) => {
           if (snapshot.exists()) notesStore.syncStorageAndDatabase(Object.values(snapshot.val()));
-          else console.log('No data available');
+          else notesStore.syncStorageAndDatabase();
         })
         .catch((error) => console.error(error));
       if (router.currentRoute.value.fullPath.includes('auth')) router.push({ name: 'home' });

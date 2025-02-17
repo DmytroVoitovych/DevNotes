@@ -92,7 +92,7 @@ export const useUserStore = defineStore('userInformation', {
         .catch(errorPasswordChangeInform);
     },
     logOut() {
-      signOut(getAuth())
+      return signOut(getAuth())
         .then((e) => console.log(e))
         .catch((e) => console.log(e));
     },

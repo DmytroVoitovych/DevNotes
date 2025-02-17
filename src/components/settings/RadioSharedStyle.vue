@@ -106,6 +106,7 @@
         line-height: 1.2;
         letter-spacing: -0.2px;
         color: var(--txt-radio-content, $txt-radio-content);
+        text-wrap: auto;
       }
 
       .el-radio__inner {

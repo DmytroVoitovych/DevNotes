@@ -1,25 +1,27 @@
 <template>
-  <LogoComponent class="asideLogo" />
-  <nav class="asideNav">
-    <ul class="asideMenuList">
-      <li>
-        <el-button tag="router-link" :to="{ name: 'notes' }" data-link="All notes"
-          ><HomeIco
-        /></el-button>
-      </li>
-      <li>
-        <el-button
-          tag="router-link"
-          class="stroke"
-          :to="{ name: 'archivednotes' }"
-          data-link="Archived Notes"
-        >
-          <ArchiveIco />
-        </el-button>
-      </li>
-    </ul>
-    <el-divider />
-  </nav>
+  <div class="stickyNav">
+    <LogoComponent class="asideLogo" />
+    <nav class="asideNav">
+      <ul class="asideMenuList">
+        <li>
+          <el-button tag="router-link" :to="{ name: 'notes' }" data-link="All notes"
+            ><HomeIco
+          /></el-button>
+        </li>
+        <li>
+          <el-button
+            tag="router-link"
+            class="stroke"
+            :to="{ name: 'archivednotes' }"
+            data-link="Archived Notes"
+          >
+            <ArchiveIco />
+          </el-button>
+        </li>
+      </ul>
+      <el-divider />
+    </nav>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -28,6 +30,12 @@ import ArchiveIco from '@/assets/images/icon-archive.svg';
 import LogoComponent from '../shared/LogoComponent.vue';
 </script>
 <style lang="scss" scoped>
+.stickyNav {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-cl-base, $bg-cl-base);
+}
+
 .asideLogo {
   fill: var(--txt-cl-h, $txt-cl-h);
   margin-bottom: 29px;

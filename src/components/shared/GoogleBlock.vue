@@ -65,11 +65,13 @@ const { tip = '' } = defineProps<{
     & > span {
       gap: 16px;
       flex-direction: row-reverse;
-      font-family: getInter('Medium');
+      font-family: var(--family-dynamic);
+      font-weight: 500;
       font-size: 16px;
       line-height: 1;
       letter-spacing: 0.5px;
       color: var(--txt-cl-h, $txt-cl-h);
+      fill: var(--txt-cl-h, $txt-cl-h);
     }
   }
 

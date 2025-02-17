@@ -19,7 +19,9 @@
       </li>
       <el-divider />
       <li>
-        <button type="button" @click="authStore.logOut"><IconExit /> Logout</button>
+        <button type="button" @click="methods.logOut" v-loading="loading">
+          <IconExit /> Logout
+        </button>
       </li>
     </ul>
   </div>
@@ -30,9 +32,9 @@ import IconSun from '@/assets/images/icon-sun.svg';
 import IconFont from '@/assets/images/icon-font.svg';
 import IconLock from '@/assets/images/icon-lock.svg';
 import IconExit from '@/assets/images/icon-logout.svg';
-import { useUserStore } from '@/stores/userStore';
+import { useCustomFormHandler } from '../auth/formHandler';
 
-const authStore = useUserStore();
+const { methods, loading } = useCustomFormHandler();
 </script>
 
 <style lang="scss" scoped>

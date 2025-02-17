@@ -4,6 +4,7 @@ import type { CreateNoteForm } from '@/components/notes/types';
 import { getDatabase, push, ref, remove, set, update } from 'firebase/database';
 import { noteAdded, noteChanged, noteDeleted, noteUpdated } from './helpers';
 import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router';
+import { getAuth } from 'firebase/auth';
 
 export const userNotesStore = defineStore('userNotes', {
   state(): UserNotesState {
@@ -30,14 +31,15 @@ export const userNotesStore = defineStore('userNotes', {
     createObject({ title, tags, text, lastEdited, isArchived }: CreateNoteForm, id: string) {
       return { title, tags, content: text, lastEdited, isArchived, id };
     },
-    syncStorageAndDatabase(data: NoteData[]) {
-      console.log('sinc');
-      this.notesList = data.map((e: NoteData) => e).toReversed();
+    syncStorageAndDatabase(data?: NoteData[]) {
+      if (data) this.notesList = data.map((e: NoteData) => e).toReversed();
+      else this.notesList.length = 0;
     },
     addNote(body: CreateNoteForm) {
       const db = getDatabase();
+      const uid = getAuth().currentUser?.uid;
 
-      const newNoteRef = push(ref(db, 'notes'));
+      const newNoteRef = push(ref(db, `notes/${uid}`));
       const noteId = newNoteRef.key;
       const data = this.createObject(body, noteId as string);
 
@@ -48,24 +50,26 @@ export const userNotesStore = defineStore('userNotes', {
     },
     changeExistedNote(body: CreateNoteForm, id: string) {
       const db = getDatabase();
+      const uid = getAuth().currentUser?.uid;
       const index = this.getIndexOfNoteById(id);
       const data = this.createObject(body, id);
       this.notesList.splice(index, 1, data);
 
-      return update(ref(db, `notes/${id}`), data)
+      return update(ref(db, `notes/${uid}/${id}`), data)
         .then(noteChanged)
         .catch((e) => console.log('Error with changing note', e));
     },
     archiveOrRestoreNote(id: string, date: string) {
       const db = getDatabase();
+      const uid = getAuth().currentUser?.uid;
       const index = this.getIndexOfNoteById(id);
       const updatedNote = this.notesList[index];
       updatedNote.isArchived = !updatedNote.isArchived;
       updatedNote.lastEdited = date;
 
       const updates = {
-        [`/notes/${id}/isArchived`]: updatedNote.isArchived,
-        [`/notes/${id}/lastEdited`]: date,
+        [`/notes/${uid}/${id}/isArchived`]: updatedNote.isArchived,
+        [`/notes/${uid}/${id}/lastEdited`]: date,
       };
 
       return update(ref(db), updates)
@@ -74,9 +78,10 @@ export const userNotesStore = defineStore('userNotes', {
     },
     deleteNote(id: string) {
       const db = getDatabase();
+      const uid = getAuth().currentUser?.uid;
       const index = this.getIndexOfNoteById(id);
       this.notesList.splice(index, 1);
-      const noteRef = ref(db, `notes/${id}`);
+      const noteRef = ref(db, `notes/${uid}/${id}`);
 
       return remove(noteRef)
         .then(noteDeleted)

@@ -44,7 +44,7 @@
             <el-input-tag
               :readonly="isWritable"
               :max="5"
-              v-model.trim="form.tags"
+              v-model="form.tags"
               @keydown.stop="
                 (e: KeyboardEvent) => handleCommaCode(e, switchCommaTrigger, commaTrigger)
               "
@@ -300,6 +300,24 @@ watch(
       box-shadow: unset;
       padding: 0;
       background-color: var(--bg-cl-base, $bg-cl-base);
+
+      .el-input-tag__input {
+        color: var(--txt-cl-h, $txt-cl-h);
+      }
+
+      .el-input-tag__inner:has(input[readonly]) {
+        gap: 0;
+
+        .el-tag {
+          background-color: transparent;
+          padding: 0;
+          color: var(--txt-cl-h, $txt-cl-h);
+        }
+
+        .el-tag:not(:last-of-type) .el-tag__content::after {
+          content: ', ';
+        }
+      }
 
       .is-right-space {
         margin-right: 0;
