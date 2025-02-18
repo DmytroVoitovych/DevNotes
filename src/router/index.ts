@@ -44,8 +44,6 @@ const router = createRouter({
             createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
-
-          // beforeEnter: paramCreateControl,
         },
         {
           path: 'settings/:settingname([^/]+)?',
@@ -110,15 +108,16 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       redirect: 'auth/login',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+
       children: [
         { path: 'login', name: 'login', component: () => import('../views/AuthPage.vue') },
         { path: 'forgot', name: 'forgot', component: () => import('../views/AuthPage.vue') },
         { path: 'signup', name: 'signup', component: () => import('../views/AuthPage.vue') },
         { path: 'reset-password', name: 'reset', component: () => import('../views/AuthPage.vue') },
       ],
+      meta: {
+        requiresAuth: false,
+      },
     },
   ],
 });

@@ -3,7 +3,7 @@
   <p class="noteDescribBlock" v-show="showDescription">
     <slot name="noteDescribBlock"></slot>
   </p>
-  <p class="noteInformBlock" v-show="!paramCreate && !currentNotes">
+  <p class="noteInformBlock" v-show="!paramCreate && !currentNotes && !notesStore.listLoading">
     <slot name="noteInformBlock"></slot>
   </p>
   <el-divider v-if="current === 'notes'" />

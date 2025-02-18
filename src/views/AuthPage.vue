@@ -10,6 +10,10 @@
 
 <script setup lang="ts">
 import AuthComponent from '@/components/auth/AuthComponent.vue';
+import { useUserStore } from '@/stores/userStore';
+import { onBeforeRouteUpdate } from 'vue-router';
+
+const userStore = useUserStore();
 </script>
 
 <style lang="scss">

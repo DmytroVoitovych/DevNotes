@@ -7,6 +7,6 @@ type NoteData = {
   id: string;
 };
 
-type UserNotesState = { notesList: NoteData[]; searchQuery: string };
+type UserNotesState = { notesList: NoteData[]; searchQuery: string; listLoading: boolean };
 
 export type { NoteData, UserNotesState };

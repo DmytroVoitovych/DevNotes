@@ -1,7 +1,9 @@
 <template>
+  <TagsListSkeleton />
   <div class="linkTagsContainer" v-if="notesStore.getUniqueTags.length">
     <HeadingComponent v-if="current === 'tags'">Tags</HeadingComponent>
     <h1 v-else class="desktopTagHeading">Tags</h1>
+
     <ul>
       <li v-for="tag of notesStore.getUniqueTags" :key="tag">
         <RouterLink :to="{ name: 'tag', params: { tag: tag } }"><TagIco />{{ tag }}</RouterLink>
@@ -15,6 +17,7 @@ import { RouterLink } from 'vue-router';
 import HeadingComponent from './HeadingComponent.vue';
 import { userNotesStore } from '@/stores/userNotesStore';
 import TagIco from '@/assets/images/icon-tag.svg';
+import TagsListSkeleton from '../skeletons/TagsListSkeleton.vue';
 
 const { current } = defineProps<{ current?: string }>();
 

@@ -6,10 +6,11 @@
 import { getAuth, onAuthStateChanged, type Auth } from 'firebase/auth';
 import { getDatabase, ref as fireref, child, get } from 'firebase/database';
 import { onMounted, ref } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import { onBeforeRouteUpdate, RouterView, useRouter } from 'vue-router';
 import { useUserStore } from './stores/userStore';
 import type { NoteData } from './stores/types';
 import { userNotesStore } from './stores/userNotesStore';
+import { authGuard } from './router/helpers';
 
 const userStore = useUserStore();
 const notesStore = userNotesStore();
@@ -18,6 +19,7 @@ const router = useRouter();
 let auth: Auth;
 
 onMounted(() => {
+  notesStore.setListLoading(true);
   auth = getAuth();
   onAuthStateChanged(auth, async (user) => {
     const userStatus = user !== null;
@@ -30,10 +32,18 @@ onMounted(() => {
           if (snapshot.exists()) notesStore.syncStorageAndDatabase(Object.values(snapshot.val()));
           else notesStore.syncStorageAndDatabase();
         })
-        .catch((error) => console.error(error));
-      if (router.currentRoute.value.fullPath.includes('auth')) router.push({ name: 'home' });
+        .catch((error) => console.error(error))
+        .finally(() => {
+          notesStore.setListLoading(false);
+          router.beforeEach(authGuard);
+        });
+
+      if (router.currentRoute.value.fullPath.includes('auth')) {
+        router.push({ name: 'home' });
+      }
     } else {
       userStore.setLoginStatus(userStatus);
+      notesStore.setListLoading(false);
       router.push({ name: 'login' });
     }
   });

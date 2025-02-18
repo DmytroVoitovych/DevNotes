@@ -3,6 +3,7 @@
     <el-container>
       <el-aside class="asideLeft">
         <AsideNavComponent />
+        <!-- <TagsListSkeleton /> -->
         <TagsList />
       </el-aside>
       <el-container>
@@ -33,12 +34,15 @@ import HeaderChildren from '@/components/header/HeaderChildren.vue';
 import MenuBar from '@/components/notes/MenuBar.vue';
 import type { HomeRoutes } from '@/components/types';
 import { computed, onMounted, onUnmounted, ref, toValue, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { navigateByResizeScreen } from './helper';
 import TagsList from '@/components/shared/TagsList.vue';
 import { userNotesStore } from '@/stores/userNotesStore';
+import TagsListSkeleton from '@/components/skeletons/TagsListSkeleton.vue';
+import { useUserStore } from '@/stores/userStore';
 
 const notesStore = userNotesStore();
+const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -64,7 +68,6 @@ watch(
   () => route.name,
   (newRoute) => {
     if (newRoute) {
-      console.log(newRoute, route.params);
       currentRoute.value = newRoute as HomeRoutes;
     }
   },

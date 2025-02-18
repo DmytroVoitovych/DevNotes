@@ -3,7 +3,11 @@
     <el-button class="backCreateLink" text @click="router.push({ name: 'settings' })">
       <LeftArrowIco width="18" height="18" />Settings</el-button
     >
-    <component :is="conditionalList"></component>
+    <Transition name="fade" mode="out-in">
+      <KeepAlive>
+        <component :is="conditionalList"></component>
+      </KeepAlive>
+    </Transition>
   </el-form>
 </template>
 
@@ -64,6 +68,17 @@ const conditionalList = computed(() => {
       fill: var(--link-cl-grey, $link-cl-grey);
       color: var(--link-cl-grey, $link-cl-grey);
     }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 250ms ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    transform: translate(300px, 0);
+    opacity: 0;
   }
 }
 </style>

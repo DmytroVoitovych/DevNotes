@@ -5,6 +5,7 @@
     >
     <HeadingComponent :param>{{ notesContent[current].title }}</HeadingComponent>
     <SearchComponent v-show="current === 'search'" />
+
     <NotesInformBlock :current="current" :paramCreate="isParamCreateActive">
       <template #noteDescribBlock v-if="notesContent[current].description.show">
         {{ conditionalDescription }}
@@ -28,12 +29,14 @@
         >
       </template>
     </NotesInformBlock>
+    <NoteListSkeleton />
     <ListNotesComponent
       v-if="!notesStore.isNotesListEmpty"
       :paramCreate="isParamCreateActive"
       :param
       :current
     />
+
     <el-button
       class="mobCreateNote"
       tag="router-link"
@@ -55,6 +58,7 @@ import { useRoute, useRouter } from 'vue-router';
 import ListNotesComponent from './ListNotesComponent.vue';
 import { userNotesStore } from '@/stores/userNotesStore';
 import SearchComponent from '../shared/SearchComponent.vue';
+import NoteListSkeleton from '../skeletons/NoteListSkeleton.vue';
 
 const route = useRoute();
 const router = useRouter();

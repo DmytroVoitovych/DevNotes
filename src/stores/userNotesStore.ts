@@ -11,6 +11,7 @@ export const userNotesStore = defineStore('userNotes', {
     return {
       notesList: [],
       searchQuery: '',
+      listLoading: false,
     };
   },
   getters: {
@@ -28,6 +29,9 @@ export const userNotesStore = defineStore('userNotes', {
     getIndexOfNoteById: (state) => (id: string) => state.notesList.findIndex((e) => e.id === id),
   },
   actions: {
+    setListLoading(flag: boolean) {
+      this.listLoading = flag;
+    },
     createObject({ title, tags, text, lastEdited, isArchived }: CreateNoteForm, id: string) {
       return { title, tags, content: text, lastEdited, isArchived, id };
     },

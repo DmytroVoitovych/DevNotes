@@ -1,5 +1,7 @@
 :root {
   --family-dynamic: Inter;
+  --el-skeleton-color: var(--el-fill-color);
+  --el-skeleton-to-color: var(--el-fill-color-darker);
 }
 
 $cl-neutral-0: #ffffff;
@@ -127,4 +129,9 @@ $mob-btn-shadow: 0 7px 11px 0 rgba(202, 207, 216, 0.7);
     --txt-cl-description: #{$cl-neutral-300};
     --bg-cl-icon: #{$cl-neutral-600};
   }
+}
+
+:root {
+  --el-fill-color: var(--bg-cl-tags, #{$bg-cl-tags});
+  --el-fill-color-darker: var(--bg-cl-base, #{$bg-cl-base});
 }

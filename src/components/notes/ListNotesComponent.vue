@@ -1,7 +1,7 @@
 <template>
   <p v-if="paramCreate" class="notesUntitled">Untitled Note</p>
 
-  <ul class="notesListContainer">
+  <ul v-if="!runAnimation" class="notesListContainer">
     <li v-for="note of currentNotes" :key="note.id">
       <RouterLink
         class="notesList"
@@ -19,14 +19,37 @@
       </RouterLink>
     </li>
   </ul>
+
+  <TransitionGroup v-else tag="ul" name="fade" class="notesListContainer">
+    <li v-for="note of currentNotes" :key="note.id">
+      <RouterLink
+        class="notesList"
+        :to="{
+          name: current,
+          params: { id: note.id, name: note.title },
+          query: current === 'search' ? { q: notesStore.searchQuery } : {},
+        }"
+      >
+        <h1>{{ note.title || 'No title' }}</h1>
+        <ul>
+          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || 'No tag' }}</li>
+        </ul>
+        <span>{{ note.lastEdited }}</span>
+      </RouterLink>
+    </li>
+  </TransitionGroup>
 </template>
 
 <script lang="ts" setup>
 import { userNotesStore } from '@/stores/userNotesStore';
 import type { HomeRoutes } from '../types';
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
 
 const notesStore = userNotesStore();
+
+const runAnimation = ref<boolean>(true);
+
 const currentNotes = computed(() => {
   switch (current) {
     case 'home':
@@ -49,9 +72,51 @@ const { paramCreate, param, current } = defineProps<{
   current: HomeRoutes;
   param?: string;
 }>();
+
+let leaveTimeOut: number | undefined;
+let updateTimeOut: number | undefined;
+
+onBeforeRouteUpdate(() => {
+  runAnimation.value = false;
+  updateTimeOut = setTimeout(() => {
+    runAnimation.value = true;
+  }, 100);
+});
+
+onBeforeRouteLeave(() => {
+  runAnimation.value = false;
+  leaveTimeOut = setTimeout(() => {
+    runAnimation.value = true;
+  }, 100);
+});
+
+onMounted(() => {
+  runAnimation.value = true;
+});
+
+onUnmounted(() => {
+  clearTimeout(leaveTimeOut);
+  clearTimeout(updateTimeOut);
+});
 </script>
 
 <style lang="scss" scoped>
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 250ms ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(30px, 0);
+}
+
+.fade-leave-active {
+  position: absolute;
+}
+
 .notesUntitled {
   font-family: var(--family-dynamic);
   font-weight: 600;
