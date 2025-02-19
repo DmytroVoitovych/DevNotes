@@ -1,15 +1,15 @@
-import { computed, reactive, ref, toRef, toRefs, toValue, watch } from 'vue';
-import PasswordEyeHidden from '@/assets/images/icon-hide-password.svg';
-import PasswordEyeShow from '@/assets/images/icon-show-password.svg';
-import type { FormItemProps, FormProps } from 'element-plus';
-import type { AuthRoutes } from './types';
-import { useUserStore } from '@/stores/userStore';
-import { useRoute } from 'vue-router';
+import { computed, reactive, ref, toRef, toRefs, toValue, watch } from "vue";
+import PasswordEyeHidden from "@/assets/images/icon-hide-password.svg";
+import PasswordEyeShow from "@/assets/images/icon-show-password.svg";
+import type { FormItemProps, FormProps } from "element-plus";
+import type { AuthRoutes } from "./types";
+import { useUserStore } from "@/stores/userStore";
+import { useRoute } from "vue-router";
 
 const formMainReactObj = reactive({
-  email: '',
-  pass: '',
-  checkPass: '',
+  email: "",
+  pass: "",
+  checkPass: "",
 });
 
 const loading = ref<boolean>(false);
@@ -23,7 +23,7 @@ export const useCustomFormHandler = () => {
 
   const showPassword = (e: MouseEvent): void => {
     const target = e.target as HTMLElement;
-    const trackedElements = ['path', 'svg'];
+    const trackedElements = ["path", "svg"];
 
     if (trackedElements.includes(target.nodeName)) show.value = !show.value;
     return;
@@ -31,9 +31,9 @@ export const useCustomFormHandler = () => {
 
   const resetForm = (formObj: { email: string; pass: string; checkPass: string }): void => {
     changeLoadState(false);
-    formObj.email = '';
-    formObj.pass = '';
-    formObj.checkPass = '';
+    formObj.email = "";
+    formObj.pass = "";
+    formObj.checkPass = "";
   };
 
   const changeLoadState = (flag: boolean) => {
@@ -54,20 +54,20 @@ export const useCustomFormHandler = () => {
 
   const submitForm = (
     route: AuthRoutes,
-    { email, pass = '', checkPass = '' }: { email: string; pass: string; checkPass?: string },
+    { email, pass = "", checkPass = "" }: { email: string; pass: string; checkPass?: string },
   ) => {
     changeLoadState(true);
     switch (route) {
-      case 'signup':
+      case "signup":
         userStore.registerUser(email, pass).finally(() => resetForm(formMainReactObj));
         break;
-      case 'login':
+      case "login":
         userStore.loginUser(email, pass).finally(() => resetForm(formMainReactObj));
         break;
-      case 'forgot':
+      case "forgot":
         userStore.sendResetUserLink(email).finally(() => resetForm(formMainReactObj));
         break;
-      case 'reset':
+      case "reset":
         userStore
           .confirmNewUserPassword(checkPass, routeInstanse)
           .finally(() => resetForm(formMainReactObj));
@@ -90,8 +90,8 @@ export const useCustomFormHandler = () => {
 };
 
 export const useElementsUiForm = () => {
-  const labelPosition = ref<FormProps['labelPosition']>('top');
-  const itemLabelPosition = ref<FormItemProps['labelPosition']>('');
+  const labelPosition = ref<FormProps["labelPosition"]>("top");
+  const itemLabelPosition = ref<FormItemProps["labelPosition"]>("");
 
   return {
     labelPosition: labelPosition.value,

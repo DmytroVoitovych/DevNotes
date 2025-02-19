@@ -4,7 +4,7 @@
     <ul class="settingList">
       <li>
         <RouterLink :to="{ name: 'settings', params: { settingname: 'color-theme' } }"
-          ><IconSun /> Color theme
+          ><SunIco /> Color theme
         </RouterLink>
       </li>
       <li>
@@ -19,8 +19,8 @@
       </li>
       <el-divider />
       <li>
-        <button type="button" @click="methods.logOut" v-loading="loading">
-          <IconExit /> Logout
+        <button type="button" @click="methods.logOut" :disabled="loading">
+          <IconExit /> {{ loading ? "Loading..." : "Logout" }}
         </button>
       </li>
     </ul>
@@ -28,11 +28,8 @@
 </template>
 
 <script lang="ts" setup>
-import IconSun from '@/assets/images/icon-sun.svg';
-import IconFont from '@/assets/images/icon-font.svg';
-import IconLock from '@/assets/images/icon-lock.svg';
-import IconExit from '@/assets/images/icon-logout.svg';
-import { useCustomFormHandler } from '../auth/formHandler';
+import { SunIco, IconFont, IconLock, IconExit } from "@/assets/iconImport";
+import { useCustomFormHandler } from "../auth/formHandler";
 
 const { methods, loading } = useCustomFormHandler();
 </script>

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
@@ -12,15 +12,15 @@ import {
   updatePassword,
   validatePassword,
   type User,
-} from 'firebase/auth';
+} from "firebase/auth";
 import {
   authErrorHandler,
   googleAuthErrorHandler,
   registrationErrorHandler,
-} from '@/components/auth/helpers';
-import { type RouteLocationNormalizedLoadedGeneric } from 'vue-router';
+} from "@/components/auth/helpers";
+import { type RouteLocationNormalizedLoadedGeneric } from "vue-router";
 
-import router from '@/router';
+import router from "@/router";
 import {
   errorPasswordChangeInform,
   errorPasswordResetInform,
@@ -29,9 +29,9 @@ import {
   successPasswordResetInform,
   successPasswordUpdateInform,
   successResetLinkSendingInform,
-} from './helpers';
+} from "./helpers";
 
-export const useUserStore = defineStore('userInformation', {
+export const useUserStore = defineStore("userInformation", {
   state() {
     return {
       isLogin: false,
@@ -43,58 +43,55 @@ export const useUserStore = defineStore('userInformation', {
   actions: {
     setLoginStatus(status: boolean) {
       this.isLogin = status;
-      console.log(this.isLogin, 'status');
       return;
     },
     registerUser(email: string, pass: string) {
-      return createUserWithEmailAndPassword(getAuth(), email, pass)
-        .then((data) => console.log('data', data))
-        .catch((error) => registrationErrorHandler(error.code));
+      return createUserWithEmailAndPassword(getAuth(), email, pass).catch((error) =>
+        registrationErrorHandler(error.code),
+      );
     },
     loginUser(email: string, pass: string) {
-      return signInWithEmailAndPassword(getAuth(), email, pass)
-        .then((data) => console.log(data))
-        .catch((error) => authErrorHandler(error.code));
+      return signInWithEmailAndPassword(getAuth(), email, pass).catch((error) =>
+        authErrorHandler(error.code),
+      );
     },
     loginUserByGoogle() {
       const provider = new GoogleAuthProvider();
-      return signInWithPopup(getAuth(), provider)
-        .then((data) => console.log(data))
-        .catch((error) => googleAuthErrorHandler(error.code));
+      return signInWithPopup(getAuth(), provider).catch((error) =>
+        googleAuthErrorHandler(error.code),
+      );
     },
     sendResetUserLink(email: string) {
       const actionCodeSettings = {
-        url: 'http://localhost:5173/auth/reset-password',
+        url: "http://localhost:5173/auth/reset-password",
         handleCodeInApp: true,
       };
       return fetchSignInMethodsForEmail(getAuth(), email)
         .then(
-          (userList) => !userList.length && Promise.reject(new Error('Email was not registrated')),
+          (userList) => !userList.length && Promise.reject(new Error("Email was not registrated")),
         )
         .then(() => sendPasswordResetEmail(getAuth(), email, actionCodeSettings))
         .then(successResetLinkSendingInform)
-        .then(() => router.push({ name: 'login' }))
+        .then(() => router.push({ name: "login" }))
         .catch(errorResetLinkSendingInform);
     },
     confirmNewUserPassword(newPass: string, route: RouteLocationNormalizedLoadedGeneric) {
-      const oobCode = (route.query.oobCode as string) || '';
+      const oobCode = (route.query.oobCode as string) || "";
       if (!oobCode) return needToGetNewResetLink();
       return confirmPasswordReset(getAuth(), oobCode, newPass)
         .then(successPasswordResetInform)
-        .then(() => router.push({ name: 'login' }))
+        .then(() => router.push({ name: "login" }))
         .catch(errorPasswordResetInform);
     },
     changeUserPassword(oldPass: string, newPass: string) {
       return validatePassword(getAuth(), oldPass)
-        .then((e) => !e.isValid && Promise.reject(new Error('Old password is wrong')))
+        .then((e) => !e.isValid && Promise.reject(new Error("Old password is wrong")))
         .then(() => updatePassword(getAuth().currentUser as User, newPass))
         .then(successPasswordUpdateInform)
         .catch(errorPasswordChangeInform);
     },
     logOut() {
-      return signOut(getAuth())
-        .then((e) => console.log(e))
-        .catch((e) => console.log(e));
+      return signOut(getAuth()).catch((e) => console.log(e));
     },
   },
 });

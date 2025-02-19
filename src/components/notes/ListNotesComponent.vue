@@ -11,9 +11,9 @@
           query: current === 'search' ? { q: notesStore.searchQuery } : {},
         }"
       >
-        <h1>{{ note.title || 'No title' }}</h1>
+        <h1>{{ note.title || "No title" }}</h1>
         <ul>
-          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || 'No tag' }}</li>
+          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || "No tag" }}</li>
         </ul>
         <span>{{ note.lastEdited }}</span>
       </RouterLink>
@@ -30,9 +30,9 @@
           query: current === 'search' ? { q: notesStore.searchQuery } : {},
         }"
       >
-        <h1>{{ note.title || 'No title' }}</h1>
+        <h1>{{ note.title || "No title" }}</h1>
         <ul>
-          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || 'No tag' }}</li>
+          <li v-for="(tag, i) of note.tags" :key="i">{{ tag || "No tag" }}</li>
         </ul>
         <span>{{ note.lastEdited }}</span>
       </RouterLink>
@@ -41,10 +41,10 @@
 </template>
 
 <script lang="ts" setup>
-import { userNotesStore } from '@/stores/userNotesStore';
-import type { HomeRoutes } from '../types';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
+import { userNotesStore } from "@/stores/userNotesStore";
+import type { HomeRoutes } from "../types";
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
 
 const notesStore = userNotesStore();
 
@@ -52,15 +52,14 @@ const runAnimation = ref<boolean>(true);
 
 const currentNotes = computed(() => {
   switch (current) {
-    case 'home':
-    case 'notes':
-      console.log(param);
+    case "home":
+    case "notes":
       return notesStore.getAllNotes;
-    case 'archivednotes':
+    case "archivednotes":
       return notesStore.getArchivedNotes;
-    case 'tag':
-      return notesStore.getNotesByTagParametr(param || '');
-    case 'search':
+    case "tag":
+      return notesStore.getNotesByTagParametr(param || "");
+    case "search":
       return notesStore.getNotesByQuery;
     default:
       return notesStore.getAllNotes;

@@ -32,23 +32,21 @@
   </ul>
 </template>
 <script lang="ts" setup>
-import DeleteIco from '@/assets/images/icon-delete.svg';
-import ArchiveIco from '@/assets/images/icon-archive.svg';
-import RestoreIco from '@/assets/images/icon-restore.svg';
-import { userNotesStore } from '@/stores/userNotesStore';
-import { getLocalDate } from '../notes/helpers';
-import { computed, nextTick, ref, useTemplateRef } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import DialogComponent from './DialogComponent.vue';
-import type { DialogTriggerName } from '../types';
-import { modalContent } from '../staticContent';
-import type { NotificationHandle } from 'element-plus';
+import { userNotesStore } from "@/stores/userNotesStore";
+import { getLocalDate } from "../notes/helpers";
+import { computed, nextTick, ref, useTemplateRef } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import DialogComponent from "./DialogComponent.vue";
+import type { DialogTriggerName } from "../types";
+import { modalContent } from "../staticContent";
+import type { NotificationHandle } from "element-plus";
+import { ArchiveIco, RestoreIco, DeleteIco } from "@/assets/iconImport";
 
 const notesStore = userNotesStore();
 const route = useRoute();
 const router = useRouter();
 
-const dialogRef = useTemplateRef<InstanceType<typeof DialogComponent>>('dialogRef');
+const dialogRef = useTemplateRef<InstanceType<typeof DialogComponent>>("dialogRef");
 const iniciatorOfTrigger = ref<DialogTriggerName>();
 const loading = ref<boolean>(false);
 const btnStatus = computed<boolean>(() =>
@@ -63,7 +61,7 @@ const showModal = (trigger: DialogTriggerName) => {
 };
 
 const currentAction = computed<Promise<void | NotificationHandle>>(() =>
-  iniciatorOfTrigger.value === 'delete'
+  iniciatorOfTrigger.value === "delete"
     ? notesStore.deleteNote(route.params.id as string)
     : notesStore.archiveOrRestoreNote(route.params.id as string, getLocalDate()),
 );
@@ -74,9 +72,9 @@ const moveNote = (mutateDataBase: Promise<void | NotificationHandle>): void => {
 
   mutateDataBase.finally(() => {
     loading.value = false;
-    if (btnStatus.value || iniciatorOfTrigger.value === 'delete') {
+    if (btnStatus.value || iniciatorOfTrigger.value === "delete") {
       dialogRef.value?.switchDialogState();
-      if (iniciatorOfTrigger.value === 'delete')
+      if (iniciatorOfTrigger.value === "delete")
         router.push({ name: route.name, query: route.query });
     }
   });

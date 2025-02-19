@@ -1,16 +1,15 @@
-import { defineStore } from 'pinia';
-import type { NoteData, UserNotesState } from './types';
-import type { CreateNoteForm } from '@/components/notes/types';
-import { getDatabase, push, ref, remove, set, update } from 'firebase/database';
-import { noteAdded, noteChanged, noteDeleted, noteUpdated } from './helpers';
-import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router';
-import { getAuth } from 'firebase/auth';
+import { defineStore } from "pinia";
+import type { NoteData, UserNotesState } from "./types";
+import type { CreateNoteForm } from "@/components/notes/types";
+import { getDatabase, push, ref, remove, set, update } from "firebase/database";
+import { noteAdded, noteChanged, noteDeleted, noteUpdated } from "./helpers";
+import { getAuth } from "firebase/auth";
 
-export const userNotesStore = defineStore('userNotes', {
+export const userNotesStore = defineStore("userNotes", {
   state(): UserNotesState {
     return {
       notesList: [],
-      searchQuery: '',
+      searchQuery: "",
       listLoading: false,
     };
   },
@@ -50,7 +49,7 @@ export const userNotesStore = defineStore('userNotes', {
       return set(newNoteRef, data)
         .then(() => this.notesList.unshift(data))
         .then(noteAdded)
-        .catch((e) => console.log(e, 'err'));
+        .catch((e) => console.log(e, "err"));
     },
     changeExistedNote(body: CreateNoteForm, id: string) {
       const db = getDatabase();
@@ -61,7 +60,7 @@ export const userNotesStore = defineStore('userNotes', {
 
       return update(ref(db, `notes/${uid}/${id}`), data)
         .then(noteChanged)
-        .catch((e) => console.log('Error with changing note', e));
+        .catch((e) => console.log("Error with changing note", e));
     },
     archiveOrRestoreNote(id: string, date: string) {
       const db = getDatabase();
@@ -90,7 +89,7 @@ export const userNotesStore = defineStore('userNotes', {
       return remove(noteRef)
         .then(noteDeleted)
         .catch((error) => {
-          console.error('Error with deleting', error);
+          console.error("Error with deleting", error);
         });
     },
   },

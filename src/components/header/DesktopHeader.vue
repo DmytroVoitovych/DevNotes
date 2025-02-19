@@ -11,11 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import SettingIco from '@/assets/images/icon-settings.svg';
-import HeadingComponent from '../shared/HeadingComponent.vue';
-import { useRoute } from 'vue-router';
-import SearchComponent from '../shared/SearchComponent.vue';
+import { ref, watch } from "vue";
+import HeadingComponent from "../shared/HeadingComponent.vue";
+import { useRoute } from "vue-router";
+import SearchComponent from "../shared/SearchComponent.vue";
+import { SettingIco } from "@/assets/iconImport";
 const route = useRoute();
 
 const param = ref<string | undefined>(route.params.tag as string | undefined);

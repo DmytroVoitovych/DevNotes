@@ -12,10 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import SearchIco from '@/assets/images/icon-search.svg';
-import { userNotesStore } from '@/stores/userNotesStore';
-import { onMounted, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { SearchIco } from "@/assets/iconImport";
+import { userNotesStore } from "@/stores/userNotesStore";
+import { onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
@@ -26,7 +26,7 @@ onMounted(() => route.query.q && (notesStore.searchQuery = route.query.q as stri
 watch(
   () => notesStore.searchQuery,
   (newSearchReq) =>
-    router.push({ name: 'search', query: { q: newSearchReq }, params: route.params }),
+    router.push({ name: "search", query: { q: newSearchReq }, params: route.params }),
 );
 </script>
 

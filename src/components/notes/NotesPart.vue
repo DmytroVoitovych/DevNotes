@@ -47,35 +47,35 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
-import HeadingComponent from '../shared/HeadingComponent.vue';
-import type { HomeRoutes } from '../types';
-import NotesInformBlock from './NotesInformBlock.vue';
-import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
-import Plus from '@/assets/images/icon-plus.svg';
-import { notesContent } from '../staticContent';
-import { useRoute, useRouter } from 'vue-router';
-import ListNotesComponent from './ListNotesComponent.vue';
-import { userNotesStore } from '@/stores/userNotesStore';
-import SearchComponent from '../shared/SearchComponent.vue';
-import NoteListSkeleton from '../skeletons/NoteListSkeleton.vue';
+import { computed, ref, watch } from "vue";
+import HeadingComponent from "../shared/HeadingComponent.vue";
+import type { HomeRoutes } from "../types";
+import NotesInformBlock from "./NotesInformBlock.vue";
+import { notesContent } from "../staticContent";
+import { useRoute, useRouter } from "vue-router";
+import ListNotesComponent from "./ListNotesComponent.vue";
+import { userNotesStore } from "@/stores/userNotesStore";
+import SearchComponent from "../shared/SearchComponent.vue";
+import NoteListSkeleton from "../skeletons/NoteListSkeleton.vue";
+import { LeftArrowIco, Plus } from "@/assets/iconImport";
 
 const route = useRoute();
 const router = useRouter();
+
 const notesStore = userNotesStore();
-const { current, param = '' } = defineProps<{ current: HomeRoutes; param?: string }>();
+const { current, param = "" } = defineProps<{ current: HomeRoutes; param?: string }>();
 
 const isParamCreateActive = ref<boolean>(!!route.params?.create);
 
 const depensOnLinkContent = computed<string>(() => {
   const info = notesContent[current].info;
-  return info.link ? info.content.split(',')[0] + ', or' : info.content;
+  return info.link ? info.content.split(",")[0] + ", or" : info.content;
 });
 
 const conditionalDescription = computed<string>(() =>
   notesStore.searchQuery || param
     ? notesContent[current].description.content.replace(
-        '[]',
+        "[]",
         `"${param || notesStore.searchQuery}"`,
       )
     : notesContent[current].description.content,
@@ -123,6 +123,7 @@ watch(
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 
   @include mq(large) {
     overflow-y: auto;

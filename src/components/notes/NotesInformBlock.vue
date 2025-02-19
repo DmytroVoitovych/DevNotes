@@ -9,25 +9,26 @@
   <el-divider v-if="current === 'notes'" />
 </template>
 <script lang="ts" setup>
-import { userNotesStore } from '@/stores/userNotesStore';
-import type { HomeRoutes } from '../types';
-import { computed } from 'vue';
+import { userNotesStore } from "@/stores/userNotesStore";
+import type { HomeRoutes } from "../types";
+import { computed } from "vue";
+
 const notesStore = userNotesStore();
 const { current, paramCreate } = defineProps<{ current: HomeRoutes; paramCreate: boolean }>();
 
 const showDescription = computed<boolean>(() => {
-  if (current !== 'notes' && current !== 'search') return true;
-  return !!notesStore.searchQuery && current === 'search';
+  if (current !== "notes" && current !== "search") return true;
+  return !!notesStore.searchQuery && current === "search";
 });
 
 const currentNotes = computed<number>(() => {
   switch (current) {
-    case 'home':
-    case 'notes':
+    case "home":
+    case "notes":
       return notesStore.getAllNotes.length;
-    case 'archivednotes':
+    case "archivednotes":
       return notesStore.getArchivedNotes.length;
-    case 'search':
+    case "search":
       return notesStore.getNotesByQuery.length;
     default:
       return notesStore.getAllNotes.length;

@@ -54,10 +54,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { FormItemRule } from 'element-plus';
-import { useCustomFormHandler, useElementsUiForm } from './formHandler';
-import { formPasswordRules } from './helpers';
-import { computed } from 'vue';
+import type { FormItemRule } from "element-plus";
+import { useCustomFormHandler, useElementsUiForm } from "./formHandler";
+import { formPasswordRules } from "./helpers";
+import { computed } from "vue";
 
 const { methods: confirmMeth, computes: confirmComput } = useCustomFormHandler();
 const { methods, computes, loading } = useCustomFormHandler();

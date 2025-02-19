@@ -1,100 +1,101 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import NotesPart from '@/components/notes/NotesPart.vue';
-import { paramCreateControl } from './helpers';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import NoPage from "../views/NoPage.vue";
+import NotesPart from "@/components/notes/NotesPart.vue";
+import { paramCreateControl } from "./helpers";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: HomeView,
       redirect: (to) => {
-        if (to.path === '/') return { name: 'notes' };
+        if (to.path === "/") return { name: "notes" };
         return to.path;
       },
 
       children: [
         {
-          path: 'all-notes/:create(create)?/:name([^/]+)?/:id(.*)?',
-          name: 'notes',
+          path: "all-notes/:create(create)?/:name([^/]+)?/:id(.*)?",
+          name: "notes",
           components: {
             default: NotesPart,
-            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
-            action: () => import('../components/shared/NotesMoveList.vue'),
+            createnote: () => import("../components/notes/CreateNoteComponent.vue"),
+            action: () => import("../components/shared/NotesMoveList.vue"),
           },
           props: {
-            default: { current: 'notes' },
+            default: { current: "notes" },
             createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
           beforeEnter: paramCreateControl,
         },
         {
-          path: 'archived-notes/:name?/:id?',
-          name: 'archivednotes',
+          path: "archived-notes/:name?/:id?",
+          name: "archivednotes",
           components: {
             default: NotesPart,
-            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
-            action: () => import('../components/shared/NotesMoveList.vue'),
+            createnote: () => import("../components/notes/CreateNoteComponent.vue"),
+            action: () => import("../components/shared/NotesMoveList.vue"),
           },
           props: {
-            default: { current: 'archivednotes' },
+            default: { current: "archivednotes" },
             createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
         },
         {
-          path: 'settings/:settingname([^/]+)?',
-          name: 'settings',
+          path: "settings/:settingname([^/]+)?",
+          name: "settings",
           components: {
-            default: () => import('../components/settings/SettingsVariations.vue'),
-            pickedsetting: () => import('../components/settings/StyleList.vue'),
+            default: () => import("../components/settings/SettingsVariations.vue"),
+            pickedsetting: () => import("../components/settings/StyleList.vue"),
           },
           props: {
-            default: { current: 'settings' },
+            default: { current: "settings" },
             pickedsetting: (route) => ({ param: route.params.settingname }),
           },
           beforeEnter: (to, from, next) => {
-            if (window.innerWidth >= 1440 && to.path === '/settings') next('/settings/color-theme');
+            if (window.innerWidth >= 1440 && to.path === "/settings") next("/settings/color-theme");
             else next();
           },
         },
         {
-          path: 'tags',
-          name: 'tags',
-          component: () => import('../components/shared/TagsList.vue'),
-          props: { current: 'tags' },
+          path: "tags",
+          name: "tags",
+          component: () => import("../components/shared/TagsList.vue"),
+          props: { current: "tags" },
           beforeEnter: (to, from, next) => {
-            if (window.innerWidth >= 1440) next('/');
+            if (window.innerWidth >= 1440) next("/");
             else next();
           },
         },
         {
-          path: ':tag/:name?/:id?',
-          name: 'tag',
+          path: "tag/:tag/:name?/:id?",
+          name: "tag",
           components: {
-            default: () => import('../components/notes/NotesPart.vue'),
-            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
-            action: () => import('../components/shared/NotesMoveList.vue'),
+            default: () => import("../components/notes/NotesPart.vue"),
+            createnote: () => import("../components/notes/CreateNoteComponent.vue"),
+            action: () => import("../components/shared/NotesMoveList.vue"),
           },
           props: {
-            default: (route) => ({ current: 'tag', param: route.params.tag }),
+            default: (route) => ({ current: "tag", param: route.params.tag }),
             createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
         },
         {
-          path: 'search/:name?/:id?',
-          name: 'search',
+          path: "search/:name?/:id?",
+          name: "search",
           components: {
-            default: () => import('../components/notes/NotesPart.vue'),
-            createnote: () => import('../components/notes/CreateNoteComponent.vue'),
-            action: () => import('../components/shared/NotesMoveList.vue'),
+            default: () => import("../components/notes/NotesPart.vue"),
+            createnote: () => import("../components/notes/CreateNoteComponent.vue"),
+            action: () => import("../components/shared/NotesMoveList.vue"),
           },
           props: {
-            default: (route) => ({ query: route.query.q, current: 'search' }),
+            default: (route) => ({ query: route.query.q, current: "search" }),
             createnote: (route) => ({ id: route.params.id }),
             action: (route) => ({ id: route.params.id }),
           },
@@ -105,18 +106,35 @@ const router = createRouter({
       },
     },
     {
-      path: '/auth',
-      name: 'auth',
-      redirect: 'auth/login',
+      path: "/auth",
+      name: "auth",
+      redirect: "auth/login",
 
       children: [
-        { path: 'login', name: 'login', component: () => import('../views/AuthPage.vue') },
-        { path: 'forgot', name: 'forgot', component: () => import('../views/AuthPage.vue') },
-        { path: 'signup', name: 'signup', component: () => import('../views/AuthPage.vue') },
-        { path: 'reset-password', name: 'reset', component: () => import('../views/AuthPage.vue') },
+        { path: "login", name: "login", component: () => import("../views/AuthPage.vue") },
+        { path: "forgot", name: "forgot", component: () => import("../views/AuthPage.vue") },
+        { path: "signup", name: "signup", component: () => import("../views/AuthPage.vue") },
+        { path: "reset-password", name: "reset", component: () => import("../views/AuthPage.vue") },
+        {
+          path: "/:pathMatch(.*)*",
+          name: "NotFound",
+          component: NoPage,
+          meta: {
+            requiresAuth: false,
+          },
+        },
       ],
+
       meta: {
         requiresAuth: false,
+      },
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: NoPage,
+      meta: {
+        requiresAuth: true,
       },
     },
   ],

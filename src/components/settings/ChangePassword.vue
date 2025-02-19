@@ -73,17 +73,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { FormItemRule } from 'element-plus';
-import { useCustomFormHandler, useElementsUiForm } from '../auth/formHandler';
-import { formPasswordRules } from '../auth/helpers';
-import { computed, ref } from 'vue';
-import HeadingComponent from '../shared/HeadingComponent.vue';
+import type { FormItemRule } from "element-plus";
+import { useCustomFormHandler, useElementsUiForm } from "../auth/formHandler";
+import { formPasswordRules } from "../auth/helpers";
+import { computed, ref } from "vue";
+import HeadingComponent from "../shared/HeadingComponent.vue";
 
 const { methods: confirmMeth, computes: confirmComput } = useCustomFormHandler();
 const { methods, computes, loading } = useCustomFormHandler();
 const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 
-const oldPass = ref('');
+const oldPass = ref("");
 
 const inputDisabled = computed(
   () => formLabelAlignItems?.pass?.value?.length < 8 && oldPass?.value?.length < 8,
@@ -105,12 +105,13 @@ const compareTwoPass = (rule: FormItemRule, value: string, callback: (error?: Er
 const changePass = () => {
   methods
     .submitNewPassword(oldPass.value, formLabelAlignItems.pass.value)
-    .finally(() => (oldPass.value = ''));
+    .finally(() => (oldPass.value = ""));
 };
 </script>
 <style lang="scss" scoped>
 .settingPasswordContainer {
   display: grid;
+
   row-gap: 20px;
   @include mq(large) {
     max-width: 528px;
@@ -173,7 +174,7 @@ const changePass = () => {
       gap: 8px;
 
       &::before {
-        content: '';
+        content: "";
         display: block;
         width: 12px;
         height: 12px;
@@ -211,7 +212,7 @@ const changePass = () => {
       opacity: 0;
     }
 
-    &:has([type='submit']) {
+    &:has([type="submit"]) {
       box-shadow: none;
       background-color: $btn-bg-base;
       transition: background-color 250ms;

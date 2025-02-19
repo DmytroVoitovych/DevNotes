@@ -20,7 +20,7 @@
               native-type="button"
               @click="isWritable ? allowEdit() : submitNote(currentTrigger)"
               v-loading="loading"
-              >{{ !isWritable ? 'Save note' : 'Edit' }}</el-button
+              >{{ !isWritable ? "Save note" : "Edit" }}</el-button
             >
           </li>
         </ul>
@@ -80,19 +80,16 @@
 </template>
 
 <script lang="ts" setup>
-import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
-import TagIco from '@/assets/images/icon-tag.svg';
-import TimeIco from '@/assets/images/icon-clock.svg';
-import StatusIco from '@/assets/images/icon-status.svg';
-import { type FormInstance, type NotificationHandle } from 'element-plus';
-import { ref, watch } from 'vue';
-import { reactive, useTemplateRef } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { getLocalDate, handleCommaCode, idCustom, uniqueTagsControl } from './helpers';
-import type { CreateNoteForm } from './types';
-import { computed } from 'vue';
-import { userNotesStore } from '@/stores/userNotesStore';
-import NotesMoveList from '../shared/NotesMoveList.vue';
+import { type FormInstance } from "element-plus";
+import { ref, toRefs, watch } from "vue";
+import { reactive, useTemplateRef } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { getLocalDate, handleCommaCode, setupNoteFormData, uniqueTagsControl } from "./helpers";
+import type { CreateNoteForm } from "./types";
+import { computed } from "vue";
+import { userNotesStore } from "@/stores/userNotesStore";
+import NotesMoveList from "../shared/NotesMoveList.vue";
+import { StatusIco, LeftArrowIco, TagIco, TimeIco } from "@/assets/iconImport";
 
 const noteStore = userNotesStore();
 const router = useRouter();
@@ -102,22 +99,22 @@ const { id } = defineProps<{
   id?: string;
 }>();
 
-const formRef = useTemplateRef<FormInstance | null>('formRef');
+const formRef = useTemplateRef<FormInstance | null>("formRef");
 const commaTrigger = ref(false);
 const loading = ref<boolean>(false);
 const isWritable = ref<boolean>(!!id);
 const form = reactive<CreateNoteForm>({
-  title: '',
+  title: "",
   tags: [],
-  text: '',
-  lastEdited: '',
+  text: "",
+  lastEdited: "",
   isArchived: false,
 });
 
 const switchCommaTrigger = (flag: boolean) => (commaTrigger.value = flag);
 const disabled = computed<boolean>(() => !form.title || !form.text);
-const currentTrigger = computed<'addNote' | 'changeExistedNote'>(() =>
-  !id ? 'addNote' : 'changeExistedNote',
+const currentTrigger = computed<"addNote" | "changeExistedNote">(() =>
+  !id ? "addNote" : "changeExistedNote",
 );
 
 const allowEdit = (): void => {
@@ -127,54 +124,43 @@ const allowEdit = (): void => {
 const resetForm = (e?: MouseEvent) => {
   if (e) router.push({ name: route.name, query: route.query });
   else {
-    form.title = '';
+    form.title = "";
     form.tags = [];
-    form.text = '';
-    form.lastEdited = '';
+    form.text = "";
+    form.lastEdited = "";
     form.isArchived = false;
   }
 };
 
-const submitNote = (trigerName: 'addNote' | 'changeExistedNote') => {
+const submitNote = (trigerName: "addNote" | "changeExistedNote") => {
   loading.value = true;
   form.lastEdited = getLocalDate();
   noteStore[trigerName](form, id as string).finally(() => {
     loading.value = false;
-    if (!id) router.push({ name: 'notes' });
+
+    if (!id) router.push({ name: "notes" });
     else {
       isWritable.value = true;
     }
   });
-  console.log('submit!');
 };
 
 watch(() => form.tags, uniqueTagsControl, { deep: true });
 watch(
   () => noteStore.getArchivedNotes,
   () => {
-    console.log(id, 'create');
     if (!id) return;
     const archiveEffect = noteStore.getArchivedNotes.some((e) => e.id === id);
     if (archiveEffect !== form.isArchived) form.isArchived = archiveEffect;
   },
 );
+
 watch(
   () => [noteStore.notesList, id],
   () => {
-    //не забыть вынести функцию
     isWritable.value = !!id;
-    const activeNote = noteStore.getNotesById(id || '');
-
-    if (activeNote) {
-      form.title = activeNote?.title || 'No data';
-      form.text = activeNote?.content || 'No data';
-      form.isArchived = !!activeNote?.isArchived;
-      form.lastEdited = activeNote?.lastEdited || 'No data';
-      form.tags = activeNote?.tags || [];
-      return;
-    } else {
-      resetForm();
-    }
+    const activeNote = noteStore.getNotesById(id || "");
+    setupNoteFormData(toRefs(form), activeNote, resetForm);
   },
   { immediate: true },
 );
@@ -309,13 +295,14 @@ watch(
         gap: 0;
 
         .el-tag {
+          font-family: var(--family-dynamic);
           background-color: transparent;
           padding: 0;
           color: var(--txt-cl-h, $txt-cl-h);
         }
 
         .el-tag:not(:last-of-type) .el-tag__content::after {
-          content: ', ';
+          content: ", ";
         }
       }
 

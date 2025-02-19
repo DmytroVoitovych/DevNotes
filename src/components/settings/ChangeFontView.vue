@@ -53,18 +53,16 @@
   </RadioSharedStyle>
 </template>
 <script lang="ts" setup>
-import SansSerifIco from '@/assets/images/icon-font-sans-serif.svg';
-import SerifIco from '@/assets/images/icon-font-serif.svg';
-import MonospaceIco from '@/assets/images/icon-font-monospace.svg';
-import { ref } from 'vue';
-import type { FontChoise } from './type';
-import RadioSharedStyle from './RadioSharedStyle.vue';
+import { ref } from "vue";
+import type { FontChoise } from "./type";
+import RadioSharedStyle from "./RadioSharedStyle.vue";
+import { SansSerifIco, SerifIco, MonospaceIco } from "@/assets/iconImport";
 
-const font = ref<FontChoise>((window?.localStorage?.getItem('font') as FontChoise) || 'Inter');
+const font = ref<FontChoise>((window?.localStorage?.getItem("font") as FontChoise) || "Inter");
 
 const setFont = (fontFamily: FontChoise) => {
-  window.localStorage.setItem('font', fontFamily);
-  document.documentElement.style.setProperty('--family-dynamic', fontFamily);
+  window.localStorage.setItem("font", fontFamily);
+  document.documentElement.style.setProperty("--family-dynamic", fontFamily);
 };
 
 const pickBtnByKey = (val: FontChoise) => (font.value = val);

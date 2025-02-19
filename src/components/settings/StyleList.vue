@@ -12,13 +12,13 @@
 </template>
 
 <script lang="ts" setup>
-import LeftArrowIco from '@/assets/images/icon-arrow-left.svg';
-import { computed } from 'vue';
-import ChangeColorThemeList from './ChangeColorThemeList.vue';
-import ChangeFontView from './ChangeFontView.vue';
-import ChangePassword from './ChangePassword.vue';
-import type { SettingParams } from './type';
-import { useRouter } from 'vue-router';
+import { computed } from "vue";
+import ChangeColorThemeList from "./ChangeColorThemeList.vue";
+import ChangeFontView from "./ChangeFontView.vue";
+import ChangePassword from "./ChangePassword.vue";
+import type { SettingParams } from "./type";
+import { useRouter } from "vue-router";
+import { LeftArrowIco } from "@/assets/iconImport";
 
 const router = useRouter();
 
@@ -28,9 +28,9 @@ const { param } = defineProps<{
 
 const conditionalList = computed(() => {
   switch (param) {
-    case 'change-password':
+    case "change-password":
       return ChangePassword;
-    case 'font-theme':
+    case "font-theme":
       return ChangeFontView;
 
     default:
@@ -42,6 +42,7 @@ const conditionalList = computed(() => {
 <style lang="scss" scoped>
 .el-form {
   width: 100%;
+  grid-auto-rows: max-content;
   @include mq(large) {
     padding-top: 32px;
     padding-left: 32px;

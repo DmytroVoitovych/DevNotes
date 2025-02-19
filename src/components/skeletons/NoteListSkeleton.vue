@@ -20,7 +20,7 @@
   </el-skeleton>
 </template>
 <script lang="ts" setup>
-import { userNotesStore } from '@/stores/userNotesStore';
+import { userNotesStore } from "@/stores/userNotesStore";
 
 const notesStore = userNotesStore();
 </script>

@@ -1,16 +1,26 @@
-@use './variables' as *;
-@use './functions' as *;
+@use "./variables" as *;
+@use "./functions" as *;
 
 .el-message-box.alertSuccessTitle {
   font-family: var(--family-dynamic);
   font-weight: normal;
   --el-messagebox-title-color: #{$cl-green-500};
+  background-color: var(--bg-cl-header, $bg-cl-header);
+
+  & p {
+    color: var(--txt-cl-h, $txt-cl-h);
+  }
 }
 
 .el-message-box.errAlertTitle {
   font-family: var(--family-dynamic);
   font-weight: normal;
   --el-messagebox-title-color: #{$cl-red-500};
+  background-color: var(--bg-cl-header, $bg-cl-header);
+
+  & p {
+    color: var(--txt-cl-h, $txt-cl-h);
+  }
 }
 
 @keyframes slideToCenter {
@@ -23,8 +33,18 @@
 }
 
 .el-notification.successInfo {
+  font-family: var(--family-dynamic);
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
   animation: slideToCenter 250ms ease-in-out;
+  background-color: var(--bg-cl-header, $bg-cl-header);
+
+  & p {
+    color: var(--txt-cl-h, $txt-cl-h);
+  }
+
+  & .el-notification__title {
+    color: var(--txt-cl-h, $txt-cl-h);
+  }
 }

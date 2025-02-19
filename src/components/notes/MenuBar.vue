@@ -39,11 +39,7 @@
   </nav>
 </template>
 <script lang="ts" setup>
-import HomeIco from '@/assets/images/icon-home.svg';
-import SearchIco from '@/assets/images/icon-search.svg';
-import ArchiveIco from '@/assets/images/icon-archive.svg';
-import TagIco from '@/assets/images/icon-tag.svg';
-import SettingIco from '@/assets/images/icon-settings.svg';
+import { HomeIco, ArchiveIco, TagIco, SettingIco, SearchIco } from "@/assets/iconImport";
 </script>
 <style lang="scss" scoped>
 .mobLinkList {

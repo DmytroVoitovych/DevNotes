@@ -1,7 +1,7 @@
-import type { Component } from 'vue';
+import type { Component } from "vue";
 
-type HomeRoutes = 'home' | 'notes' | 'archivednotes' | 'tags' | 'tag' | 'search' | 'settings';
-type DialogTriggerName = 'archive' | 'delete';
+type HomeRoutes = "home" | "notes" | "archivednotes" | "tags" | "tag" | "search" | "settings";
+type DialogTriggerName = "archive" | "delete";
 
 type ModalInnerContent = { title: string; content: string; buttonContent: string };
 

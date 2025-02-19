@@ -43,20 +43,20 @@
   </el-form-item>
 </template>
 <script lang="ts" setup>
-import { computed, onUpdated, ref } from 'vue';
-import { useCustomFormHandler, useElementsUiForm } from './formHandler';
-import { useSlots } from 'vue';
-import { formEmailRules, formPasswordRules } from './helpers';
+import { computed, onUpdated, ref, type SetupContext } from "vue";
+import { useCustomFormHandler, useElementsUiForm } from "./formHandler";
+import { useSlots } from "vue";
+import { formEmailRules, formPasswordRules } from "./helpers";
 
 const { methods, computes, loading } = useCustomFormHandler();
 const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 
-const slots = useSlots();
-const mountedState = computed<'Login' | 'Sign Up'>(() => (slots.forgot ? 'Login' : 'Sign Up'));
-const submitValue = ref<'Login' | 'Sign Up'>(mountedState.value);
+const slots: SetupContext["slots"] = useSlots();
+const mountedState = computed<"Login" | "Sign Up">(() => (slots.forgot ? "Login" : "Sign Up"));
+const submitValue = ref<"Login" | "Sign Up">(mountedState.value);
 
 onUpdated(() => {
-  submitValue.value = slots.forgot ? 'Login' : 'Sign Up';
+  submitValue.value = slots.forgot ? "Login" : "Sign Up";
 });
 </script>
 <style lang="scss">
@@ -72,7 +72,7 @@ onUpdated(() => {
     line-height: 1.4;
 
     &::before {
-      content: '';
+      content: "";
       display: block;
       width: 12px;
       height: 12px;

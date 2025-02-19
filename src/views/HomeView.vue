@@ -15,7 +15,7 @@
             <RouterView name="action" v-slot="{ Component }">
               <component :is="Component">
                 <template #archive>
-                  {{ btnStatus ? 'Restore note' : 'Archive note' }}
+                  {{ btnStatus ? "Restore note" : "Archive note" }}
                 </template>
                 <template #delete> Delete Note </template>
               </component>
@@ -29,20 +29,17 @@
 </template>
 
 <script setup lang="ts" scoped>
-import AsideNavComponent from '@/components/aside/AsideNavComponent.vue';
-import HeaderChildren from '@/components/header/HeaderChildren.vue';
-import MenuBar from '@/components/notes/MenuBar.vue';
-import type { HomeRoutes } from '@/components/types';
-import { computed, onMounted, onUnmounted, ref, toValue, watch } from 'vue';
-import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { navigateByResizeScreen } from './helper';
-import TagsList from '@/components/shared/TagsList.vue';
-import { userNotesStore } from '@/stores/userNotesStore';
-import TagsListSkeleton from '@/components/skeletons/TagsListSkeleton.vue';
-import { useUserStore } from '@/stores/userStore';
+import AsideNavComponent from "@/components/aside/AsideNavComponent.vue";
+import HeaderChildren from "@/components/header/HeaderChildren.vue";
+import MenuBar from "@/components/notes/MenuBar.vue";
+import type { HomeRoutes } from "@/components/types";
+import { computed, onMounted, onUnmounted, ref, toValue, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { navigateByResizeScreen } from "./helper";
+import TagsList from "@/components/shared/TagsList.vue";
+import { userNotesStore } from "@/stores/userNotesStore";
 
 const notesStore = userNotesStore();
-const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -50,20 +47,20 @@ const currentRoute = ref<HomeRoutes>(route.name as HomeRoutes);
 const isId = computed<boolean>(() => !!route?.params?.id);
 const isSetting = computed<boolean>(() => !!route?.params?.settingname);
 const checkParams = computed<boolean>(() =>
-  ['create', 'id', 'name'].some((e) => e in route.params && route.params[e]),
+  ["create", "id", "name"].some((e) => e in route.params && route.params[e]),
 );
 const btnStatus = computed<boolean>(() =>
   notesStore.getArchivedNotes.some((e) => e.id === route?.params?.id),
 );
 
 onMounted(() => {
-  window.addEventListener('resize', () => navigateByResizeScreen(router, toValue(currentRoute)));
+  window.addEventListener("resize", () => navigateByResizeScreen(router, toValue(currentRoute)));
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', () => navigateByResizeScreen);
+  window.removeEventListener("resize", () => navigateByResizeScreen);
 });
-watch(checkParams, (n) => console.log('test', 'param', n));
+
 watch(
   () => route.name,
   (newRoute) => {
@@ -155,6 +152,7 @@ watch(
   padding-left: 16px;
   padding-right: 16px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   @include mq(medium) {
     padding: 24px 32px;

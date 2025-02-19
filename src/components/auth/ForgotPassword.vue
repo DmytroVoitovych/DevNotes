@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useElementsUiForm, useCustomFormHandler } from './formHandler';
-import { formEmailRules } from './helpers';
+import { useElementsUiForm, useCustomFormHandler } from "./formHandler";
+import { formEmailRules } from "./helpers";
 
 const { formLabelAlignItems, itemLabelPosition } = useElementsUiForm();
 const { loading } = useCustomFormHandler();

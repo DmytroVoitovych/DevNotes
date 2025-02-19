@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref } from "vue";
 
 const { deleteStyle, loading } = defineProps<{ deleteStyle: boolean; loading: boolean }>();
 
 const showDialog = ref<boolean>(false);
-const styleByType = computed<string>(() => (deleteStyle ? '#fb3748' : '#335cff'));
-const styleByTypeHover = computed<string>(() => (deleteStyle ? '#d82e3e' : '#2547d0'));
+const styleByType = computed<string>(() => (deleteStyle ? "#fb3748" : "#335cff"));
+const styleByTypeHover = computed<string>(() => (deleteStyle ? "#d82e3e" : "#2547d0"));
 
 const switchDialogState = () => (showDialog.value = !showDialog.value);
 

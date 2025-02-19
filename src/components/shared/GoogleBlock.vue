@@ -2,16 +2,16 @@
   <div class="googleBlock">
     <el-divider />
     <p class="logWith">Or log in with:</p>
-    <el-button type="primary" @click="logIn"> Google<GoogleIco /></el-button>
+    <el-button type="primary" @click="logIn" :loading="loading"> Google<GoogleIco /></el-button>
     <el-divider />
     <p class="googleTip">{{ tip }} <slot name="link"></slot></p>
   </div>
 </template>
 
 <script setup lang="ts">
-import GoogleIco from '@/assets/images/icon-google.svg';
-import { useUserStore } from '@/stores/userStore';
-import { ref } from 'vue';
+import { GoogleIco } from "@/assets/iconImport";
+import { useUserStore } from "@/stores/userStore";
+import { ref } from "vue";
 
 const userStore = useUserStore();
 const loading = ref<boolean>(false);
@@ -22,7 +22,7 @@ const logIn = (): void => {
   return;
 };
 
-const { tip = '' } = defineProps<{
+const { tip = "" } = defineProps<{
   tip: string;
 }>();
 </script>

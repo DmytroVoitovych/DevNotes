@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router';
-import HeadingComponent from './HeadingComponent.vue';
-import { userNotesStore } from '@/stores/userNotesStore';
-import TagIco from '@/assets/images/icon-tag.svg';
-import TagsListSkeleton from '../skeletons/TagsListSkeleton.vue';
+import { RouterLink } from "vue-router";
+import HeadingComponent from "./HeadingComponent.vue";
+import { userNotesStore } from "@/stores/userNotesStore";
+import TagsListSkeleton from "../skeletons/TagsListSkeleton.vue";
+import { TagIco } from "@/assets/iconImport";
 
 const { current } = defineProps<{ current?: string }>();
 

@@ -16,16 +16,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useCustomFormHandler, useElementsUiForm } from './formHandler';
-import { currentContent } from './helpers';
-import { type AuthRoutes } from './types';
+import { computed } from "vue";
+import { useCustomFormHandler, useElementsUiForm } from "./formHandler";
+import { currentContent } from "./helpers";
+import { type AuthRoutes } from "./types";
 
 const { methods } = useCustomFormHandler();
 const { formLabelAlign, labelPosition } = useElementsUiForm();
 
-const { currentRoute = 'login' } = defineProps<{ currentRoute: AuthRoutes }>();
-const isLoginPage = computed(() => currentRoute === 'login');
+const { currentRoute = "login" } = defineProps<{ currentRoute: AuthRoutes }>();
+const isLoginPage = computed(() => currentRoute === "login");
 </script>
 <style lang="scss">
 .el-form {
@@ -60,7 +60,7 @@ const isLoginPage = computed(() => currentRoute === 'login');
     gap: 8px;
 
     &::before {
-      content: '';
+      content: "";
       display: block;
       width: 12px;
       height: 12px;
@@ -99,7 +99,7 @@ const isLoginPage = computed(() => currentRoute === 'login');
     opacity: 0;
   }
 
-  &:has([type='submit']) {
+  &:has([type="submit"]) {
     box-shadow: none;
     background-color: $btn-bg-base;
     transition: background-color 250ms;

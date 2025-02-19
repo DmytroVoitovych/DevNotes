@@ -25,9 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import HomeIco from '@/assets/images/icon-home.svg';
-import ArchiveIco from '@/assets/images/icon-archive.svg';
-import LogoComponent from '../shared/LogoComponent.vue';
+import { ArchiveIco, HomeIco } from "@/assets/iconImport";
+import LogoComponent from "../shared/LogoComponent.vue";
 </script>
 <style lang="scss" scoped>
 .stickyNav {

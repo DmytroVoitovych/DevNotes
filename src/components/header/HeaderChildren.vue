@@ -2,20 +2,19 @@
   <LogoComponent class="logoShow" />
   <DesktopHeader>
     <template #heading>{{
-      current === 'search' && notesStore.searchQuery
-        ? 'Showing results for: '
+      current === "search" && notesStore.searchQuery
+        ? "Showing results for: "
         : notesContent[current].title
     }}</template>
   </DesktopHeader>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
-import LogoComponent from '../shared/LogoComponent.vue';
-import { notesContent } from '../staticContent';
-import type { HomeRoutes } from '../types';
-import DesktopHeader from './DesktopHeader.vue';
-import { userNotesStore } from '@/stores/userNotesStore';
+import LogoComponent from "../shared/LogoComponent.vue";
+import { notesContent } from "../staticContent";
+import type { HomeRoutes } from "../types";
+import DesktopHeader from "./DesktopHeader.vue";
+import { userNotesStore } from "@/stores/userNotesStore";
 
 const notesStore = userNotesStore();
 
