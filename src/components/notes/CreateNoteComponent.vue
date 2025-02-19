@@ -167,21 +167,6 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.inputsContainer {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-.operateContainer {
-  @include mq(large) {
-    display: flex;
-    flex-direction: column-reverse;
-    margin-top: auto;
-    flex-grow: 0;
-    z-index: 1;
-  }
-}
-
 .el-form.createNoteForm {
   @include mq(large) {
     flex-direction: column-reverse;
@@ -190,168 +175,6 @@ watch(
     padding: 20px 24px;
     height: auto;
     border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
-  }
-}
-
-.el-form-item {
-  gap: 39px;
-}
-
-.el-form-item.timeEdit:has(.el-input),
-.el-form-item.noteStatus:has(.el-input) {
-  font-family: var(--family-dynamic);
-  font-weight: normal;
-  margin-bottom: 0;
-
-  :deep(.el-input .el-input__inner) {
-    color: var(
-      --txt-cl-description-notes,
-      var(--txt-cl-description-notes, $txt-cl-description-notes)
-    );
-    -webkit-text-fill-color: var(
-      --txt-cl-description-notes,
-      var(--txt-cl-description-notes, $txt-cl-description-notes)
-    );
-  }
-
-  :deep(.el-form-item__label) {
-    padding: 0;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--family-dynamic);
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
-    color: var(
-      --txt-cl-description-notes,
-      var(--txt-cl-description-notes, $txt-cl-description-notes)
-    );
-    fill: var(
-      --txt-cl-description-notes,
-      var(--txt-cl-description-notes, $txt-cl-description-notes)
-    );
-
-    @include mq(medium) {
-      font-size: 14px;
-    }
-  }
-
-  :deep(.el-input__inner::placeholder) {
-    font-size: 12px;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
-    color: $placeholder-input-cl;
-    -webkit-text-fill-color: $placeholder-input-cl;
-
-    @include mq(medium) {
-      font-size: 14px;
-    }
-  }
-
-  :deep(.el-input__wrapper) {
-    padding-right: 0;
-    padding-left: 8px;
-    background-color: transparent;
-    box-shadow: unset;
-  }
-}
-
-:deep(.el-form-item__label-wrap) {
-  margin-right: 0;
-}
-
-.inputWithLabels {
-  .tagInput.el-form-item {
-    display: flex;
-
-    :deep(.el-input-tag__input::placeholder) {
-      font-family: var(--family-dynamic);
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 1.2;
-      letter-spacing: -0.2px;
-      white-space: pre-wrap;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      color: $placeholder-input-cl;
-      align-self: self-end;
-
-      @include mq(medium) {
-        font-size: 14px;
-      }
-    }
-
-    :deep(.el-input-tag__wrapper) {
-      box-shadow: unset;
-      padding: 0;
-      background-color: var(--bg-cl-base, $bg-cl-base);
-
-      .el-input-tag__input {
-        color: var(--txt-cl-h, $txt-cl-h);
-      }
-
-      .el-input-tag__inner:has(input[readonly]) {
-        gap: 0;
-
-        .el-tag {
-          font-family: var(--family-dynamic);
-          background-color: transparent;
-          padding: 0;
-          color: var(--txt-cl-h, $txt-cl-h);
-        }
-
-        .el-tag:not(:last-of-type) .el-tag__content::after {
-          content: ", ";
-        }
-      }
-
-      .is-right-space {
-        margin-right: 0;
-      }
-      @media (max-width: 434px) {
-        &:not(.is-focused) input {
-          padding-bottom: 11px;
-        }
-      }
-    }
-
-    .el-form-item__label-wrap {
-      margin-right: 0;
-    }
-
-    :deep(.el-form-item__label) {
-      padding: 0;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--family-dynamic);
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 1.2;
-      letter-spacing: -0.2px;
-      color: var(
-        --txt-cl-description-notes,
-        var(--txt-cl-description-notes, $txt-cl-description-notes)
-      );
-      fill: none;
-      stroke: var(
-        --txt-cl-description-notes,
-        var(--txt-cl-description-notes, $txt-cl-description-notes)
-      );
-
-      @include mq(medium) {
-        font-size: 14px;
-      }
-    }
-
-    label {
-      display: flex;
-      margin-right: 0;
-    }
-
-    & + .noteStatus {
-      margin-bottom: 18px;
-    }
   }
 }
 
@@ -480,69 +303,249 @@ watch(
   }
 }
 
-:deep(.el-button.backCreateLink) {
-  display: flex;
-  justify-content: flex-start;
-  padding: 0;
-
-  @include mq(large) {
-    display: none;
-  }
-
-  & > span {
+.createNoteForm {
+  .inputsContainer {
     display: flex;
-
-    align-items: center;
-    gap: 4px;
-    font-family: var(--family-dynamic);
-    font-weight: normal;
-    line-height: 1.3;
-    letter-spacing: -0.2px;
-    fill: var(--link-cl-grey, $link-cl-grey);
-    color: var(--link-cl-grey, $link-cl-grey);
+    flex-direction: column;
+    flex-grow: 1;
   }
-}
-
-:deep(.el-input.inputTitle) {
-  margin-bottom: 12px;
-  @include mq(medium) {
-    margin-bottom: 16px;
-  }
-
-  .el-input__inner {
-    font-family: var(--family-dynamic);
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 1.2;
-    letter-spacing: -0.3px;
-    color: var(--txt-cl-h, $txt-cl-h);
-    background-color: var(--bg-cl-base, $bg-cl-base);
-
-    @include mq(medium) {
-      font-size: 24px;
+  .operateContainer {
+    @include mq(large) {
+      display: flex;
+      flex-direction: column-reverse;
+      margin-top: auto;
+      flex-grow: 0;
+      z-index: 1;
     }
   }
 
-  .el-input__wrapper {
-    box-shadow: unset;
-    padding: 0;
+  .el-form-item {
+    gap: 39px;
   }
 
-  .el-input__inner::placeholder {
+  .el-form-item.timeEdit:has(.el-input),
+  .el-form-item.noteStatus:has(.el-input) {
     font-family: var(--family-dynamic);
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 1.2;
-    letter-spacing: -0.3px;
-    color: var(--txt-cl-h, $txt-cl-h);
-  }
-}
+    font-weight: normal;
+    margin-bottom: 0;
 
-.el-divider {
-  border-color: var(--bor-cl-base, $bor-cl-base);
-  margin: 12px 0;
-  @include mq(medium) {
-    margin: 16px 0;
+    :deep(.el-input .el-input__inner) {
+      color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
+      -webkit-text-fill-color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
+    }
+
+    :deep(.el-form-item__label) {
+      padding: 0;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--family-dynamic);
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+      color: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
+      fill: var(
+        --txt-cl-description-notes,
+        var(--txt-cl-description-notes, $txt-cl-description-notes)
+      );
+
+      @include mq(medium) {
+        font-size: 14px;
+      }
+    }
+
+    :deep(.el-input__inner::placeholder) {
+      font-size: 12px;
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+      color: $placeholder-input-cl;
+      -webkit-text-fill-color: $placeholder-input-cl;
+
+      @include mq(medium) {
+        font-size: 14px;
+      }
+    }
+
+    :deep(.el-input__wrapper) {
+      padding-right: 0;
+      padding-left: 8px;
+      background-color: transparent;
+      box-shadow: unset;
+    }
+  }
+
+  :deep(.el-form-item__label-wrap) {
+    margin-right: 0;
+  }
+
+  .inputWithLabels {
+    .tagInput.el-form-item {
+      display: flex;
+      margin-bottom: 18px;
+
+      :deep(.el-input-tag__input::placeholder) {
+        font-family: var(--family-dynamic);
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: -0.2px;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        color: $placeholder-input-cl;
+        align-self: self-end;
+
+        @include mq(medium) {
+          font-size: 14px;
+        }
+      }
+
+      :deep(.el-input-tag__wrapper) {
+        box-shadow: unset;
+        padding: 0;
+        background-color: var(--bg-cl-base, $bg-cl-base);
+
+        .el-input-tag__input {
+          color: var(--txt-cl-h, $txt-cl-h);
+        }
+
+        .el-input-tag__inner:has(input[readonly]) {
+          gap: 0;
+
+          .el-tag {
+            font-family: var(--family-dynamic);
+            background-color: transparent;
+            padding: 0;
+            color: var(--txt-cl-h, $txt-cl-h);
+          }
+
+          .el-tag:not(:last-of-type) .el-tag__content::after {
+            content: ", ";
+          }
+        }
+
+        .is-right-space {
+          margin-right: 0;
+        }
+        @media (max-width: 434px) {
+          &:not(.is-focused) input {
+            padding-bottom: 11px;
+          }
+        }
+      }
+
+      .el-form-item__label-wrap {
+        margin-right: 0;
+      }
+
+      :deep(.el-form-item__label) {
+        padding: 0;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--family-dynamic);
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: -0.2px;
+        color: var(
+          --txt-cl-description-notes,
+          var(--txt-cl-description-notes, $txt-cl-description-notes)
+        );
+        fill: none;
+        stroke: var(
+          --txt-cl-description-notes,
+          var(--txt-cl-description-notes, $txt-cl-description-notes)
+        );
+
+        @include mq(medium) {
+          font-size: 14px;
+        }
+      }
+
+      label {
+        display: flex;
+        margin-right: 0;
+      }
+
+      & + .noteStatus {
+        margin-bottom: 18px;
+      }
+    }
+  }
+
+  :deep(.el-button.backCreateLink) {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+
+    @include mq(large) {
+      display: none;
+    }
+
+    & > span {
+      display: flex;
+
+      align-items: center;
+      gap: 4px;
+      font-family: var(--family-dynamic);
+      font-weight: normal;
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+      fill: var(--link-cl-grey, $link-cl-grey);
+      color: var(--link-cl-grey, $link-cl-grey);
+    }
+  }
+
+  :deep(.el-input.inputTitle) {
+    margin-bottom: 12px;
+    @include mq(medium) {
+      margin-bottom: 16px;
+    }
+
+    .el-input__inner {
+      font-family: var(--family-dynamic);
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+      color: var(--txt-cl-h, $txt-cl-h);
+      background-color: var(--bg-cl-base, $bg-cl-base);
+
+      @include mq(medium) {
+        font-size: 24px;
+      }
+    }
+
+    .el-input__wrapper {
+      box-shadow: unset;
+      padding: 0;
+    }
+
+    .el-input__inner::placeholder {
+      font-family: var(--family-dynamic);
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+      color: var(--txt-cl-h, $txt-cl-h);
+    }
+  }
+
+  .el-divider {
+    border-color: var(--bor-cl-base, $bor-cl-base);
+    margin: 12px 0;
+    @include mq(medium) {
+      margin: 16px 0;
+    }
   }
 }
 </style>
