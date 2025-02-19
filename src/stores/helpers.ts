@@ -82,7 +82,7 @@ export const noteUpdated = (actionFlag: boolean) =>
               ? router.push({ name: "notes" })
               : router.push({ name: "archivednotes" });
           },
-          style: { float: "right", textDecoration: "underline" },
+          style: { float: "right", textDecoration: "underline", cursor: "pointer" },
         },
         !actionFlag ? "All notes." : "Archived notes.",
       ),
