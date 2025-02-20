@@ -16,7 +16,6 @@ const getDataFromDB = (auth: Auth) => {
     .catch((error) => console.error(error))
     .finally(() => {
       userNotesStore().setListLoading(false);
-      router.beforeEach(authGuard);
     });
 
   if (router.currentRoute.value.fullPath.includes("auth")) {
@@ -27,18 +26,21 @@ const getDataFromDB = (auth: Auth) => {
 const handleUnauthenticatedState = (userStatus: boolean) => {
   useUserStore().setLoginStatus(userStatus);
   userNotesStore().setListLoading(false);
-  if (router.currentRoute.value.fullPath.includes("oobCode")) return;
-  router.beforeEach(authGuard);
-  router.push({ name: "login" });
 };
 
 export const handleAuthStateChange = (user: User | null, auth: Auth) => {
+  router.beforeEach(authGuard);
   const userStatus = user !== null;
+
   if (userStatus) {
     useUserStore().setLoginStatus(userStatus);
     getDataFromDB(auth);
   } else {
     handleUnauthenticatedState(userStatus);
+
+    if (!router.currentRoute.value.fullPath.includes("oobCode")) {
+      router.push({ name: "login" });
+    }
   }
 };
 

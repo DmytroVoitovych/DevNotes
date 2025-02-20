@@ -18,10 +18,16 @@ export const authGuard = (
   const userStore = useUserStore();
   const isLoggedIn = userStore.isLogin;
 
-  const isPasswordResetLink = to.fullPath.includes("oobCode") || from.fullPath.includes("oobCode");
+  const hasResetCode = to.query.oobCode || to.query.mode === "resetPassword";
 
-  if (isPasswordResetLink) {
-    return next();
+  if (hasResetCode) {
+    const resetParams = {
+      oobCode: to.query.oobCode,
+      mode: to.query.mode,
+    };
+
+    next({ path: "/reset-password", query: resetParams });
+    return;
   }
 
   if (to.meta.requiresAuth && !isLoggedIn) {
@@ -32,5 +38,7 @@ export const authGuard = (
   if (!to.meta.requiresAuth && isLoggedIn) {
     next({ name: "home" });
     return;
-  } else next();
+  }
+
+  next();
 };
