@@ -8,14 +8,25 @@
         "destination": "/index.html"
       }
     ],
-    "environment": {
-      "VITE_API_KEY": "${VITE_API_KEY}",
-      "VITE_AUTH_DOMAIN": "${VITE_AUTH_DOMAIN}",
-      "VITE_PROJECT_ID": "${VITE_PROJECT_ID}",
-      "VITE_STORAGE_BUCKET": "${VITE_STORAGE_BUCKET}",
-      "VITE_MESSAGING_SENDER_ID": "${VITE_MESSAGING_SENDER_ID}",
-      "VITE_APP_ID": "${VITE_APP_ID}",
-      "VITE_DATABASE_URL": "${VITE_DATABASE_URL}"
-    }
+    "headers": [
+      {
+        "source": "**/*.js",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          }
+        ]
+      },
+      {
+        "source": "**/*.mjs",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          }
+        ]
+      }
+    ]
   }
 }
