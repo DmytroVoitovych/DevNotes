@@ -28,6 +28,7 @@ const handleUnauthenticatedState = (userStatus: boolean) => {
   useUserStore().setLoginStatus(userStatus);
   userNotesStore().setListLoading(false);
   if (router.currentRoute.value.fullPath.includes("oobCode")) return;
+  router.beforeEach(authGuard);
   router.push({ name: "login" });
 };
 

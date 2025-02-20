@@ -38,6 +38,7 @@ import { useRoute, useRouter } from "vue-router";
 import { navigateByResizeScreen } from "./helper";
 import TagsList from "@/components/shared/TagsList.vue";
 import { userNotesStore } from "@/stores/userNotesStore";
+import { authGuard } from "@/router/helpers";
 
 const notesStore = userNotesStore();
 const route = useRoute();
