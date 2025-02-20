@@ -61,6 +61,8 @@ onUpdated(() => {
 </script>
 <style lang="scss">
 .el-form-item {
+  margin-bottom: 0;
+
   & .info {
     color: var(--txt-cl-description, $txt-cl-description);
     font-family: var(--family-dynamic);

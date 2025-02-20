@@ -75,6 +75,10 @@ const isLoginPage = computed(() => currentRoute === "login");
 }
 
 .authForm {
+  .el-form-item {
+    margin-bottom: 0 !important;
+  }
+
   .el-input__wrapper {
     padding: 12px 16px;
     border-radius: 8px;

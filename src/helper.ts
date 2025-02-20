@@ -27,6 +27,7 @@ const getDataFromDB = (auth: Auth) => {
 const handleUnauthenticatedState = (userStatus: boolean) => {
   useUserStore().setLoginStatus(userStatus);
   userNotesStore().setListLoading(false);
+  if (router.currentRoute.value.fullPath.includes("oobCode")) return;
   router.push({ name: "login" });
 };
 

@@ -17,7 +17,13 @@ export const authGuard = (
 ) => {
   const userStore = useUserStore();
   const isLoggedIn = userStore.isLogin;
-  if (from.fullPath.includes("oobCode")) return next();
+
+  const isPasswordResetLink = to.fullPath.includes("oobCode") || from.fullPath.includes("oobCode");
+
+  if (isPasswordResetLink) {
+    return next();
+  }
+
   if (to.meta.requiresAuth && !isLoggedIn) {
     next({ name: "login" });
     return;
