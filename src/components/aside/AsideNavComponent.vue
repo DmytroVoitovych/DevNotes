@@ -33,6 +33,7 @@ import LogoComponent from "../shared/LogoComponent.vue";
   position: sticky;
   top: 0;
   background-color: var(--bg-cl-base, $bg-cl-base);
+  padding-top: 28.5px;
 }
 
 .asideLogo {

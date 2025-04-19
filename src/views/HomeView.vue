@@ -109,7 +109,7 @@ watch(
     max-width: 19%;
     border-right: 1px solid var(--bor-cl-base, $bor-cl-base);
     padding: 12px 16px;
-    padding-top: 28.5px;
+    padding-top: 0;
 
     @include mq(large) {
       display: block;
