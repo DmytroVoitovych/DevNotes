@@ -63,6 +63,10 @@ import LogoComponent from "../shared/LogoComponent.vue";
     fill: var(--link-cl-black, $link-cl-black);
     border-radius: 8px;
     background-color: transparent;
+    transition:
+      background-color 250ms ease-in-out,
+      fill 250ms ease-in-out,
+      stroke 250ms ease-in-out;
 
     &.stroke {
       fill: none;
@@ -93,6 +97,17 @@ import LogoComponent from "../shared/LogoComponent.vue";
       letter-spacing: -0.2px;
       margin-left: 8px;
       color: var(--txt-cl-h, $txt-cl-h);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
+        fill: $link-cl-active;
+      }
+      &.stroke:hover {
+        fill: none;
+        stroke: $link-cl-active;
+      }
     }
   }
 }

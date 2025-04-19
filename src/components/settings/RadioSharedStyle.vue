@@ -109,6 +109,14 @@
         text-wrap: auto;
       }
 
+      @media (hover: hover) {
+        label:not(.is-checked):hover :where(.textRadioContent b, .textRadioContent p) {
+          text-decoration: underline;
+          text-decoration-color: #335cff;
+          text-decoration-skip-ink: none;
+        }
+      }
+
       .el-radio__inner {
         width: 16px;
         height: 16px;

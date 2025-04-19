@@ -144,6 +144,7 @@ onUnmounted(() => {
   .notesList {
     padding: 8px;
     display: inherit;
+    transition: background-color 250ms ease-in-out;
 
     &:focus-visible {
       outline: 1px solid #c0d5ff;
@@ -195,6 +196,14 @@ onUnmounted(() => {
 
       @include mq(large) {
         border-bottom: none;
+      }
+    }
+
+    @media (hover: hover) {
+      &:not(.router-link-active):hover :where(h1, span) {
+        text-decoration: underline;
+        text-decoration-color: #335cff;
+        text-decoration-skip-ink: none;
       }
     }
   }

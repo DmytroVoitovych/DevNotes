@@ -92,6 +92,12 @@ const { methods, loading } = useCustomFormHandler();
     a {
       padding: 8px;
       border-radius: 6px;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
+        }
+      }
     }
 
     & a.router-link-active {

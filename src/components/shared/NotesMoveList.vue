@@ -82,6 +82,17 @@ const moveNote = (mutateDataBase: Promise<void | NotificationHandle>): void => {
 </script>
 <style lang="scss" scoped>
 @include mq(large) {
+  @media (hover: hover) {
+    li:hover .el-button {
+      background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
+      stroke: $link-cl-active;
+    }
+    li.stroke:hover .el-button {
+      fill: $link-cl-active;
+      stroke: none;
+    }
+  }
+
   .el-button {
     font-family: var(--family-dynamic);
     font-weight: 500;
@@ -94,6 +105,11 @@ const moveNote = (mutateDataBase: Promise<void | NotificationHandle>): void => {
     width: 100%;
     padding: 12px 16px;
     height: auto;
+    transition:
+      background-color 250ms ease-in-out,
+      fill 250ms ease-in-out,
+      stroke 250ms ease-in-out;
+
     :deep(span) {
       gap: 8px;
     }

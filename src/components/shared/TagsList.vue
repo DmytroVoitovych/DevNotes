@@ -75,6 +75,9 @@ const notesStore = userNotesStore();
     font-size: 14px;
     line-height: 1.2;
     letter-spacing: -0.2px;
+    transition:
+      stroke 250ms ease-in-out,
+      background-color 250ms ease-in-out;
 
     @include mq(large) {
       padding: 10px 12px;
@@ -92,6 +95,13 @@ const notesStore = userNotesStore();
       }
       &.router-link-active.stroke {
         fill: none;
+        stroke: $link-cl-active;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--link-cl-aside-bg-active, $link-cl-aside-bg-active);
         stroke: $link-cl-active;
       }
     }
