@@ -1,7 +1,10 @@
 * {
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--link-cl-grey) transparent;
 }
+
 image {
   display: block;
 }
